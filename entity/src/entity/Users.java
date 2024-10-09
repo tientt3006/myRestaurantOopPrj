@@ -14,5 +14,8 @@ public class Users implements Serializable{
     private String email;
     private String phone;
     private String role;
+    public int getID(){
+        return user_id;
+    }
     
 }
