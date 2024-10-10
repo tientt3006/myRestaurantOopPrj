@@ -1,6 +1,17 @@
 -- Tạo cơ sở dữ liệu
-CREATE DATABASE RestaurantManagement;
+CREATE DATABASE IF NOT EXISTS RestaurantManagement;
 USE RestaurantManagement;
+
+DROP TABLE IF EXISTS Users;
+DROP TABLE IF EXISTS Restaurants;
+DROP TABLE IF EXISTS Tables;
+DROP TABLE IF EXISTS Menu;
+DROP TABLE IF EXISTS Orders;
+DROP TABLE IF EXISTS OrderDetails;
+DROP TABLE IF EXISTS Staff;
+DROP TABLE IF EXISTS Inventory;
+DROP TABLE IF EXISTS Suppliers;
+DROP TABLE IF EXISTS FinancialReports;
 
 -- Bảng quản lý thông tin người dùng
 CREATE TABLE Users (
