@@ -1,17 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 
+// Dung xoa cac file co phan dau Experiment_ nhe, de thu nghiem da
 package com.nolaneg.myrestaurantprj.db.entity;
 import java.util.*;
 import java.io.*;
 import java.math.*;
 
-/**
- *
- * @author $_{user}
- */
 public class Experiment_User {
     private int id;
     private String username;
