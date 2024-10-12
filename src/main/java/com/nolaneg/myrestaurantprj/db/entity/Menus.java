@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package entity;
+package com.nolaneg.myrestaurantprj.db.entity;
 import java.io.*;
 import java.util.*;
 public class Menus implements Serializable {
