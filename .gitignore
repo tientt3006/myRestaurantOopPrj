@@ -1,3 +1,12 @@
 *.exe
+
 /nolan_temp/
+
 /target/
+
+# Ignore autoRun1.bat ở thư mục gốc
+/autoRun1.bat
+
+# Không ignore autoRun1.bat trong thư mục temppp
+!temppp/autoRun1.bat
+
