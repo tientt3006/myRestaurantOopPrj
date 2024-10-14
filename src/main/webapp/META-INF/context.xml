@@ -1,16 +1,13 @@
 <Context>
-    <Resource name="jdbc/exampleDB"
+    <Resource name="jdbc/experiment_db"
               auth="Container"
               type="javax.sql.DataSource"
               driverClassName="com.mysql.cj.jdbc.Driver"
-              url="jdbc:mysql://localhost:3306/exampleDB"
-              
+              url="jdbc:mysql://localhost:3306/experiment_db"
               username="root"
               password="502467"
-              
-              maxTotal="100"
-              maxIdle="30"
-              maxWaitMillis="1000"
-              defaultAutoCommit="false"/>
+              maxTotal="20"
+              maxIdle="10"
+              maxWaitMillis="-1"/>
 </Context>
 
