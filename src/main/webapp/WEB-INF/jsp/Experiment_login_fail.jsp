@@ -7,6 +7,7 @@
 <body>
     <h2>Login Failed</h2>
     <p>Invalid username or password. Please try again.</p>
-    <a href="/WEB-INF/jsp/Experiment_login.jsp">Back to Login</a>
+    <a href="/myRestaurantPrj-1.0-SNAPSHOT/Experiment_login">Back to Login</a>
+    <a href="/myRestaurantPrj-1.0-SNAPSHOT/Experiment_login2">Back to Login2</a>
 </body>
 </html>

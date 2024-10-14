@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-@WebServlet("/LoginServlet")
+@WebServlet("/Experiment_login")
 public class Experiment_LoginServlet extends HttpServlet {
     @Resource(name = "jdbc/experiment_db")
     private DataSource dataSource;
@@ -30,7 +30,7 @@ public class Experiment_LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     // Chuyển hướng người dùng đến trang đăng nhập khi yêu cầu là GET
-        request.getRequestDispatcher("/WEB-INF/jsp/Experiment_login.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/jsp/Experiment_login2.jsp").forward(request, response);
     }
 
     
