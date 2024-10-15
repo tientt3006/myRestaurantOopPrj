@@ -5,62 +5,74 @@
 package com.nolaneg.myrestaurantprj.web.servlets;
 
 
-//import com.nolaneg.myrestaurantprj.db.DAOclasses.*;
-import com.nolaneg.myrestaurantprj.db.mysql.*;
+
+
+import com.nolaneg.myrestaurantprj.db.mysql.Experiment_UserDAO;
 import com.nolaneg.myrestaurantprj.db.entity.Experiment_User;
-import com.nolaneg.myrestaurantprj.exceptions.*;
-import com.nolaneg.myrestaurantprj.util.*;
+import com.nolaneg.myrestaurantprj.util.Experiment_Utils;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.annotation.Resource;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 import java.io.IOException;
-import java.sql.SQLException;
-
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 @WebServlet("/Experiment_login")
 public class Experiment_LoginServlet extends HttpServlet {
-
-    private static final Logger log = LogManager.getLogger(Experiment_LoginServlet.class.getName());
-    private Experiment_MySqlUserDao userDAO;
-
+    @Resource(name = "jdbc/experiment_db")
+    private DataSource dataSource;
+    
     @Override
-    public void init() {
-        userDAO = new Experiment_MySqlUserDao();
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    // Chuyển hướng người dùng đến trang đăng nhập khi yêu cầu là GET
+        request.getRequestDispatcher("/WEB-INF/jsp/Experiment_login2.jsp").forward(request, response);
     }
 
+    
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/jsp/Experiment_login.jsp").forward(req, resp);
-    }
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        String login = req.getParameter("login");
-        char[] password = req.getParameter("password").toCharArray();
-        if (login.isEmpty() || password.length == 0) {
-            resp.sendRedirect(req.getContextPath() + "/WEB-INF/jsp/Experiment_login-fail");
-            return;
-        }
-        try {
-            Experiment_User user = userDAO.logIn(login, password);
-            if (user == null) {
-                req.setAttribute("err", "true");
-                resp.sendRedirect(req.getContextPath() + "/WEB-INF/jsp/Experiment_login-fail?err=");
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+
+        try (var connection = dataSource.getConnection()) {
+            Experiment_Utils dbUtil = new Experiment_Utils(dataSource);
+            if (dbUtil.testConnection()) {
+                System.out.println("Database connection is valid.");
             } else {
-                req.getSession().setAttribute("user", user);
-                resp.sendRedirect(req.getContextPath() + "/WEB-INF/jsp/Experiment_login-success");
+                System.out.println("Database connection is invalid.");
             }
-        } catch (SQLException e) {
-            log.error(Experiment_Utils.getErrMessage(e));
-            throw new Experiment_AppException(e);
+            
+            Experiment_UserDAO userDAO = new Experiment_UserDAO(connection);
+            Experiment_User user = userDAO.getUserByUsername(username);
+
+            if (user != null && user.getPasswordHash().equals(hashPassword(password))) {
+                request.setAttribute("username", username);
+                request.getRequestDispatcher("/WEB-INF/jsp/Experiment_login_success.jsp").forward(request, response);
+            } else {
+                request.getRequestDispatcher("/WEB-INF/jsp/Experiment_login_fail.jsp").forward(request, response);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.getRequestDispatcher("/WEB-INF/jsp/Experiment_login_fail.jsp").forward(request, response);
         }
     }
+
+    
+
+    private String hashPassword(String password) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        byte[] hashBytes = md.digest(password.getBytes());
+        StringBuilder sb = new StringBuilder();
+        for (byte b : hashBytes) {
+            sb.append(String.format("%02x", b));
+        }
+        return sb.toString();
+    }
+
 }
-
-

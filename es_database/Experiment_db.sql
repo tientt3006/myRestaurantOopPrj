@@ -1,13 +1,19 @@
-CREATE DATABASE IF NOT EXISTS exampleDB;
 
-USE exampleDB;
+-- File: create_user_database.sql
 
-DROP TABLE IF EXISTS users;
+CREATE DATABASE IF NOT EXISTS experiment_db;
+USE experiment_db;
 
-CREATE TABLE users (
+DROP TABLE IF EXISTS Experiment_User;
+
+-- Tạo bảng người dùng
+CREATE TABLE IF NOT EXISTS Experiment_User (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(50) NOT NULL,
-    password VARCHAR(50) NOT NULL,
-    email VARCHAR(100)
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL
 );
 
+-- Thêm tài khoản mẫu
+INSERT INTO Experiment_User (username, password_hash) VALUES 
+('admin', SHA2('admin_password', 256)),
+('user1', SHA2('user1_password', 256));
