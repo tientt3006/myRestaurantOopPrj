@@ -6,21 +6,37 @@
 package com.nolaneg.myrestaurantprj.util;
 import javax.sql.DataSource;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Experiment_Utils {
-    private DataSource dataSource;
-
-    public Experiment_Utils(DataSource dataSource) {
-        this.dataSource = dataSource;
+    public static Connection getConnection() {
+        Connection c = null;
+        
+        com.mysql.jdbc.Driver driver;
+        try {
+            driver = new com.mysql.jdbc.Driver();
+            DriverManager.registerDriver(driver);
+            String url = "jdbc:mysql://127.0.0.1:3306/experiment_db";
+            String username = "root";
+            String password = "502467";
+            
+            c = DriverManager.getConnection(url, username, password);
+        } catch (SQLException ex) {
+            Logger.getLogger(Experiment_Utils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return c;
     }
-
-    public boolean testConnection() {
-        try (Connection connection = dataSource.getConnection()) {
-            return connection != null && !connection.isClosed();
-        } catch (SQLException e) {
+    
+    public static void closeConnection(Connection c) {
+        try {
+            if(c != null) 
+                c.close();
+        } catch (Exception e) {
             e.printStackTrace();
-            return false;
         }
     }
 }

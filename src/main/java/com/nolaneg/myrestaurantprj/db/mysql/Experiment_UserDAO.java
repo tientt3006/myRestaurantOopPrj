@@ -17,7 +17,7 @@ public class Experiment_UserDAO {
 
     public Experiment_User getUserByUsername(String username) {
         Experiment_User user = null;
-        String query = "SELECT * FROM Experiment_User WHERE username = ?";
+        String query = "SELECT * FROM experiment_user WHERE username = ?";
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setString(1, username);
             try (ResultSet rs = ps.executeQuery()) {
