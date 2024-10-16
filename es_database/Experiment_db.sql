@@ -15,5 +15,7 @@ CREATE TABLE IF NOT EXISTS Experiment_User (
 
 -- Thêm tài khoản mẫu
 INSERT INTO Experiment_User (username, password_hash) VALUES 
+('admin@haha', SHA2('adminhaha', 256)),
+('a@a', SHA2('qwerasdf', 256)),
 ('admin', SHA2('admin_password', 256)),
 ('user1', SHA2('user1_password', 256));
