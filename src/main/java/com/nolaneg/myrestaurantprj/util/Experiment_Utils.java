@@ -15,9 +15,9 @@ public class Experiment_Utils {
     public static Connection getConnection() {
         Connection c = null;
         
-        com.mysql.jdbc.Driver driver;
+        com.mysql.cj.jdbc.Driver driver;
         try {
-            driver = new com.mysql.jdbc.Driver();
+            driver = new com.mysql.cj.jdbc.Driver();
             DriverManager.registerDriver(driver);
             String url = "jdbc:mysql://127.0.0.1:3306/experiment_db";
             String username = "root";

@@ -24,13 +24,13 @@ import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@WebServlet("/Experiment_login")
+@WebServlet("/Login")
 public class Experiment_LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     // Chuyển hướng người dùng đến trang đăng nhập khi yêu cầu là GET
-        request.getRequestDispatcher("/WEB-INF/jsp/Experiment_login2.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/jsp/Login.jsp").forward(request, response);
     }
 
     
@@ -42,7 +42,7 @@ public class Experiment_LoginServlet extends HttpServlet {
         
         Experiment_UserDAO userDAO = new Experiment_UserDAO(new Experiment_Utils().getConnection());
         Experiment_User user = userDAO.getUserByUsername(username);
-
+        System.out.println(user.toString());
         try {
             if (user != null && user.getPasswordHash().equals(hashPassword(password))) {
                 request.setAttribute("username", username);
