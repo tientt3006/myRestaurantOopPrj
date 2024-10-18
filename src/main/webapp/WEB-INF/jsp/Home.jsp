@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nhà hàng XYZ - Trang chủ</title>
+    <title>Nhà hàng OOP - Trang chủ</title>
     <style>
         body {
             margin: 0;
@@ -66,21 +66,21 @@
 
 <!-- Header -->
 <header>
-    <h1>Nhà hàng XYZ</h1>
+    <h1>Nhà hàng OOP</h1>
     <nav>
-        <a href="index.jsp">Trang chủ</a>
-        <a href="gioithieu.jsp">Giới thiệu</a>
-        <a href="menu.jsp">Menu</a>
-        <a href="datban.jsp">Đặt bàn</a>
-        <a href="lienhe.jsp">Liên hệ</a>
-        <a href="giohang.jsp">Giỏ hàng</a>
-        <a href="taikhoan.jsp">Tài khoản</a>
+        <a href="Home">Trang chủ</a>
+        <a href="#">Giới thiệu</a>
+        <a href="#">Menu</a>
+        <a href="#">Đặt bàn</a>
+        <a href="#">Liên hệ</a>
+        <a href="#">Giỏ hàng</a>
+        <a href="Experiment_login">Tài khoản</a>
     </nav>
 </header>
 
 <!-- Main content -->
 <main>
-    <h2>Chào mừng đến với Nhà hàng XYZ!</h2>
+    <h2>Chào mừng đến với Nhà hàng OOP!</h2>
     <p>Trải nghiệm ẩm thực tuyệt vời cùng không gian sang trọng và ấm cúng.</p>
     <img src="images/restaurant.jpg" alt="Hình ảnh nhà hàng XYZ">
 </main>
@@ -90,8 +90,8 @@
     <div>
         <img src="images/logo.png" alt="Logo nhà hàng XYZ">
     </div>
-    <p>Liên hệ: 0123-456-789 | Email: info@nhahangxyz.com</p>
-    <p>&copy; 2024 Nhà hàng XYZ. Bản quyền thuộc về chúng tôi.</p>
+    <p>Liên hệ: 0123-456-789 | Email: info@nhahangoop.com</p>
+    <p>&copy; 2024 Nhà hàng OOP. Bản quyền thuộc về chúng tôi.</p>
     <div class="social-links">
         <a href="https://facebook.com" target="_blank">Facebook</a>
         <a href="https://instagram.com" target="_blank">Instagram</a>

@@ -153,7 +153,7 @@
 		<div class="header">
 			<img src="${pageContext.request.contextPath}/img/PTITCursineLogo.png" alt="PTIT Cuisine Logo">
 			<div class="nav-links">
-				<a href="#">Trang chủ</a>
+				<a href="Home">Trang chủ</a>
 				<a href="#">Giới thiệu</a>
 				<a href="#">Menu</a>
 				<a href="#">Giỏ hàng</a>
