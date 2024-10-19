@@ -1,13 +1,4 @@
-<Context>
-    <Resource name="jdbc/experiment_db"
-              auth="Container"
-              type="javax.sql.DataSource"
-              driverClassName="com.mysql.cj.jdbc.Driver"
-              url="jdbc:mysql://localhost:3306/experiment_db"
-              username="root"
-              password="502467"
-              maxTotal="20"
-              maxIdle="10"
-              maxWaitMillis="-1"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/myRestaurantPrj">
+  <Resource auth="Container" defaultAutoCommit="false" defaultTransactionIsolation="READ_COMMITTED" driverClassName="com.mysql.cj.jdbc.Driver" maxIdle="30" maxTotal="100" maxWaitMillis="10000" name="jdbc/oopdinnerdb" password="502467" type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306/oopdinnerdb" username="root"/>
 </Context>
-

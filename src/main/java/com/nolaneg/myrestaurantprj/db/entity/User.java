@@ -6,7 +6,7 @@ package com.nolaneg.myrestaurantprj.db.entity;
 
 import java.io.*;
 import java.util.*;
-public class Users implements Serializable{
+public class User implements Serializable{
     private int user_id;
     private String username;
     private String password;
@@ -37,37 +37,37 @@ public class Users implements Serializable{
         return role;
     }
     //
-    public static class Build{
-        Users user = new Users();
-        public Build setUser_id(int user_id){
+    public static class Builder{
+        User user = new User();
+        public Builder setUserId(int user_id){
             user.user_id = user_id;
             return this;
         }
-        public Build setUsername(String username){
+        public Builder setUsername(String username){
             user.username = username;
             return this;
         }
-        public Build setPassword(String password){
+        public Builder setPassword(String password){
             user.password = password;
             return this;
         }
-        public Build setFull_name(String full_name){
+        public Builder setFullName(String full_name){
             user.full_name = full_name;
             return this;
         }
-        public Build setEmail(String email){
+        public Builder setEmail(String email){
             user.email = email;
             return this;
         }
-        public Build setPhone(String phone){
+        public Builder setPhone(String phone){
             user.phone = phone;
             return this;
         }
-        public Build setRole(String role){
+        public Builder setRole(String role){
             user.role = role;
             return this;
         }
-        public Users getUsers(){
+        public User getUser(){
             return user;
         }
     }

@@ -1,10 +1,41 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Start Page</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index Page</title>
+    <style>
+        /* Đặt ảnh nền chiếm toàn bộ trang */
+        body, html {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: url('PRindex2.jpg') no-repeat center center fixed;
+            background-size: cover;
+            cursor: pointer;
+        }
+
+        /* Định dạng dòng chữ ở giữa trang */
+        .center-container {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .center-text {
+            color: rgba(255, 255, 255, 0.5); /* Màu trắng mờ với độ mờ 50% */
+            font-size: 3em; /* Cỡ chữ */
+            font-weight: bold; /* Chữ đậm */
+            pointer-events: none; /* Vô hiệu hóa sự kiện chuột trên chữ */
+        }
+    </style>
+</head>
+<body onclick="window.location.href='Home'">
+    <div class="center-container">
+        <div class="center-text">Click to continue</div>
+    </div>
+</body>
 </html>

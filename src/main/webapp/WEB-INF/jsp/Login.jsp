@@ -142,20 +142,31 @@
             background-size: cover;
             height: 400px; /* Adjust the height as needed */
         }
-		.sign-in-text {
-			color: white; /* Màu chữ cho câu "Don't have an account?" */
-			text-align: center; /* Căn giữa chữ */
-			margin-top: 10px; /* Khoảng cách trên dòng chữ */
-			font-size: 14px; /* Kích thước chữ */
-		}
-		.signup-link {
-			color: blue; /* Màu chữ xanh */
-			text-decoration: none; /* Không có gạch dưới mặc định */
-		}
+        
+        .forgot-pass-link {
+            color: blue; /* Màu chữ cho câu "Don't have an account?" */
+            text-align: left; /* Căn giữa chữ */
+            /*margin-top: 10px; /* Khoảng cách trên dòng chữ */
+            text-decoration: none; /* Không có gạch dưới mặc định */
+            font-size: 12px; /* Kích thước chữ */
+        }
+        .forgot-pass-link:hover {
+            text-decoration: underline; /* Gạch dưới khi hover */
+        }
+        .sign-in-text {
+            color: white; /* Màu chữ cho câu "Don't have an account?" */
+            text-align: center; /* Căn giữa chữ */
+            margin-top: 10px; /* Khoảng cách trên dòng chữ */
+            font-size: 14px; /* Kích thước chữ */
+        }
+        .signup-link {
+            color: blue; /* Màu chữ xanh */
+            text-decoration: none; /* Không có gạch dưới mặc định */
+        }
 
-		.signup-link:hover {
-			text-decoration: underline; /* Gạch dưới khi hover */
-		}
+        .signup-link:hover {
+            text-decoration: underline; /* Gạch dưới khi hover */
+        }
         /* Footer styles */
         .footer {
             background-color: #333;
@@ -184,7 +195,7 @@
 		<div class="header">
 			<div class="logo-container">
 				<img href="Home" src="${pageContext.request.contextPath}/img/OOPDinnerLogo.png" alt="Logo" class="logo">
-				<a href="Home">OOP Dinner</a>
+				<a href="${pageContext.request.contextPath}/Home">OOP Dinner</a>
 			</div>
 			<div class="nav-links">
 				<a href="#">About</a>
@@ -192,7 +203,7 @@
 				<a href="#">Menu</a>
 				<a href="#">Cart</a>
 				<a href="#">Reservations</a>
-				<a href="Login">Account</a>
+				<a href="login">Account</a>
 			</div>
 		</div>
 
@@ -201,9 +212,17 @@
 			<div class="left-image"></div>
 			<div class="login-box">
 				<h2>Log in</h2>
-				<form action="Experiment_login" method="post">
-					<input type="email" name="email" placeholder="Email" required>
+                                <% if (request.getAttribute("err") != null) { %>
+                                    <div class="error-message" style="color: red; text-align: center; margin-bottom: 10px;">
+                                        Invalid username or password.
+                                    </div>
+                                <% } %>
+				<form action="${pageContext.request.contextPath}/account/login" method="post">
+					<input type="email" name="username" placeholder="Email" required>
 					<input type="password" name="password" placeholder="Password" required>
+                                        
+					<a href="#" class="forgot-pass-link" >Forgot Password?</a>
+					
 					<button type="submit">Log in</button>
 					<button type="button" class="google-btn">Log in by Google</button>
 					<p class="sign-in-text">Don't have an account?
@@ -217,7 +236,7 @@
 		<div class="footer">
 			<img src="${pageContext.request.contextPath}/img/OOPDinnerLogo.png" alt="PTIT Cuisine Logo">
 			<div align="center">
-				<p>Contact: 0123-456-789 | Email: support@ptitcuisine.com</p>
+				<p>Contact: 0123-456-789 | Email: support@oopdinner.com</p>
 				<span->© 2024 OOP Dinner</span>
 			</div>
 			<div class="social-icons">

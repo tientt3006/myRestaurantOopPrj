@@ -74,7 +74,7 @@
         <a href="#">Đặt bàn</a>
         <a href="#">Liên hệ</a>
         <a href="#">Giỏ hàng</a>
-        <a href="Login">Tài khoản</a>
+        <a href="account/login">Tài khoản</a>
     </nav>
 </header>
 
