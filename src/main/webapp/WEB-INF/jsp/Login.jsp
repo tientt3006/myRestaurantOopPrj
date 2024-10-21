@@ -212,7 +212,7 @@
 			<div class="left-image"></div>
 			<div class="login-box">
 				<h2>Log in</h2>
-                                <% if (request.getAttribute("err") != null) { %>
+                                <% if ("true".equals(request.getAttribute("err"))) { %>
                                     <div class="error-message" style="color: red; text-align: center; margin-bottom: 10px;">
                                         Invalid username or password.
                                     </div>

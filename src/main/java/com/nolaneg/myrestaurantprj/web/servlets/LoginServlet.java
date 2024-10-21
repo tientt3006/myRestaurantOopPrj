@@ -44,7 +44,7 @@ public class LoginServlet extends HttpServlet {
                 req.getRequestDispatcher("/WEB-INF/jsp/Login.jsp").forward(req, resp);
             } else {
                 req.getSession().setAttribute("user", user);
-                 req.getRequestDispatcher("/WEB-INF/jsp/Experiment_login_success.jsp").forward(req, resp);
+                req.getRequestDispatcher("/WEB-INF/jsp/Experiment_login_success.jsp").forward(req, resp);
             }
         } catch (DbException e) {
             throw new AppException(e);
