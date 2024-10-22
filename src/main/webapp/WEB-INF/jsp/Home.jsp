@@ -59,6 +59,24 @@
 		}
 
         /* Main content styles */
+        .main-container {
+            flex: 1; /* Push the footer to the bottom */
+            display: flex;
+            justify-content: center; /* Center the content horizontally */
+            align-items: center; /* Center the content vertically */
+            padding: 0; /* Remove extra padding */
+            background-color: #f4f4f4;
+        }
+
+        .main-container img {
+            width: 100%; /* Make the image span the full width of the container */
+            height: 100%; /* Make the image span the full height */
+            object-fit: cover; /* Ensure the image covers the space without distortion */
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+
         main {
             text-align: center;
             padding: 50px 0;
@@ -106,7 +124,7 @@
                         <a href="#">Location</a>
                         <a href="#">Menu</a>
                         <a href="#">Cart</a>
-                        <a href="#">Reservations</a>
+                        <a href="FindTable">Reservations</a>
                         <a href="account/login">Account</a>
                 </div>
             </div>
@@ -115,48 +133,19 @@
         <div class="main-container">
             <img src="${pageContext.request.contextPath}/img/PRRestaurant.jpg" alt="Hình ảnh nhà hàng XYZ">
         </div>
-
-<<<<<<< HEAD
-<!-- Header -->
-<header>
-    <h1>Nhà hàng OOP</h1>
-    <nav>
-        <a href="Home">Trang chủ</a>
-        <a href="#">Giới thiệu</a>
-        <a href="#">Menu</a>
-        <a href="FindTable">Đặt bàn</a>
-        <a href="#">Liên hệ</a>
-        <a href="#">Giỏ hàng</a>
-        <a href="account/login">Tài khoản</a>
-    </nav>
-</header>
-
-<!-- Main content -->
-<main>
-    <h2>Chào mừng đến với Nhà hàng OOP!</h2>
-    <p>Trải nghiệm ẩm thực tuyệt vời cùng không gian sang trọng và ấm cúng.</p>
-    <img src="images/restaurant.jpg" alt="Hình ảnh nhà hàng XYZ">
-</main>
-
-<!-- Footer -->
-<footer>
-    <div>
-        <img src="images/logo.png" alt="Logo nhà hàng XYZ">
-=======
         <!-- Footer -->
-            <div class="footer">
-                    <img src="${pageContext.request.contextPath}/img/OOPDinnerLogo.png" alt="PTIT Cuisine Logo">
-                    <div align="center">
-                            <p>Contact: 0123-456-789 | Email: support@oopdinner.com</p>
-                            <span->© 2024 OOP Dinner</span>
-                    </div>
-                    <div class="social-icons">
-                            <a href="#">Facebook</a>
-                            <a href="#">Instagram</a>
-                            <a href="#">YouTube</a>
-                    </div>
-            </div>
->>>>>>> 1e74810de13d529f5828579c20380aef6dc4fe54
+        <div class="footer">
+                <img src="${pageContext.request.contextPath}/img/OOPDinnerLogo.png" alt="PTIT Cuisine Logo">
+                <div align="center">
+                        <p>Contact: 0123-456-789 | Email: support@oopdinner.com</p>
+                        <span->© 2024 OOP Dinner</span>
+                </div>
+                <div class="social-icons">
+                        <a href="#">Facebook</a>
+                        <a href="#">Instagram</a>
+                        <a href="#">YouTube</a>
+                </div>
+        </div>
     </div>
 </body>
 </html>
