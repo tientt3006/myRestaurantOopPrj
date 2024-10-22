@@ -8,7 +8,7 @@
         <a href="#">Location</a>
         <a href="#">Menu</a>
         <a href="#">Cart</a>
-        <a href="#">Reservations</a>
+        <a href="FindTable">Reservations</a>
         <a href="login">Account</a>
     </div>
 </div>

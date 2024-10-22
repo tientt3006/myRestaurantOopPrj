@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author $_{user}
  */
-@WebServlet("/account/login")
+@WebServlet("/login")
 public class LoginServlet extends HttpServlet {
     
     @Override

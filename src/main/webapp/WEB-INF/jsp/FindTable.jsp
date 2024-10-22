@@ -108,7 +108,7 @@
                         <a href="#">Menu</a>
                         <a href="#">Cart</a>
                         <a href="FindTable">Reservations</a>
-                        <a href="account/login">Account</a>
+                        <a href="login">Account</a>
                 </div>
             </div>
 </header>

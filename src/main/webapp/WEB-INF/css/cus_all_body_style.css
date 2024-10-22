@@ -206,4 +206,33 @@ html, body {
     cursor: pointer; /* Con trỏ chuột */
     margin-bottom: 10px; /* Khoảng cách giữa các nút */
 }
+/* home main content */
+.home-main .main-container {
+   flex: 1;  
+   display: flex;
+   justify-content: center;  
+   align-items: center;  
+   padding: 0;   
+   background-color: #f4f4f4;
+}
 
+.home-main .main-container img {
+   width: 90%;  
+   height: 10%;  
+   object-fit: cover;  
+   border-radius:0px;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+.home-main .main {
+   text-align: center;
+   padding: 50px 0;
+   background-color: #f4f4f4;
+}
+.home-main .main img {
+   max-width: 80%;
+   height: auto;
+   border-radius: 0px;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+} 
