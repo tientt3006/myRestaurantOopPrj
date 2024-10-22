@@ -26,25 +26,25 @@ public class LoginServlet extends HttpServlet {
     
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/jsp/Login.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(req, resp);
     }
     
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        String username = req.getParameter("username");
+        String email = req.getParameter("email");
         String password = req.getParameter("password");
-        if ("".equals(username) || "".equals(password)) {
-            req.getRequestDispatcher("/WEB-INF/jsp/Login.jsp").forward(req, resp);
+        if ("".equals(email) || "".equals(password)) {
+            req.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(req, resp);
             return;
         }
         try {
-            User user = DAO.getDAO().getUserDAO().logIn(username, password);
+            User user = DAO.getDAO().getUserDAO().logIn(email, password);
             if (user == null) {
                 req.setAttribute("err", "true");
-                req.getRequestDispatcher("/WEB-INF/jsp/Login.jsp").forward(req, resp);
+                req.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(req, resp);
             } else {
                 req.getSession().setAttribute("user", user);
-                req.getRequestDispatcher("/WEB-INF/jsp/Experiment_login_success.jsp").forward(req, resp);
+                req.getRequestDispatcher("/WEB-INF/jsp/account.jsp").forward(req, resp);
             }
         } catch (DbException e) {
             throw new AppException(e);

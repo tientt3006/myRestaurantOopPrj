@@ -1,0 +1,14 @@
+<div class="header">
+    <div class="logo-container">
+        <img href="home" src="${pageContext.request.contextPath}/img/OOPDinnerLogo.png" alt="Logo" class="logo">
+        <a href="${pageContext.request.contextPath}/home">OOP Dinner</a>
+    </div>
+    <div class="nav-links">
+        <a href="#">About</a>
+        <a href="#">Location</a>
+        <a href="#">Menu</a>
+        <a href="#">Cart</a>
+        <a href="#">Reservations</a>
+        <a href="login">Account</a>
+    </div>
+</div>

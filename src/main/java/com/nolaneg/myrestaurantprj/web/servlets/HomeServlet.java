@@ -16,12 +16,12 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-@WebServlet("/Home")
+@WebServlet("/home")
 
 public class HomeServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     // Chuyển hướng người dùng đến trang đăng nhập khi yêu cầu là GET
-        request.getRequestDispatcher("/WEB-INF/jsp/Home.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/jsp/home.jsp").forward(request, response);
     }
 }

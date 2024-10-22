@@ -68,7 +68,7 @@
 <header>
     <h1>Nhà hàng OOP</h1>
     <nav>
-        <a href="Home">Trang chủ</a>
+        <a href="home">Trang chủ</a>
         <a href="#">Giới thiệu</a>
         <a href="#">Menu</a>
         <a href="#">Đặt bàn</a>
