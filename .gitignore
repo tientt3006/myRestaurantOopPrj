@@ -10,3 +10,4 @@
 # Không ignore autoRun1.bat trong thư mục temppp
 !temppp/autoRun1.bat
 
+context.xml

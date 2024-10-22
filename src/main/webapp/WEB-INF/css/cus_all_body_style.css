@@ -1,0 +1,157 @@
+/*general Main content styles */
+.btn {
+    background-color: #b32d29;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #a12c27;
+}
+html, body {
+    height: 100%;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+}
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.main-container {
+    flex: 1;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 40px;
+}
+
+/*Login Main content styles */
+.login-box {
+    background-color: #333;
+    padding: 20px;
+    border: 2px solid #000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    width: 300px;
+    max-height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.login-box h2 {
+    color: white;
+    text-align: center;
+}
+.login-box input[type="email"],
+.login-box input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #000;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+.login-box button[type="submit"],
+.login-box .google-btn {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    background-color: #d40000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.login-box button[type="submit"]:hover,
+.login-box .google-btn:hover {
+    background-color: #ff3333;
+    transform: translateY(-3px);
+}
+.login-box button[type="submit"]:active,
+.login-box .google-btn:active {
+    transform: translateY(0);
+    background-color: #c30000;
+}
+.left-image {
+    width: 50%;
+    background: url('${pageContext.request.contextPath}/img/PRRestaurant.jpg') no-repeat center center;
+    background-size: cover;
+    height: 400px;
+}
+.forgot-pass-link {
+    color: blue;
+    text-align: left;
+    text-decoration: none;
+    font-size: 12px;
+}
+.forgot-pass-link:hover,
+.signup-link:hover {
+    text-decoration: underline;
+}
+.sign-in-text {
+    color: white;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 14px;
+}
+.signup-link {
+    color: blue;
+    text-decoration: none;
+}
+
+/*Sign up Main content styles */
+.signup-box {
+    background-color: #333;
+    padding: 20px;
+    border: 2px solid #000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+}
+.signup-box h2 {
+    color: white;
+    text-align: center;
+}
+.signup-box input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #000;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+.signup-box button {
+    width: 100%;
+    padding: 12px;
+    background-color: #d40000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.signup-box button:hover {
+    background-color: #ff3333;
+    transform: translateY(-3px);
+}
+.signup-box button:active {
+    transform: translateY(0);
+    background-color: #c30000;
+}
+.signup-box .error-message {
+    color: red;
+    text-align: center;
+    margin-bottom: 10px;
+}

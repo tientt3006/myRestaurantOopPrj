@@ -7,74 +7,97 @@ package com.nolaneg.myrestaurantprj.db.entity;
 import java.io.*;
 import java.util.*;
 public class User implements Serializable{
-    private int user_id;
-    private String username;
-    private String password;
-    private String full_name;
+    private int userId;
+    private String firstName;
+    private String lastName;
     private String email;
     private String phone;
-    private String role;
+    private int roleId;
+    private Date createDate;
     
-    public int getUser_id(){
-        return user_id;
+    public int getUserId(){
+        return userId;
     }
-    public String getUsername(){
-        return username;
+    
+    public String getFirstName(){
+        return firstName;
     }
-    public String getPassword(){
-        return password;
+    
+    public String getLastName(){
+        return lastName;
     }
-    public String getFull_name(){
-        return full_name;
-    }
+    
     public String getEmail(){
         return email;
     }
+    
     public String getPhone(){
         return phone;
     }
-    public String getRole(){
-        return role;
+    
+    public int getRoleId(){
+        return roleId;
     }
-    //
+    
+    public Date getCreateDate() {
+        return createDate;
+    }
+    
+    public String getFull_name(){
+        return this.firstName + " " + this.lastName;
+    }
+    
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + userId +
+                ", email='" + email + '\'' +
+                ", roleId=" + roleId +
+                ", createDate=" + createDate +
+                '}';
+    }
+    
     public static class Builder{
         User user = new User();
-        public Builder setUserId(int user_id){
-            user.user_id = user_id;
+        
+        public Builder setUserId(int userId){
+            user.userId = userId;
             return this;
         }
-        public Builder setUsername(String username){
-            user.username = username;
+        
+        public Builder setFirstName(String firstName){
+            user.firstName = firstName;
             return this;
         }
-        public Builder setPassword(String password){
-            user.password = password;
+        
+        public Builder setLasttName(String lastName){
+            user.lastName = lastName;
             return this;
         }
-        public Builder setFullName(String full_name){
-            user.full_name = full_name;
-            return this;
-        }
+        
         public Builder setEmail(String email){
             user.email = email;
             return this;
         }
+        
         public Builder setPhone(String phone){
             user.phone = phone;
             return this;
         }
-        public Builder setRole(String role){
-            user.role = role;
+        
+        public Builder setRoleId(int roleId){
+            user.roleId = roleId;
             return this;
         }
+        
+        public Builder setCreateDate(Date createDate) {
+            user.createDate = createDate;
+            return this;
+        }
+        
         public User getUser(){
             return user;
         }
     }
-    //
     
-    
-//    public String toString(){
-//        return "";
-//    }
 }

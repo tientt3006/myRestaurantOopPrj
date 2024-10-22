@@ -1,0 +1,60 @@
+/* Header styles */
+.header {
+    background-color: #333;
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.header img {
+    width: 100px;
+}
+.header .nav-links a {
+    color: white;
+    margin: 0 10px;
+    text-decoration: none;
+}
+.header .nav-links a:hover {
+    text-decoration: underline;
+}
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+.logo {
+    width: 50px;
+    height: auto;
+    margin-right: 10px;
+}
+.logo-container a {
+    font-size: 26px;
+    color: white;
+    text-decoration: none;
+}
+.logo-container a:hover {
+    color: #ffdd00;
+}
+/* Footer (nếu vẫn giữ nguyên phần footer từ trước) */
+.footer {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer img {
+    width: 100px;
+}
+
+.footer .social-icons a {
+    color: white;
+    margin: 0 10px;
+    text-decoration: none;
+}
+
+.footer .social-icons a:hover {
+    color: #ffdd00;
+}
