@@ -71,7 +71,7 @@
         <a href="Home">Trang chủ</a>
         <a href="#">Giới thiệu</a>
         <a href="#">Menu</a>
-        <a href="#">Đặt bàn</a>
+        <a href="FindTable">Đặt bàn</a>
         <a href="#">Liên hệ</a>
         <a href="#">Giỏ hàng</a>
         <a href="account/login">Tài khoản</a>
