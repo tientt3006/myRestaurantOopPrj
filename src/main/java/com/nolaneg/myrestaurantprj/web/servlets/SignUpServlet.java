@@ -20,7 +20,7 @@ import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@WebServlet("/account/signup")
+@WebServlet("signup")
 public class SignUpServlet extends HttpServlet {
 
     private static final Logger logger = LoggerFactory.getLogger(SqlUtils.class);
@@ -51,13 +51,13 @@ public class SignUpServlet extends HttpServlet {
             phone == null || phone.isEmpty()) {
             
             // Redirect back to signup with an error message if fields are missing
-            resp.sendRedirect(req.getContextPath() + "/account/signup?error=missingFields");
+            resp.sendRedirect(req.getContextPath() + "/signup?error=missingFields");
             return;
         }
         try {
             if (!DAO.getDAO().getUserDAO().isLoginUnique(email) || 
                 !DAO.getDAO().getUserDAO().isLoginUnique(phone)) {
-                resp.sendRedirect(req.getContextPath() + "/account/signup?error=duplicate");
+                resp.sendRedirect(req.getContextPath() + "/signup?error=duplicate");
                 return;
             }
             User user = DAO.getDAO().getUserDAO().signUp(tmpUser, password);
