@@ -1,17 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nhà hàng OOP - Trang chủ</title>
+    <title>OOP Dinner - Find A Table</title>
     <style>
-        body {
-            margin: 0;
+        html, body {
+			height: 100%;
             font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+        .wrapper {
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh; /* Đảm bảo wrapper chiếm toàn bộ chiều cao của trang */
         }
         /* Header styles */
-        header {
+        .header {
             background-color: #333;
             color: white;
             padding: 15px;
@@ -19,14 +28,35 @@
             justify-content: space-between;
             align-items: center;
         }
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 10px;
+        .header img {
+            width: 100px;
         }
-        nav a:hover {
+        .header .nav-links a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+        .header .nav-links a:hover {
             text-decoration: underline;
         }
+		.logo-container {
+			display: flex;
+			align-items: center;
+		}
+		.logo {
+			width: 50px;
+			height: auto;
+			margin-right: 10px; /* Khoảng cách giữa logo và dòng chữ */
+		}
+		.logo-container a {
+			position: relative;
+			font-size: 26px;
+			color: white;
+            text-decoration: none;
+		}
+		.logo-container a:hover {
+			color: #ffdd00;
+		}
 
         /* Main content styles */
         main {
@@ -42,23 +72,24 @@
         }
 
         /* Footer styles */
-        footer {
-            background-color: #222;
+        .footer {
+            background-color: #333;
             color: white;
-            text-align: center;
-            padding: 20px 0;
-            margin-top: 30px;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        footer img {
-            height: 50px;
+        .footer img {
+            width: 100px;
         }
-        footer .social-links a {
+        .footer .social-icons a {
+            color: white;
             margin: 0 10px;
-            color: white;
             text-decoration: none;
         }
-        footer .social-links a:hover {
-            text-decoration: underline;
+        .footer .social-icons a:hover {
+            color: #ffdd00;
         }
     </style>
 </head>
@@ -66,16 +97,20 @@
 
 <!-- Header -->
 <header>
-    <h1>Nhà hàng OOP</h1>
-    <nav>
-        <a href="Home">Trang chủ</a>
-        <a href="#">Giới thiệu</a>
-        <a href="#">Menu</a>
-        <a href="#">Đặt bàn</a>
-        <a href="#">Liên hệ</a>
-        <a href="#">Giỏ hàng</a>
-        <a href="account/login">Tài khoản</a>
-    </nav>
+     <div class="header">
+                <div class="logo-container">
+                        <img href="Home" src="${pageContext.request.contextPath}/img/OOPDinnerLogo.png" alt="Logo" class="logo">
+                        <a href="${pageContext.request.contextPath}/Home">OOP Dinner</a>
+                </div>
+                <div class="nav-links">
+                        <a href="#">About</a>
+                        <a href="#">Location</a>
+                        <a href="#">Menu</a>
+                        <a href="#">Cart</a>
+                        <a href="FindTable">Reservations</a>
+                        <a href="account/login">Account</a>
+                </div>
+            </div>
 </header>
 
     <title>OOP Dinner - Find a Table</title>
@@ -204,16 +239,18 @@
 
 <!-- Footer -->
 <footer>
-    <div>
-        <img src="images/logo.png" alt="Logo nhà hàng XYZ">
-    </div>
-    <p>Liên hệ: 0123-456-789 | Email: info@nhahangoop.com</p>
-    <p>&copy; 2024 Nhà hàng OOP. Bản quyền thuộc về chúng tôi.</p>
-    <div class="social-links">
-        <a href="https://facebook.com" target="_blank">Facebook</a>
-        <a href="https://instagram.com" target="_blank">Instagram</a>
-        <a href="https://twitter.com" target="_blank">Twitter</a>
-    </div>
+    <div class="footer">
+                <img src="${pageContext.request.contextPath}/img/OOPDinnerLogo.png" alt="PTIT Cuisine Logo">
+                <div align="center">
+                        <p>Contact: 0123-456-789 | Email: support@oopdinner.com</p>
+                        <span->© 2024 OOP Dinner</span>
+                </div>
+                <div class="social-icons">
+                        <a href="#">Facebook</a>
+                        <a href="#">Instagram</a>
+                        <a href="#">YouTube</a>
+                </div>
+        </div>
 </footer>
 
 </body>
