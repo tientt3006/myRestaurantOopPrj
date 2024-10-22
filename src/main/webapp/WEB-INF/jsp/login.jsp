@@ -24,7 +24,7 @@
                     </div>
                 <% } %>
                 <form action="${pageContext.request.contextPath}/account/login" method="post">
-                    <input type="email" name="username" placeholder="Email" required>
+                    <input type="email" name="email" placeholder="Email" required>
                     <input type="password" name="password" placeholder="Password" required>
 
                     <a href="#" class="forgot-pass-link" >Forgot Password?</a>
