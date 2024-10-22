@@ -8,7 +8,7 @@
     <title>OOP Dinner - Home</title>
     <style>
         html, body {
-			height: 100%;
+            height: 100%;
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
@@ -69,10 +69,10 @@
         }
 
         .main-container img {
-            width: 100%; /* Make the image span the full width of the container */
-            height: 100%; /* Make the image span the full height */
+            width: 90%; /* Make the image span the full width of the container */
+            height: 10%; /* Make the image span the full height */
             object-fit: cover; /* Ensure the image covers the space without distortion */
-            border-radius: 15px;
+            border-radius:0px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
@@ -85,7 +85,7 @@
         main img {
             max-width: 80%;
             height: auto;
-            border-radius: 15px;
+            border-radius: 0px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
@@ -132,11 +132,19 @@
         
         <!-- Main content -->
         <div class="main-container">
-            <img src="${pageContext.request.contextPath}/img/PRRestaurant.jpg" alt="Hình ảnh nhà hàng XYZ">
+            <div class="illustration">
+                <img src="${pageContext.request.contextPath}/img/PRRestaurant.jpg" alt="Hình ảnh nhà hàng XYZ">
+            </div>
+            <div class="intro">
+                <p>Chào mừng đến với OOP Dinner</p>
+                <p>Giờ hoạt động: 5 PM - 11 PM</p>
+            </div>
         </div>
         <!-- Footer -->
         <div class="footer">
+            
                 <img src="${pageContext.request.contextPath}/img/OOPDinnerLogo.png" alt="PTIT Cuisine Logo">
+            
                 <div align="center">
                         <p>Contact: 0123-456-789 | Email: support@oopdinner.com</p>
                         <span->© 2024 OOP Dinner</span>
