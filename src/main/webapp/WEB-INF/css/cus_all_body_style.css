@@ -32,7 +32,14 @@ html, body {
 }
 
 /*Login Main content styles */
-.login-box  {
+.login-container {
+    flex: 1;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 40px;
+}
+.login-container .login-box  {
     background-color: #333;
     padding: 20px;
     border: 2px solid #000;
@@ -43,12 +50,19 @@ html, body {
     flex-direction: column;
     justify-content: center;
 }
-.login-box h2 {
+.login-container .login-box .email-text, 
+.login-container .login-box .password-text{
+    color: white;
+    text-align: left;
+    padding: 0px;
+    margin: 0px;
+}
+.login-container .login-box h2 {
     color: white;
     text-align: center;
 }
-.login-box input[type="email"],
-.login-box input[type="password"] {
+.login-container .login-box input[type="email"],
+.login-container .login-box input[type="password"] {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
@@ -56,8 +70,8 @@ html, body {
     border-radius: 5px;
     box-sizing: border-box;
 }
-.login-box button[type="submit"],
-.login-box .google-btn {
+.login-container .login-box button[type="submit"],
+.login-container .login-box .google-btn {
     width: 100%;
     padding: 12px;
     margin: 10px 0;
@@ -71,39 +85,39 @@ html, body {
     transition: background-color 0.3s ease, transform 0.2s ease;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-.login-box button[type="submit"]:hover,
-.login-box .google-btn:hover {
+.login-container .login-box button[type="submit"]:hover,
+.login-container .login-box .google-btn:hover {
     background-color: #ff3333;
     transform: translateY(-3px);
 }
-.login-box button[type="submit"]:active,
-.login-box .google-btn:active {
+.login-container .login-box button[type="submit"]:active,
+.login-container .login-box .google-btn:active {
     transform: translateY(0);
     background-color: #c30000;
 }
-.left-image {
+.login-container .left-image {
     width: 50%;
     background: url('${pageContext.request.contextPath}/img/PRRestaurant.jpg') no-repeat center center;
     background-size: cover;
     height: 400px;
 }
-.forgot-pass-link {
+.login-container .login-box .forgot-pass-link {
     color: blue;
     text-align: left;
     text-decoration: none;
     font-size: 12px;
 }
-.forgot-pass-link:hover,
-.signup-link:hover {
+.login-container .login-box .forgot-pass-link:hover,
+.login-container .login-box .signup-link:hover {
     text-decoration: underline;
 }
-.sign-in-text {
+.login-container .login-box .sign-in-text {
     color: white;
     text-align: center;
     margin-top: 10px;
     font-size: 14px;
 }
-.signup-link {
+.login-container .login-box .signup-link {
     color: blue;
     text-decoration: none;
 }
