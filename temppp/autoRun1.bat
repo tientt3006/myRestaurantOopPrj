@@ -1,7 +1,7 @@
 @echo off
 REM Đặt các biến cho các đường dẫn
-set TOMCAT_HOME=E:\ProgramFile\apache-tomcat-9.0.95-windows-x64\apache-tomcat-9.0.95
-set PROJECT_HOME=E:\HK_PTIT\myRestaurantPrj
+set TOMCAT_HOME=G:\Nam3_ Ki1\OOP\BTL-Web\apache-tomcat-9.0.95
+set PROJECT_HOME=G:\Nam3_ Ki1\OOP\BTL-Web\myRestaurantOopPrj
 set WAR_NAME=myRestaurantPrj-1.0-SNAPSHOT.war
 
 REM Bước 1: Dừng Tomcat
