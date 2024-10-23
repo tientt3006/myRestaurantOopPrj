@@ -19,7 +19,7 @@ public class AccountServlet extends HttpServlet {
         
         // If user is not logged in, redirect to login page
         if (user == null) {
-            resp.sendRedirect(req.getContextPath() + "/account/login");
+            resp.sendRedirect(req.getContextPath() + "/login");
             return;
         }
 

@@ -24,6 +24,6 @@ public class LogoutServlet extends HttpServlet {
         req.getSession().invalidate();
         
         // Redirect to login page or homepage after logging out
-        resp.sendRedirect(req.getContextPath() + "/account/login");
+        resp.sendRedirect(req.getContextPath() + "/login");
     }
 }

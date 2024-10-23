@@ -21,8 +21,8 @@ public class SqlUtils {
 
     public static final String LOG_IN = "SELECT * FROM users WHERE email LIKE ? AND password LIKE ?";
     public static final String SIGN_UP = "INSERT INTO users (firstName, lastName, password, email, phone) VALUES (?, ?, ?, ?, ?)";
-    public static final String FIND_USER_BY_LOGIN = "SELECT * FROM users WHERE email LIKE ?";
-    
+    public static final String FIND_USER_BY_EMAIL = "SELECT * FROM users WHERE email LIKE ?";
+    public static final String FIND_USER_BY_PHONE = "SELECT * FROM users WHERE phone LIKE ?";
     
     private static final Logger logger = LoggerFactory.getLogger(SqlUtils.class);
 

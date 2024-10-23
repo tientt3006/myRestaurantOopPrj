@@ -10,7 +10,7 @@
 <body>
     <div class="wrapper">
         <!-- Header Section -->
-        <c:set var="currentPage" value="account" scope="page"/>
+        <c:set var="currentPage" value="login" scope="page"/>
         <%@ include file="cus_header.jspf" %>
 
         <!-- Main Content Section -->
@@ -24,7 +24,7 @@
                             Invalid username or password.
                         </div>
                     <% } %>
-                    <form action="${pageContext.request.contextPath}/account/login" method="post">
+                    <form action="${pageContext.request.contextPath}/login" method="post">
                         <p class="email-text"> Email </p>
                         <input type="email" name="email" placeholder="Email" required>
                         <p class="password-text"> Password </p>

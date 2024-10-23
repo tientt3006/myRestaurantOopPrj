@@ -26,7 +26,9 @@ public interface UserDAO {
     
     User signUp(User user, String password) throws DbException;
 
-    User getUserByLogin(String email) throws DbException;
+    User getUserByEmail(String email) throws DbException;
+    
+    User getUserByPhone(String email) throws DbException;
     
     boolean isLoginUnique(String email) throws DbException;
     

@@ -9,6 +9,6 @@
         <a href="#">Menu</a>
         <a href="#">Cart</a>
         <a href="FindTable">Reservations</a>
-        <a href="login">Account</a>
+        <a href="account">Account</a>
     </div>
 </div>

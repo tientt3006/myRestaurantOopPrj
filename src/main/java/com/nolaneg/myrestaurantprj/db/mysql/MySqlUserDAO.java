@@ -36,22 +36,38 @@ public class MySqlUserDAO implements UserDAO {
     }
     
     @Override
-    public User getUserByLogin(String email) throws DbException {
+    public User getUserByEmail(String email) throws DbException {
         try (Connection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement ps = connection.prepareStatement(SqlUtils.FIND_USER_BY_LOGIN)) {
+             PreparedStatement ps = connection.prepareStatement(SqlUtils.FIND_USER_BY_EMAIL)) {
             ps.setString(1, email);
             try (ResultSet rs = ps.executeQuery()) {
                 if (!rs.next()) return null;
                 return mapUser(rs);
             }
         } catch (SQLException ex) {
-            throw new DbException("Cannot getUserByLogin", ex);
+            throw new DbException("Cannot getUserByEmail", ex);
         }
     }
     
     @Override
-    public boolean isLoginUnique(String email) throws DbException {
-        return getUserByLogin(email) == null;
+    public User getUserByPhone(String phone) throws DbException {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement ps = connection.prepareStatement(SqlUtils.FIND_USER_BY_PHONE)) {
+            ps.setString(1, phone);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (!rs.next()) return null;
+                return mapUser(rs);
+            }
+        } catch (SQLException ex) {
+            throw new DbException("Cannot getUserByPhone", ex);
+        }
+    }
+    
+    @Override
+    public boolean isLoginUnique(String login) throws DbException {
+        if(getUserByEmail(login) == null && getUserByPhone(login) == null)
+            return true;
+        return false;
     }
     
     @Override
@@ -93,7 +109,7 @@ public class MySqlUserDAO implements UserDAO {
                 throw new DbException("SignUp failed, no rows attached");
             }
             con.commit();
-            return getUserByLogin(user.getEmail());
+            return getUserByEmail(user.getEmail());
         } catch (SQLException ex) {
             if (con != null) SqlUtils.rollback(con);
             throw new DbException("Cannot logIn", ex);

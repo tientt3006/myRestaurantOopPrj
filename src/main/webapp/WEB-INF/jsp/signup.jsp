@@ -10,23 +10,28 @@
 <body>
     <div class="wrapper">
         <!-- Header Section -->
-        <c:set var="currentPage" value="account" scope="page"/>
+        <c:set var="currentPage" value="signup" scope="page"/>
         <%@ include file="cus_header.jspf" %>
 
         <!-- Main Content Section -->
         <div class="main-container">
             <div class="signup-box">
                 <h2>Sign up</h2>
-                <% if ("duplicate".equals(request.getAttribute("error"))) { %>
+                <% if ("duplicate".equals(request.getParameter("error"))) { %>
                     <div class="error-message">
-                        Không đăng ký thành công do trùng email hoặc phone.
+                        Email or phone number already exists.
                     </div>
                 <% } %>
-                <form action="${pageContext.request.contextPath}/account/signup" method="post">
+                <form action="${pageContext.request.contextPath}/signup" method="post">
+                    <p class="sigup-text"> First name </p>
                     <input type="text" name="firstName" placeholder="First name" required>
+                    <p class="sigup-text"> Last name </p>
                     <input type="text" name="lastName" placeholder="Last name" required>
+                    <p class="sigup-text"> Email </p>
                     <input type="email" name="email" placeholder="Email" required>
-                    <input type="tel" name="phone" placeholder="Phone" required>
+                    <p class="sigup-text"> Phone number </p>
+                    <input type="tel" name="phone" placeholder="Phone number" pattern="[0-9]+" minlength="10" maxlength="10" required>
+                    <p class="sigup-text"> Password </p>
                     <input type="password" name="password" placeholder="Password" required>
                     <button type="submit">Sign in</button>
                 </form>
