@@ -6,7 +6,7 @@
     <div class="nav-links">
         <a href="about">About</a>
         <a href="#">Location</a>
-        <a href="#">Menu</a>
+        <a href="menu">Menu</a>
         <a href="#">Cart</a>
         <a href="FindTable">Reservations</a>
         <a href="account">Account</a>
