@@ -1,0 +1,344 @@
+/*general Main content styles */
+.btn {
+    background-color: #b32d29;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #a12c27;
+}
+html, body {
+    height: 100%;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+}
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.main-container {
+    flex: 1;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 40px;
+}
+
+/*Login Main content styles */
+.login-container {
+    flex: 1;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 40px;
+}
+.login-container .login-box  {
+    background-color: #333;
+    padding: 20px;
+    border: 2px solid #000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    width: 300px;
+    max-height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 8px;
+}
+.login-container .login-box .email-text, 
+.login-container .login-box .password-text{
+    color: white;
+    text-align: left;
+    padding: 0px;
+    margin: 0px;
+}
+.login-container .login-box h2 {
+    color: white;
+    text-align: center;
+}
+.login-container .login-box input[type="email"],
+.login-container .login-box input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #000;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+.login-container .login-box button[type="submit"],
+.login-container .login-box .google-btn {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    background-color: #d40000;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.login-container .login-box button[type="submit"]:hover,
+.login-container .login-box .google-btn:hover {
+    background-color: #ff3333;
+    transform: translateY(-3px);
+}
+.login-container .login-box button[type="submit"]:active,
+.login-container .login-box .google-btn:active {
+    transform: translateY(0);
+    background-color: #c30000;
+}
+.login-container .left-image {
+    width: 50%;
+    background: url('${pageContext.request.contextPath}/img/PRRestaurant.jpg') no-repeat center center;
+    background-size: cover;
+    height: 400px;
+    border-radius: 8px;
+}
+.login-container .login-box .forgot-pass-link {
+    color: blue;
+    text-align: left;
+    text-decoration: none;
+    font-size: 12px;
+}
+.login-container .login-box .forgot-pass-link:hover,
+.login-container .login-box .signup-link:hover {
+    text-decoration: underline;
+}
+.login-container .login-box .sign-in-text {
+    color: white;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 14px;
+}
+.login-container .login-box .signup-link {
+    color: blue;
+    text-decoration: none;
+}
+
+/*Sign up Main content styles */
+.signup-box {
+    background-color: #333;
+    padding: 20px;
+    border: 2px solid #000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+}
+.signup-box h2 {
+    color: white;
+    text-align: center;
+    margin: 15px;
+    margin-top: 5px;
+}
+.signup-box input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #000;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+.signup-box button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    background-color: #d40000;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    
+}
+.signup-box button:hover {
+    background-color: #ff3333;
+    transform: translateY(-3px);
+}
+.signup-box button:active {
+    transform: translateY(0);
+    background-color: #c30000;
+}
+.signup-box .error-message {
+    color: red;
+    text-align: center;
+    margin-bottom: 15px;
+}
+.signup-box .sigup-text {
+    color: white;
+    text-align: left;
+    margin: 0px;
+}
+/*account Main content styles */
+
+.acc-info-box {
+    background-color: #333;
+    padding: 20px;
+    border: 2px solid #000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    width: 400px;
+    max-height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+}
+.acc-info-box h2 {
+    margin: 10px;
+    margin-bottom: 25px;
+    text-align: center;
+}
+.acc-info-box .btn {
+    margin-top: 10px; /* Khoảng cách giữa các nút và nội dung trên */
+}
+.acc-info-box .info-row {
+    display: flex; /* Sử dụng Flexbox để bố trí hàng */
+    margin-bottom: 10px; /* Khoảng cách giữa các hàng */
+}
+.acc-info-box .info-label {
+    width: 180px; /* Độ rộng cố định cho nhãn */
+}
+.acc-info-box .info-value {
+    flex-grow: 1; /* Cho giá trị chiếm phần còn lại */
+}
+.acc-info-box .button-container {
+    display: flex; /* Thiết lập button-container là Flexbox */
+    justify-content: space-evenly ; /* Căn giữa các nút với khoảng cách đều */
+    margin-top: 20px; /* Khoảng cách trên cho button-container */
+}
+
+.acc-info-box .left-buttons,
+.acc-info-box .right-buttons {
+    display: flex; /* Thiết lập hai bên là Flexbox */
+    flex-direction: column; /* Bố trí theo cột */
+}
+
+.acc-info-box .btn {
+    width: 100%; /* Đặt chiều rộng nút bằng 100% */
+    padding: 10px; /* Thêm padding cho nút */
+    font-size: 16px; /* Kích thước chữ */
+    cursor: pointer; /* Con trỏ chuột */
+    margin-bottom: 10px; /* Khoảng cách giữa các nút */
+}
+/* home main content */
+.home-main .main-container {
+   flex: 1;  
+   display: flex;
+   justify-content: center;  
+   align-items: center;  
+   padding: 0;   
+   background-color: #f4f4f4;
+}
+
+.home-main .main-container img {
+   width: 90%;  
+   height: 10%;  
+   object-fit: cover;  
+   border-radius:8px;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+.home-main .main {
+   text-align: center;
+   padding: 50px 0;
+   background-color: #f4f4f4;
+}
+.home-main .main img {
+   max-width: 80%;
+   height: auto;
+   border-radius: 8px;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+} 
+/* about main content */
+.about-content{
+    padding: 50px;
+    background-color: #f2f2f2;
+    min-height: auto;
+}
+
+.about-content h2 {
+    margin-bottom: 20px;
+    font-size: 28px;
+}
+
+.about-content p {
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+/* reservation main content */
+
+
+.reservations-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /*height: 100vh;*/
+}
+
+.reservations-container .form-box {
+    background-color: #333;
+    color: white;
+    padding: 30px;
+    border-radius: 8px;
+    width: 300px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.reservations-container .form-box h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.reservations-container .form-box label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+.reservations-container .form-box input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+.reservations-container .form-box select{
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+.reservations-container .form-box button {
+    width: 100%;
+    padding: 10px;
+    background-color: #d32f2f;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.reservations-container .form-box button:hover {
+    background-color: #b71c1c;
+}
+
+.reservations-container .error-message {
+    color: red;
+    font-size: 12px;
+    text-align: center;
+}

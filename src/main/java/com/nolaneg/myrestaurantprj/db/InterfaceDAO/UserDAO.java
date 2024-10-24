@@ -5,7 +5,6 @@
 
 package com.nolaneg.myrestaurantprj.db.InterfaceDAO;
 // File: UserDAO.java
-import com.nolaneg.myrestaurantprj.db.entity.Experiment_User;
 import com.nolaneg.myrestaurantprj.db.entity.User;
 import com.nolaneg.myrestaurantprj.exceptions.DbException;
 import java.sql.*;
@@ -23,6 +22,15 @@ public interface UserDAO {
      * or user object
      * @throws com.nolaneg.myrestaurantprj.exceptions.DbException
      */
-    User logIn(String login, String password) throws DbException;
+    User logIn(String email, String password) throws DbException;
+    
+    User signUp(User user, String password) throws DbException;
 
+    User getUserByEmail(String email) throws DbException;
+    
+    User getUserByPhone(String email) throws DbException;
+    
+    boolean isLoginUnique(String email) throws DbException;
+    
+    
 }

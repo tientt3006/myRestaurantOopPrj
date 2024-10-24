@@ -8,5 +8,10 @@
 /autoRun1.bat
 
 # Không ignore autoRun1.bat trong thư mục temppp
-!temppp/autoRun1.bat
+#!temppp/autoRun1.bat
 
+/temppp/
+
+context.xml
+
+nb-configuration.xml
