@@ -133,6 +133,7 @@ html, body {
     width: 400px;
     display: flex;
     flex-direction: column;
+    border-radius: 8px;
 }
 .signup-box h2 {
     color: white;
@@ -232,7 +233,7 @@ html, body {
     margin-bottom: 10px; /* Khoảng cách giữa các nút */
 }
 /* home main content */
-.home-main .main-container {
+.home-main {
    flex: 1;  
    display: flex;
    justify-content: center;  
@@ -241,26 +242,22 @@ html, body {
    background-color: #f4f4f4;
 }
 
-.home-main .main-container img {
+.home-main img {
    width: 90%;  
    height: 10%;  
    object-fit: cover;  
    border-radius:8px;
    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-
-
-.home-main .main {
-   text-align: center;
-   padding: 50px 0;
-   background-color: #f4f4f4;
+.home-main .illustration {
+    width: 70%;
+      background-color: #f4f4f4;
+      display: left;
+      align-items: left;
+      justify-content: left;
+      color: white;
+      font-size: 24px;
 }
-.home-main .main img {
-   max-width: 80%;
-   height: auto;
-   border-radius: 8px;
-   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-} 
 /* about main content */
 .about-content{
     padding: 50px;
