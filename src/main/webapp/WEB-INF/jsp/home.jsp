@@ -17,7 +17,7 @@
         <!-- Main Content Section -->
         <div class="main-container">
             <div class = "home-main">
-                <div class="main-container">
+                <!--<div class="main-container">-->
                     <div class="illustration">
                         <img src="${pageContext.request.contextPath}/img/PRRestaurant.jpg" alt="Hình ảnh nhà hàng XYZ">
                     </div>
@@ -25,7 +25,7 @@
                         <p>Chào mừng đến với OOP Dinner</p>
                         <p>Giờ hoạt động: 5 PM - 11 PM</p>
                     </div>
-                </div>
+                <!--</div>-->
             </div> 
         </div>        
         <!-- Footer -->
