@@ -267,14 +267,51 @@ html, body {
 
 .about-content h2 {
     margin-bottom: 20px;
-    font-size: 28px;
+    font-size: 50px;
 }
-
 .about-content p {
     margin-bottom: 10px;
-    font-size: 18px;
+    font-size: 30px;
+}
+.about-content .welcome {
+    display: flex;             
+    width: 100%;           
+}
+.about-content .introduce {
+    display: flex;             
+    width: 100%;           
+}
+.about-content .story {
+    display: flex;             
+    width: 100%;           
+}
+.about-content .member {
+    display: flex;             
+    width: 100%;           
+}
+.about-content  .left{
+    width: 40%;               /* Mỗi phần tử chiếm 50% chiều rộng */
+    padding: 10px;            /* Tạo khoảng đệm */
+    box-sizing: border-box;   /* Đảm bảo padding không làm vỡ bố cục */
+}
+.about-content  .right {
+    width: 60%;               /* Mỗi phần tử chiếm 50% chiều rộng */
+    padding: 10px;            /* Tạo khoảng đệm */
+    box-sizing: border-box;   /* Đảm bảo padding không làm vỡ bố cục */
 }
 
+.about-content  .right img {
+    width: 100%;              /* Ảnh bao phủ toàn bộ chiều rộng khối cha */
+    height: auto;             /* Giữ nguyên tỉ lệ ảnh */
+    border-radius: 8px;       /* Bo góc cho ảnh */
+    object-fit: cover;        /* Giúp ảnh vừa với khung mà không méo */
+}
+.about-content  .left img {
+    width: 100%;              /* Ảnh bao phủ toàn bộ chiều rộng khối cha */
+    height: auto;             /* Giữ nguyên tỉ lệ ảnh */
+    border-radius: 8px;       /* Bo góc cho ảnh */
+    object-fit: cover;        /* Giúp ảnh vừa với khung mà không méo */
+}
 /* reservation main content */
 
 
