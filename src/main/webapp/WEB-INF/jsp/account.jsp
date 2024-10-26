@@ -46,7 +46,7 @@
                         <form action="${pageContext.request.contextPath}/account/changeInfo" method="get">
                             <button type="submit" class="btn">Change Info</button>
                         </form>
-                        <form action="${pageContext.request.contextPath}/account/changePassword" method="get">
+                        <form action="${pageContext.request.contextPath}/account/change_password" method="get">
                             <button type="submit" class="btn">Change Password</button>
                         </form>
                     </div>
