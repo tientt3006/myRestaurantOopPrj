@@ -39,10 +39,17 @@ public class ChangePasswordServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         String newPassword = req.getParameter("newPassword");
         String oldPassword = req.getParameter("oldPassword");
         User currentUser = (User) req.getSession().getAttribute("user");
+        
+        if (currentUser == null) {
+            req.setAttribute("sessionExpired", "true");  // Đặt một cờ để thông báo session hết hạn
+            req.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(req, resp);  // Chuyển hướng đến trang đăng nhập
+            return;
+        }
+        
         try {
             User user = DAO.getDAO().getUserDAO().logIn(currentUser.getEmail(), oldPassword);
             if (user == null) {
@@ -56,8 +63,8 @@ public class ChangePasswordServlet extends HttpServlet {
             log.error(Utils.getErrMessage(e));
             throw new AppException(e);
         } catch (ServletException e) {
-        log.error("Servlet error: " + e.getMessage());
-        resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An internal error occurred.");
-    }
+            log.error("Servlet error: " + e.getMessage());
+            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An internal error occurred.");
+        }
     }
 }

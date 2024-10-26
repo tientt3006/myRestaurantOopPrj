@@ -15,6 +15,12 @@
 
         <!-- Main Content Section -->
         <div class="main-container">
+            <% if ("true".equals(request.getAttribute("sessionExpired"))) { %>
+                <div class="error-message" style="color: red; text-align: center;">
+                    Your session has expired. Please log in again.
+                </div>
+            <% } %>
+
             <div class="login-container">
                 <div class="left-image"></div>
                 <div class="login-box">
