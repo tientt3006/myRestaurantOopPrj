@@ -247,7 +247,8 @@ html, body {
    height: 10%;  
    object-fit: cover;  
    border-radius:8px;
-   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+   
 }
 .home-main .illustration {
     width: 70%;
@@ -256,7 +257,13 @@ html, body {
       align-items: left;
       justify-content: left;
       color: white;
-      font-size: 24px;
+      
+}
+.home-main .intro p{
+    margin-bottom: 20px;
+    font-size: 30px;
+    text-align: center;
+    font-weight: bold;
 }
 /* about main content */
 .about-content{
@@ -268,6 +275,7 @@ html, body {
 .about-content h2 {
     margin-bottom: 20px;
     font-size: 50px;
+    background-color:#eee;
 }
 .about-content p {
     margin-bottom: 10px;
@@ -305,12 +313,14 @@ html, body {
     height: auto;             /* Giữ nguyên tỉ lệ ảnh */
     border-radius: 8px;       /* Bo góc cho ảnh */
     object-fit: cover;        /* Giúp ảnh vừa với khung mà không méo */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 .about-content  .left img {
     width: 100%;              /* Ảnh bao phủ toàn bộ chiều rộng khối cha */
     height: auto;             /* Giữ nguyên tỉ lệ ảnh */
     border-radius: 8px;       /* Bo góc cho ảnh */
     object-fit: cover;        /* Giúp ảnh vừa với khung mà không méo */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 /* reservation main content */
 

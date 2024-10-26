@@ -15,49 +15,46 @@
         <%@ include file="cus_header.jspf" %>
         <!--Main content -->
         <div class="about-content">
-            <h2>Lời chào</h2>
+            <h2>Welcome</h2>
             <div class="welcome">
                 <div class="left">
-                    <p>Chào mừng bạn đến với OOPDinner – nơi những món ăn ngon hòa quyện cùng trải nghiệm tuyệt vời! 
-                        Chúng tôi rất hân hạnh được phục vụ bạn và mang đến những khoảnh khắc đáng nhớ.</p>    
+                    <p>Welcome to OOPDinner – where delicious cuisine meets exceptional experiences!</p>
+                    <p>We are delighted to serve you and bring you unforgettable moments.</p>    
                 </div>
                 <div class="right">
-                    <img src="${pageContext.request.contextPath}/img/PRRestaurant.jpg" alt="Hình ảnh nhà hàng XYZ">
+                    <img src="${pageContext.request.contextPath}/img/about-welcome-transformed.jpeg" alt="Hình ảnh nhà hàng XYZ">
                 </div>
             </div>
             
-            <h2>Lời giới thiệu</h2>
+            <h2>Introduce</h2>
             <div class ="introduce">
                 <div class="left">
-                    <img src="${pageContext.request.contextPath}/img/PRRestaurant.jpg" alt="Hình ảnh nhà hàng XYZ">    
+                    <img src="${pageContext.request.contextPath}/img/about-introduce.webp" alt="Hình ảnh nhà hàng XYZ">    
                 </div>
                 <div class="right">
-                    <p>OOPDinner không chỉ là một chuỗi nhà hàng, mà còn là nơi hội tụ tinh hoa ẩm thực từ khắp nơi. 
-                        Với sự kết hợp giữa phong cách hiện đại và truyền thống, chúng tôi cam kết mang đến cho bạn những 
-                        bữa ăn chất lượng cùng dịch vụ tận tâm.</p>
+                    <p>OOPDinner is not just a restaurant chain but a hub of culinary excellence from around the world. With a blend of modern and traditional styles, we are committed to providing you with high-quality meals and dedicated service.</p>
                 </div>
             </div>
                 
-            <h2>Câu truyện</h2>
+            <h2>Our Story</h2>
             <div class="story">
                 <div class="left">
-                    <p>OOPDinner khởi nguồn từ niềm đam mê ẩm thực và mong muốn kết nối mọi người qua từng bữa ăn. 
-                        Từ một nhà hàng nhỏ, chúng tôi đã phát triển thành một chuỗi nhà hàng uy tín, luôn giữ vững 
-                        giá trị cốt lõi: chất lượng, sáng tạo và sự sẻ chia.</p>    
+                    <p>OOPDinner was born from a passion for cuisine and the desire to connect people through every meal.</p>
+                    <p> Starting as a small restaurant, we have grown into a renowned chain, staying true to our core values: quality, creativity, and sharing.</p>    
                 </div>
                 <div class="right">
-                    <img src="${pageContext.request.contextPath}/img/PRRestaurant.jpg" alt="Hình ảnh nhà hàng XYZ">
+                    <img src="${pageContext.request.contextPath}/img/about-story.webp" alt="Hình ảnh nhà hàng XYZ">
                 </div>
             </div>
             
-            <h2>Các thành viên</h2>
+            <h2>Our Member</h2>
             <div class="member">
                 <div class="left">
-                    <img src="${pageContext.request.contextPath}/img/PRRestaurant.jpg" alt="Hình ảnh nhà hàng XYZ">
+                    <img src="${pageContext.request.contextPath}/img/about-member.jpg" alt="Hình ảnh nhà hàng XYZ">
                 </div>
                 <div class="right">
-                    <p>Nguyễn Đình Tiến - Bếp trưởng, chuyên gia ẩm thực Á - Âu</p>
-                    <p>Hoàng Văn Hướng - Quản lý nhà hàng, người luôn theo sát trải nghiệm khách hàng</p>
+                    <p>Nguyen Dinh Tien - Head Chef & Specialist in Asian and European Cuisine</p>
+                    <p>Hoang Van Huong - Restaurant Manager, dedicated to ensuring exceptional customer experiences.</p>
                 </div>
             </div>
         </div>
