@@ -23,7 +23,7 @@ public class SqlUtils {
     public static final String SIGN_UP = "INSERT INTO users (firstName, lastName, password, email, phone) VALUES (?, ?, ?, ?, ?)";
     public static final String FIND_USER_BY_EMAIL = "SELECT * FROM users WHERE email LIKE ?";
     public static final String FIND_USER_BY_PHONE = "SELECT * FROM users WHERE phone LIKE ?";
-    
+    public static final String CHANGE_PASSWORD = "UPDATE users SET password = ? WHERE userId = ?";
     private static final Logger logger = LoggerFactory.getLogger(SqlUtils.class);
 
     // Other constants and methods

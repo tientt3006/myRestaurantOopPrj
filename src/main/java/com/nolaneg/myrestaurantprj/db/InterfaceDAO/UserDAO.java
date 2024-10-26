@@ -32,5 +32,5 @@ public interface UserDAO {
     
     boolean isLoginUnique(String email) throws DbException;
     
-    
+    void changePassword(int userId, String newPassword) throws DbException;
 }

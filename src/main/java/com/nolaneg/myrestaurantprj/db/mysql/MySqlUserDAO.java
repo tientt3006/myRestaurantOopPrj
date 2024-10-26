@@ -119,4 +119,22 @@ public class MySqlUserDAO implements UserDAO {
         }
     }
     
+    @Override
+    public void changePassword(int userId, String newPassword) throws DbException {
+        String hashPass = Utils.hashPassword(newPassword);
+        try(Connection con = ConnectionPool.getInstance().getConnection();
+            PreparedStatement ps = con.prepareStatement(SqlUtils.CHANGE_PASSWORD)) {
+            int k = 0;
+            ps.setString(++k, hashPass);
+            ps.setInt(++k, userId);
+            
+            if(ps.executeUpdate() == 0) {
+                throw new DbException("Changing password failed, no rows were changed");
+            }
+            con.commit();
+        } catch  (SQLException e) {
+            throw new DbException("Cannot changePassword", e);
+        }
+    }
+    
 }
