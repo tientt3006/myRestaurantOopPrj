@@ -23,7 +23,7 @@
                     </div>
                     <div class="intro">
                         <p>Welcome to OOP Dinner</p>
-                        <p>5 PM - 11 PM</p>
+                        <p>Opening Hours: 5 PM - 11 PM</p>
                     </div>
                 <!--</div>-->
             </div> 
