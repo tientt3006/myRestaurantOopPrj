@@ -47,7 +47,7 @@
                 </div>
             </div>
             
-            <h2>Our Member</h2>
+            <h2>Our Members</h2>
             <div class="member">
                 <div class="left">
                     <img src="${pageContext.request.contextPath}/img/about-member.jpg" alt="Hình ảnh nhà hàng XYZ">
