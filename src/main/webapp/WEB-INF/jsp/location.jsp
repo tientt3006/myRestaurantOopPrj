@@ -17,10 +17,10 @@
         <div class ="main-container">
             <div class="location-main">                
                 <div class ="option">
-                    <div onclick="showLocation(20.981559,105.787367)">Địa chỉ chi nhánh 1: Học viện Công nghệ Bưu chính viễn thông  </div>
-                    <div onclick="showLocation(21.024135,105.8558972,813)">Địa chỉ chi nhánh 2: Nhà hát Lớn Hà Nội </div>
-                    <div onclick="showLocation(21.0580308,105.8032223,6502)">Địa chỉ chi nhánh 3: Hồ Tây </div>
-                    <div onclick="showLocation(21.0173705,105.7827373,406)">Địa chỉ chi nhánh 4: Keangnam </div>
+                    <div onclick="showLocation(20.981559,105.787367)">Address 1: Hoc vien Cong nghe Buu chinh vien thong  </div>
+                    <div onclick="showLocation(21.024135,105.8558972,813)">Address 2: Nha hat Lon Ha Noi </div>
+                    <div onclick="showLocation(21.0580308,105.8032223,6502)">Address 3: Ho Tay </div>
+                    <div onclick="showLocation(21.0173705,105.7827373,406)">Address 4: Keangnam </div>
                 </div> 
                 <div id="map" class="map"></div>
             </div>
