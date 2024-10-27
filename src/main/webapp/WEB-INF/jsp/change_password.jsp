@@ -10,14 +10,14 @@
 <body>
     <div class="wrapper">
         <!-- Header Section -->
-        <c:set var="currentPage" value="login" scope="page"/>
+        <c:set var="currentPage" value="change_password" scope="page"/>
         <%@ include file="cus_header.jspf" %>
 
         <!-- Main Content Section -->
         <div class="main-container">
             <div class="login-container">
                 <div class="login-box">
-                    <h2>Log in</h2>
+                    <h2>Change password</h2>
                     <% if ("true".equals(request.getAttribute("err"))) { %>
                         <div class="error-message" style="color: red; text-align: center; margin-bottom: 10px;">
                             Invalid old password.
