@@ -486,7 +486,8 @@ html, body {
    background-color: #f4f4f4;
 }
 .location-main .option {
-    width: 50%;
+    width: 45%;
+    height: 50vh;
 }
 
 .location-main .option div {
@@ -497,6 +498,7 @@ html, body {
     border: 1px solid #ccc;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-weight: bold;
 }
 
 .location-main .map {
