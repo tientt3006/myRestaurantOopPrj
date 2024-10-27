@@ -137,4 +137,25 @@ public class MySqlUserDAO implements UserDAO {
         }
     }
     
+    @Override
+    public void changeInfo(int userId, String firstName, String lastName, String email, String phone) throws DbException {
+        try(Connection con = ConnectionPool.getInstance().getConnection();
+            PreparedStatement ps = con.prepareStatement(SqlUtils.CHANGE_INFO)) {
+            int k = 0;
+            ps.setString(++k, firstName);
+            ps.setString(++k, lastName);
+            ps.setString(++k, email);
+            ps.setString(++k, phone);
+
+            ps.setInt(++k, userId);
+            
+            if(ps.executeUpdate() == 0) {
+                throw new DbException("Changing info failed, no rows were changed");
+            }
+            con.commit();
+        } catch  (SQLException e) {
+            throw new DbException("Cannot changeInfo", e);
+        }
+    }
+    
 }
