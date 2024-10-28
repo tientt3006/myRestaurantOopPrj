@@ -19,6 +19,28 @@
             <div class="menu-container">
                 <h2>Menu</h2>
                 <p>Vui lòng đặt bàn để chọn món</p>
+        <!-- Thanh điều khiển sắp xếp và lọc -->
+            <div class="filter-sort-bar">
+                <!-- Lọc theo loại món -->
+                <form action="menu.jsp" method="GET">
+                    <label for="category">Lọc theo loại:</label>
+                    <select name="category" id="category">
+                        <option value="">Tất cả</option>
+                        <option value="food">Thức ăn</option>
+                        <option value="drink">Đồ uống</option>
+                    </select>
+
+                    <!-- Sắp xếp theo giá -->
+                    <label for="sort">Sắp xếp theo:</label>
+                    <select name="sort" id="sort">
+                        <option value="">Mặc định</option>
+                        <option value="price-asc">Giá tăng dần</option>
+                        <option value="price-desc">Giá giảm dần</option>
+                    </select>
+
+                    <button type="submit">Lọc và Sắp xếp</button>
+                </form>
+            </div>                
                 <div class="menu">
                     <% 
                         // Tổng số món ăn (giả sử)
@@ -76,7 +98,7 @@
         </div>        
                 <!-- Footer -->
                 <%@ include file="cus_footer.jspf" %>
-            </div>
+    </div>
 </body>
 </html>                
 
