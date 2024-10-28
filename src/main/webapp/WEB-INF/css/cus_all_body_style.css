@@ -61,6 +61,8 @@ html, body {
 .login-container .login-box h2 {
     color: white;
     text-align: center;
+    margin: 10px;
+    margin-bottom: 25px;
 }
 .login-container .login-box input[type="email"],
 .login-container .login-box input[type="password"] {
@@ -133,6 +135,7 @@ html, body {
     width: 400px;
     display: flex;
     flex-direction: column;
+    border-radius: 8px;
 }
 .signup-box h2 {
     color: white;
@@ -181,58 +184,50 @@ html, body {
     margin: 0px;
 }
 /*account Main content styles */
-
-.acc-info-box {
-    background-color: #333;
-    padding: 20px;
-    border: 2px solid #000;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+.login-container .account-box {
     width: 400px;
-    max-height: 500px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    color: white;
 }
-.acc-info-box h2 {
-    margin: 10px;
-    margin-bottom: 25px;
-    text-align: center;
-}
-.acc-info-box .btn {
-    margin-top: 10px; /* Khoảng cách giữa các nút và nội dung trên */
-}
-.acc-info-box .info-row {
+.account-box .info-row {
     display: flex; /* Sử dụng Flexbox để bố trí hàng */
     margin-bottom: 10px; /* Khoảng cách giữa các hàng */
+    margin-left: 10px;
 }
-.acc-info-box .info-label {
+.account-box .info-label {
     width: 180px; /* Độ rộng cố định cho nhãn */
+    color: white;
 }
-.acc-info-box .info-value {
+.account-box .info-value {
     flex-grow: 1; /* Cho giá trị chiếm phần còn lại */
+    color: white;
 }
-.acc-info-box .button-container {
+.account-box .button-container {
     display: flex; /* Thiết lập button-container là Flexbox */
     justify-content: space-evenly ; /* Căn giữa các nút với khoảng cách đều */
     margin-top: 20px; /* Khoảng cách trên cho button-container */
-}
-
-.acc-info-box .left-buttons,
-.acc-info-box .right-buttons {
-    display: flex; /* Thiết lập hai bên là Flexbox */
     flex-direction: column; /* Bố trí theo cột */
 }
 
-.acc-info-box .btn {
+.account-box .button-container .btn {
     width: 100%; /* Đặt chiều rộng nút bằng 100% */
     padding: 10px; /* Thêm padding cho nút */
     font-size: 16px; /* Kích thước chữ */
     cursor: pointer; /* Con trỏ chuột */
     margin-bottom: 10px; /* Khoảng cách giữa các nút */
+    margin-top: 10px; /* Khoảng cách giữa các nút và nội dung trên */
+
+}
+/* change info*/
+.login-container .login-box input[type="text"],
+.login-container .login-box input[type="tel"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #000;
+    border-radius: 8px;
+    box-sizing: border-box;
 }
 /* home main content */
-.home-main .main-container {
+.home-main {
    flex: 1;  
    display: flex;
    justify-content: center;  
@@ -241,26 +236,29 @@ html, body {
    background-color: #f4f4f4;
 }
 
-.home-main .main-container img {
+.home-main img {
    width: 90%;  
    height: 10%;  
    object-fit: cover;  
    border-radius:8px;
-   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+   
 }
-
-
-.home-main .main {
-   text-align: center;
-   padding: 50px 0;
-   background-color: #f4f4f4;
+.home-main .illustration {
+    width: 70%;
+      background-color: #f4f4f4;
+      display: left;
+      align-items: left;
+      justify-content: left;
+      color: white;
+      
 }
-.home-main .main img {
-   max-width: 80%;
-   height: auto;
-   border-radius: 8px;
-   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-} 
+.home-main .intro p{
+    margin-bottom: 20px;
+    font-size: 30px;
+    text-align: center;
+    font-weight: bold;
+}
 /* about main content */
 .about-content{
     padding: 50px;
@@ -270,14 +268,56 @@ html, body {
 
 .about-content h2 {
     margin-bottom: 20px;
-    font-size: 28px;
+    font-size: 50px;
+    background-color:#eee;
 }
 
 .about-content p {
     margin-bottom: 10px;
-    font-size: 18px;
+    font-size: 30px;
 }
 
+.about-content .welcome {
+    display: flex;             
+    width: 100%;           
+}
+.about-content .introduce {
+    display: flex;             
+    width: 100%;           
+}
+.about-content .story {
+    display: flex;             
+    width: 100%;           
+}
+.about-content .member {
+    display: flex;             
+    width: 100%;           
+}
+.about-content  .left{
+    width: 40%;               /* Mỗi phần tử chiếm 50% chiều rộng */
+    padding: 10px;            /* Tạo khoảng đệm */
+    box-sizing: border-box;   /* Đảm bảo padding không làm vỡ bố cục */
+}
+.about-content  .right {
+    width: 60%;               /* Mỗi phần tử chiếm 50% chiều rộng */
+    padding: 10px;            /* Tạo khoảng đệm */
+    box-sizing: border-box;   /* Đảm bảo padding không làm vỡ bố cục */
+}
+
+.about-content  .right img {
+    width: 100%;              /* Ảnh bao phủ toàn bộ chiều rộng khối cha */
+    height: auto;             /* Giữ nguyên tỉ lệ ảnh */
+    border-radius: 8px;       /* Bo góc cho ảnh */
+    object-fit: cover;        /* Giúp ảnh vừa với khung mà không méo */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.about-content  .left img {
+    width: 100%;              /* Ảnh bao phủ toàn bộ chiều rộng khối cha */
+    height: auto;             /* Giữ nguyên tỉ lệ ảnh */
+    border-radius: 8px;       /* Bo góc cho ảnh */
+    object-fit: cover;        /* Giúp ảnh vừa với khung mà không méo */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 /* reservation main content */
 
 
@@ -354,8 +394,8 @@ html, body {
             text-decoration: none;
             padding: 10px;
 }
-        .menu-container {
-            padding: 20px;
+.menu-container {
+    padding: 20px;
 }
 .menu-container .menu {
             display: grid;
@@ -415,67 +455,3 @@ html, body {
             font-weight: bold;
             background-color: #ddd;
 }        
-
-
-/*select_dish*/
-select-container .menu {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            padding: 20px;
-        }
-select-container .menu-item {
-            border: 1px solid #ccc;
-            text-align: center;
-            padding: 10px;
-        }
-select-container .menu-item img {
-            width: 100%;
-            height: auto;
-        }
-select-container .menu-item button {
-            background-color: #d9534f;
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-        }
-select-container .menu-item button:hover {
-            background-color: #c9302c;
-        }
-select-container .order-section {
-            border-left: 1px solid #ccc;
-            padding: 20px;
-        }
-select-container .order-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-select-container .order-item img {
-            width: 50px;
-            height: 50px;
-        }
-select-container .order-item button {
-            background-color: #d9534f;
-            color: white;
-            border: none;
-            padding: 5px;
-            cursor: pointer;
-        }
-select-container .order-item button:hover {
-            background-color: #c9302c;
-        }
-select-container .save-button {
-            background-color: #d9534f;
-            color: white;
-            border: none;
-            padding: 15px;
-            width: 100%;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-select-container .save-button:hover {
-            background-color: #c9302c;
-}

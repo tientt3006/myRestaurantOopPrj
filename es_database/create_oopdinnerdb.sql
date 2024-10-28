@@ -48,13 +48,14 @@ CREATE TABLE tables (
     num_people INT,                         -- Số lượng người đặt chỗ, NULL nếu chưa có đặt chỗ
     start_time DATETIME,                    -- Thời gian bắt đầu sử dụng bàn, NULL nếu chưa sử dụng
     end_time DATETIME,                       -- Thời gian kết thúc sử dụng bàn, NULL nếu bàn chưa hoàn tất phục vụ
+    userId INT NOT NULL,
     FOREIGN KEY (userId) REFERENCES users(userId) ON DELETE CASCADE ON UPDATE CASCADE
 );
 CREATE TABLE receiptHasTable (
     receiptId INT,                              -- Mã hóa đơn (khóa ngoại)
     tableId INT,                                -- Mã bàn (khóa ngoại)
     FOREIGN KEY (receiptId) REFERENCES receipt(receiptId) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (tableId) REFERENCES tables(table_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (tableId) REFERENCES tables(tableId) ON DELETE CASCADE ON UPDATE CASCADE,
     PRIMARY KEY (receiptId, tableId)            -- Khóa chính kết hợp giữa hóa đơn và bàn
 );
 CREATE TABLE category (
@@ -73,7 +74,7 @@ CREATE TABLE tableHasDish (
     tableId INT,                                -- Mã bàn (khóa ngoại)
     dishId INT,                                 -- Mã món ăn (khóa ngoại)
     quantity INT NOT NULL,                      -- Số lượng món ăn được gọi
-    FOREIGN KEY (tableId) REFERENCES tables(table_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (tableId) REFERENCES tables(tableId) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (dishId) REFERENCES dish(dishId) ON DELETE CASCADE ON UPDATE CASCADE,
     PRIMARY KEY (tableId, dishId)               -- Khóa chính kết hợp giữa bàn và món ăn
 );

@@ -16,44 +16,37 @@
         <!-- Main Content Section -->
         
         <div class="main-container">
-            <div class="acc-info-box">
-                
-                <h2>Your Account</h2>
-                
-                <div class="info-row">
-                    <div class="info-label">Your Name:</div>
-                    <div class="info-value">${user.full_name}</div>
-                </div>
-                <div class="info-row">
-                    <div class="info-label">Your Email:</div>
-                    <div class="info-value">${user.email}</div>
-                </div>
-                <div class="info-row">
-                    <div class="info-label">Your Phone Number:</div>
-                    <div class="info-value">${user.phone}</div>
-                </div>
-                
-                <div class="button-container">
-                    <div class="left-buttons">
-                       <form action="${pageContext.request.contextPath}/account/delete" method="post">
-                            <button type="submit" class="btn">Delete Account</button>
+            <div class="login-container">
+                <div class="login-box account-box">
+                    <h2>Your Account</h2>
+                    <div class="info-row">
+                        <div class="info-label">Your Name:</div>
+                        <div class="info-value">${user.full_name}</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">Your Email:</div>
+                        <div class="info-value">${user.email}</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">Your Phone Number:</div>
+                        <div class="info-value">${user.phone}</div>
+                    </div>
+
+                    <div class = "button-container">
+                        <form action="${pageContext.request.contextPath}/account/change_info" method="get">
+                            <button type="submit" class="btn">Change Info</button>
                         </form>
+                        <form action="${pageContext.request.contextPath}/account/change_password" method="get">
+                            <button type="submit" class="btn">Change Password</button>
+                        </form>
+
                         <form action="${pageContext.request.contextPath}/account/logout" method="post">
                             <button type="submit" class="btn">Logout</button>
                         </form> 
-                    </div> 
-                    <div class="right-buttons">
-                        <form action="${pageContext.request.contextPath}/account/changeInfo" method="get">
-                            <button type="submit" class="btn">Change Info</button>
-                        </form>
-                        <form action="${pageContext.request.contextPath}/account/changePassword" method="get">
-                            <button type="submit" class="btn">Change Password</button>
-                        </form>
                     </div>
-                </div> 
-            </div>
+                </div>
+            </div>      
         </div>
-
         <!-- Footer Section -->
         <%@ include file="cus_footer.jspf" %>
     </div>

@@ -93,7 +93,7 @@
                     <% if (currentPage < totalPages) { %>
                         <a href="?page=<%= (currentPage + 1) %>">Trang sau</a>
                     <% } %>
-                </div>>
+                </div>
             </div>
         </div>        
                 <!-- Footer -->
