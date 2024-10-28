@@ -24,7 +24,10 @@ import java.util.logging.Logger;
 public class MenuServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
-    // Chuyển hướng người dùng đến trang đăng nhập khi yêu cầu là GET
+//        req.getRequestDispatcher("/WEB-INF/jsp/menu.jsp").forward(req, response);
+//        // Chuyển hướng người dùng đến trang đăng nhập khi yêu cầu là GET
+//    }
+//    protected void doPost(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
         Dish dish = null;
         try {
             dish = DAO.getDAO().getDishDAO().getDish();

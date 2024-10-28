@@ -17,7 +17,7 @@
         <!-- Main Content Section -->
         <div class="main-container">
             <div class="menu-container">
-                <h2>Menu</h2>
+                <h2>Menu </h2>
                 <p>Vui lòng đặt bàn để chọn món </p>
         <!-- Thanh điều khiển sắp xếp và lọc -->
             <div class="filter-sort-bar">
@@ -63,7 +63,7 @@
                         // Giả sử danh sách món ăn là một mảng (hoặc lấy từ database)
                         String[] dishes = new String[totalItems];
                         for (int i = 0; i < totalItems; i++) {
-                            dishes[i] =(String) pageContext.getAttribute("dish.dishName"); ;
+                            dishes[i] ="A";
                         }
 
                         // Hiển thị các món ăn của trang hiện tại
