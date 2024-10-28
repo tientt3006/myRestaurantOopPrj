@@ -25,7 +25,7 @@ public class SqlUtils {
     public static final String FIND_USER_BY_PHONE = "SELECT * FROM users WHERE phone LIKE ?";
     public static final String CHANGE_PASSWORD = "UPDATE users SET password = ? WHERE userId = ?";
     public static final String CHANGE_INFO = "UPDATE users SET firstName = ?, lastName = ?, email = ?, phone = ? WHERE userId = ?";
-    public static final String GET_DISH = "SELECT * FROM dish";
+    public static final String GET_DISHES = "SELECT * FROM dish";
     private static final Logger logger = LoggerFactory.getLogger(SqlUtils.class);
 
     // Other constants and methods

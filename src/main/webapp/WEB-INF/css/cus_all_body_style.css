@@ -382,6 +382,8 @@ html, body {
     font-size: 12px;
     text-align: center;
 }
+
+
 /*menu*/
 .menu-container .nav {
             display: flex;
@@ -395,7 +397,9 @@ html, body {
             padding: 10px;
 }
 .menu-container {
-    padding: 20px;
+    padding: 50px;
+    background-color: #f2f2f2;
+    
 }
 .menu-container .menu {
             display: grid;

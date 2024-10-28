@@ -13,5 +13,5 @@ import java.util.List;
 
 public interface DishDAO {
 
-    public Dish getDish() throws DbException;
+    public List<Dish> getDishes() throws DbException;
 }
