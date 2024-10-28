@@ -46,6 +46,7 @@
                             <img src="${pageContext.request.contextPath}/img/PRRestaurant.jpg" alt="${dish}">
                             <h3>${dish.dishName}</h3>
                             <p>Chi tiết về món ăn ${dish.ingredient}</p>
+                            <p> ${dish.price} $</p>
                         </div>
                     </c:forEach>
                 </div>
