@@ -385,6 +385,12 @@ html, body {
 
 
 /*menu*/
+.menu-container h2{
+    margin-bottom: 20px;
+    font-size: 50px;
+   
+}
+
 .menu-container .nav {
             display: flex;
             justify-content: space-around;
@@ -424,18 +430,21 @@ html, body {
 }
 .menu-container .filter-sort-bar {
             display: flex;
+            width: auto;
             justify-content: space-between;
             margin-bottom: 20px;
 }
 .menu-container .filter-sort-bar select, .filter-sort-bar button {
+    width: auto;
             padding: 10px;
             font-size: 16px;
             border: 1px solid #ddd;
             border-radius: 5px;
+            background: #ddd;
 }
-.menu-container .menu-item p {
+.menu-container  p {
             margin: 0;
-            font-size: 14px;
+            font-size: 16px;
 }
 .menu-container .pagination {
             display: flex;
