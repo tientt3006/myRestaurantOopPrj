@@ -19,25 +19,24 @@
         <div class="main-container">
             <div class="menu-container">
                 <h2>Menu</h2>
-                <p>Vui lòng đặt bàn để chọn món</p>
-
                 <div class="filter-sort-bar">
                     <form action="menu.jsp" method="GET">
-                        <label for="category">Lọc theo loại:</label>
+                        <label for="category">Categorize: </label>
                         <select name="category" id="category">
-                            <option value="">Tất cả</option>
-                            <option value="food">Thức ăn</option>
-                            <option value="drink">Đồ uống</option>
+                            <option value="">All</option>
+                            <option value="meat">Meat</option>
+                            <option value="wine">Wine</option>
+                            <option value="vegetable">Vegetable</option>
                         </select>
 
-                        <label for="sort">Sắp xếp theo:</label>
+                        <label for="sort">Price:</label>
                         <select name="sort" id="sort">
-                            <option value="">Mặc định</option>
-                            <option value="price-asc">Giá tăng dần</option>
-                            <option value="price-desc">Giá giảm dần</option>
+                            <option value="">Default</option>
+                            <option value="price-asc">Increasing</option>
+                            <option value="price-desc">Decreasing</option>
                         </select>
 
-                        <button type="submit">Lọc và Sắp xếp</button>
+                        <button type="submit">Filter</button>
                     </form>
                 </div>
                 <div class="menu">
@@ -45,14 +44,14 @@
                         <div class="menu-item">
                             <img src="${pageContext.request.contextPath}/img/PRRestaurant.jpg" alt="${dish}">
                             <h3>${dish.dishName}</h3>
-                            <p>Chi tiết về món ăn ${dish.ingredient}</p>
-                            <p> ${dish.price} $</p>
+                            <p>${dish.ingredient}</p>
+                            <p>${dish.price} $</p>
                         </div>
                     </c:forEach>
                 </div>
                 <div class="pagination">
                     <c:if test="${currentPage > 1}">
-                        <a href="?page=${currentPage - 1}">Trang trước</a>
+                        <a href="?page=${currentPage - 1}">Prior Page</a>
                     </c:if>
                     
                     <c:forEach var="i" begin="1" end="${totalPages}">
@@ -62,98 +61,12 @@
                     </c:forEach>
                     
                     <c:if test="${currentPage < totalPages}">
-                        <a href="?page=${currentPage + 1}">Trang sau</a>
+                        <a href="?page=${currentPage + 1}">Next Page</a>
                     </c:if>
                   
                 </div>
             </div>
         </div>
-        
-        
-        
-        <!--Main Content Section--> 
-<!--        <div class="main-container">
-            <div class="menu-container">
-                <h2>Menu </h2>
-                <p>Vui lòng đặt bàn để chọn món </p>
-                
-            Thanh điều khiển sắp xếp và lọc 
-                <div class="filter-sort-bar">
-                    Lọc theo loại món 
-                    <form action="menu.jsp" method="GET">
-                        <label for="category">Lọc theo loại:</label>
-                        <select name="category" id="category">
-                            <option value="">Tất cả</option>
-                            <option value="food">Thức ăn</option>
-                            <option value="drink">Đồ uống</option>
-                        </select>
-
-                        Sắp xếp theo giá 
-                        <label for="sort">Sắp xếp theo:</label>
-                        <select name="sort" id="sort">
-                            <option value="">Mặc định</option>
-                            <option value="price-asc">Giá tăng dần</option>
-                            <option value="price-desc">Giá giảm dần</option>
-                        </select>
-
-                        <button type="submit">Lọc và Sắp xếp</button>
-                    </form>
-                </div>                
-                <div class="menu">
-                    <% 
-                        // Tổng số món ăn (giả sử)
-                        int totalItems = 32; 
-
-                        // Số món ăn hiển thị trên mỗi trang
-                        int itemsPerPage = 8;
-
-                        // Tổng số trang
-                        int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage);
-
-                        // Lấy trang hiện tại từ URL (mặc định là trang 1)
-                        String pageParam = request.getParameter("page");
-                        int currentPage = (pageParam != null) ? Integer.parseInt(pageParam) : 1;
-
-                        // Tính toán món ăn bắt đầu và kết thúc cho trang hiện tại
-                        int startItem = (currentPage - 1) * itemsPerPage;
-                        int endItem = Math.min(startItem + itemsPerPage, totalItems);
-
-                        // Giả sử danh sách món ăn là một mảng (hoặc lấy từ database)
-                        String[] dishes = new String[totalItems];
-                        for (int i = 0; i < totalItems; i++) {
-                            dishes[i] ="A";
-                        }
-
-                        // Hiển thị các món ăn của trang hiện tại
-                        for (int i = startItem; i < endItem; i++) {
-                     %>
-                    <div class="menu-item">
-                        <img src="${pageContext.request.contextPath}/img/PRRestaurant.jpg" alt="<%= dishes[i] %>">
-                        <h3><%= dishes[i] %></h3>
-                        <p>Chi tiết về món ăn <%= dishes[i] %></p>
-                    </div>
-                    <% } %>
-                </div>
-
-                Phân trang 
-                <div class="pagination">
-                    <% if (currentPage > 1) { %>
-                        <a href="?page=<%= (currentPage - 1) %>">Trang trước</a>
-                    <% } %>
-
-                    <% for (int i = 1; i <= totalPages; i++) { %>
-                        <a href="?page=<%= i %>" 
-                           style="<%= (i == currentPage) ? "font-weight: bold;" : "" %>">
-                           <%= i %>
-                        </a>
-                    <% } %>
-
-                    <% if (currentPage < totalPages) { %>
-                        <a href="?page=<%= (currentPage + 1) %>">Trang sau</a>
-                    <% } %>
-                </div>
-            </div>
-        </div>-->
         <!-- Footer -->
         <%@ include file="cus_footer.jspf" %>
     </div>
