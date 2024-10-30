@@ -13,9 +13,6 @@
         <!--Header Section--> 
         
         <%@ include file="cus_header.jspf" %>
-        
-        
-        
         <div class="main-container">
             <div class="menu-container">
                 <h2>Menu</h2>
@@ -24,9 +21,9 @@
                         <label for="category">Categorize: </label>
                         <select name="category" id="category">
                             <option value="">All</option>
-                            <option value="meat">Meat</option>
-                            <option value="wine">Wine</option>
-                            <option value="vegetable">Vegetable</option>
+                            <option value=1>Meat</option>
+                            <option value=2>Wine</option>
+                            <option value=3>Vegetable</option>
                         </select>
 
                         <label for="sort">Price:</label>
@@ -39,6 +36,13 @@
                         <button type="submit">Filter</button>
                     </form>
                 </div>
+                
+                
+                
+                
+                
+                
+                
                 <div class="menu">
                     <c:forEach var="dish" items="${dishes}">
                         <div class="menu-item">

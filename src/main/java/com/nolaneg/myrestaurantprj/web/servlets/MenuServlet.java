@@ -24,25 +24,12 @@ import java.util.*;
 
 public class MenuServlet extends HttpServlet{
     @Override
-//    protected void doGet(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
-//        Dish dish = null;
-//        try {
-//            dish = DAO.getDAO().getDishDAO().getDish();
-//        } catch (DbException ex) {
-//            Logger.getLogger(MenuServlet.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        
-//        req.setAttribute("dish", dish);
-//        req.getRequestDispatcher("/WEB-INF/jsp/menu.jsp").forward(req, response);
-//    }
     
-    protected void doGet(HttpServletRequest req, HttpServletResponse response) 
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
+        
+//    }
+//    protected void doPost(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
 
-        // Giả sử chúng ta có tổng cộng 32 món ăn
-        
-        // Giả lập danh sách món ăn
-        
         List<Dish> dishes = null;
         try {
             dishes = DAO.getDAO().getDishDAO().getDishes();
@@ -53,36 +40,53 @@ public class MenuServlet extends HttpServlet{
             int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage);
 
             // Lấy trang hiện tại từ request
-    //        String pageParam = "2";
             String pageParam = req.getParameter("page");
             int currentPage = (pageParam != null) ? Integer.parseInt(pageParam) : 1;
 
             // Xác định phạm vi món ăn cần hiển thị
             int startItem = (currentPage - 1) * itemsPerPage;
             int endItem = Math.min(startItem + itemsPerPage, totalItems);
-    
-            
-//        for (int i = 1; i <= totalItems; i++) {
-//            try {
-//                dishes.add(DAO.getDAO().getDishDAO().getDishes());
-//            } catch (DbException ex) {
-//                Logger.getLogger(MenuServlet.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
+          
             List<Dish> currentDishes = dishes.subList(startItem, endItem);
-
+            
+//            int category = Integer.parseInt(req.getParameter("category")); 
+//            String sort = req.getParameter("sort"); 
+//
+//            // Giả sử bạn có sẵn một danh sách món ăn
+//            List<Dish> filteredDishes = new ArrayList<>();
+//
+//            // Lọc theo category nếu có
+//            for (Dish dish : dishes) {
+//                if (dish.getCategoryId()==category) {
+//                    filteredDishes.add(dish);
+//                } else {
+//                }
+//            }
+//
+//            // Sắp xếp theo giá nếu cần
+//            if ("price-asc".equals(sort)) {
+//                filteredDishes.sort(Comparator.comparing(Dish::getPrice));
+//            } else if ("price-desc".equals(sort)) {
+//                filteredDishes.sort(Comparator.comparing(Dish::getPrice).reversed());
+//            }
+//
+//            // Đưa danh sách đã lọc vào request để hiển thị
+//            req.setAttribute("dishes", filteredDishes);
+            
             // Truyền dữ liệu sang JSP
             req.setAttribute("dishes", currentDishes);
             req.setAttribute("currentPage", currentPage);
             req.setAttribute("totalPages", totalPages);
-
+            
+            
+            
+//            
             req.getRequestDispatcher("/WEB-INF/jsp/menu.jsp").forward(req, response);
+
+            
         }
         catch (DbException ex) {
             Logger.getLogger(MenuServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        // Lấy danh sách món ăn cho trang hiện tại
-        
     }
 }
