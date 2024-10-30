@@ -68,7 +68,7 @@
                 <div class="menu">
                     <c:forEach var="dish" items="${dishes}">
                         <div class="menu-item">
-                            <img src="${pageContext.request.contextPath}/img/dish-18.jpg" alt="${dish}">
+                            <img src="${pageContext.request.contextPath}/img/dish-${dish.dishId}.jpg" alt="${dish}">
                             <h3>${dish.dishName}</h3>
                             <p>${dish.ingredient}</p>
                             <p>${dish.price} $</p>
