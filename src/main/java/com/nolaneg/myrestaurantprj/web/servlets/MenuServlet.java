@@ -48,30 +48,7 @@ public class MenuServlet extends HttpServlet{
             int endItem = Math.min(startItem + itemsPerPage, totalItems);
           
             List<Dish> currentDishes = dishes.subList(startItem, endItem);
-            
-//            int category = Integer.parseInt(req.getParameter("category")); 
-//            String sort = req.getParameter("sort"); 
-//
-//            // Giả sử bạn có sẵn một danh sách món ăn
-//            List<Dish> filteredDishes = new ArrayList<>();
-//
-//            // Lọc theo category nếu có
-//            for (Dish dish : dishes) {
-//                if (dish.getCategoryId()==category) {
-//                    filteredDishes.add(dish);
-//                } else {
-//                }
-//            }
-//
-//            // Sắp xếp theo giá nếu cần
-//            if ("price-asc".equals(sort)) {
-//                filteredDishes.sort(Comparator.comparing(Dish::getPrice));
-//            } else if ("price-desc".equals(sort)) {
-//                filteredDishes.sort(Comparator.comparing(Dish::getPrice).reversed());
-//            }
-//
-//            // Đưa danh sách đã lọc vào request để hiển thị
-//            req.setAttribute("dishes", filteredDishes);
+           
             
             // Truyền dữ liệu sang JSP
             req.setAttribute("dishes", currentDishes);

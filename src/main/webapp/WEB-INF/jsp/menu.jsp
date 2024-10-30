@@ -17,6 +17,28 @@
             <div class="menu-container">
                 <h2>Menu</h2>
                 <div class="filter-sort-bar">
+                    <!--<div>-->
+<!--                    Category:
+                        <label>
+                            <select name="category" class="form-select">
+                                <option value="0">All dishes</option>
+                                <c:forEach var="category" items="${categories}">
+                                    <option ${param.category == category.id ? "selected" : ""} value="${category.id}">
+                                            ${category.name}
+                                    </option>
+                                </c:forEach>
+                            </select>
+                        </label>
+                    </div>
+                    <div>
+                        SortBy:
+                        <select name="sort" class="form-select">
+                            <c:forEach var="sort" items="${sortTypes}">
+                                <option ${param.sortBy == sort.value ? "selected" : ""} value="${sort.value}">${sort.key}</option>
+                            </c:forEach>
+                        </select>
+                    </div>-->
+                    
                     <form action="menu.jsp" method="GET">
                         <label for="category">Categorize: </label>
                         <select name="category" id="category">
@@ -46,7 +68,7 @@
                 <div class="menu">
                     <c:forEach var="dish" items="${dishes}">
                         <div class="menu-item">
-                            <img src="${pageContext.request.contextPath}/img/PRRestaurant.jpg" alt="${dish}">
+                            <img src="${pageContext.request.contextPath}/img/dish-18.jpg" alt="${dish}">
                             <h3>${dish.dishName}</h3>
                             <p>${dish.ingredient}</p>
                             <p>${dish.price} $</p>

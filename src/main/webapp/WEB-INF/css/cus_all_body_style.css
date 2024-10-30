@@ -417,7 +417,7 @@ html, body {
             padding: 15px;
             border-radius: 5px;
             text-align: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Tạo bóng nhẹ */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Tạo bóng nhẹ */
 }
 .menu-container .menu-item img {
             width: 100%;
