@@ -24,12 +24,31 @@ public class SqlUtils {
     public static final String FIND_USER_BY_EMAIL = "SELECT * FROM users WHERE email LIKE ?";
     public static final String FIND_USER_BY_PHONE = "SELECT * FROM users WHERE phone LIKE ?";
     public static final String CHANGE_PASSWORD = "UPDATE users SET password = ? WHERE userId = ?";
+    
+    public static final String GET_ALL_CATEGORIES = "SELECT * FROM category";
+    
     public static final String CHANGE_INFO = "UPDATE users SET firstName = ?, lastName = ?, email = ?, phone = ? WHERE userId = ?";
     public static final String GET_DISHES = "SELECT * FROM dish";
+    public static final String GET_DISH_BY_ID = "SELECT * FROM dish WHERE dishId = ?";
+    public static final String GET_SORTED_DISHES_FROM_CATEGORY = "SELECT * FROM dish WHERE categoryId = ? ORDER BY ";
+    public static final String GET_SORTED_DISHES = "SELECT * FROM dish ORDER BY ";
+    public static final String GET_DISHES_COUNT = "SELECT COUNT(*) FROM dish";
+    public static final String GET_DISHES_COUNT_IN_CATEGORY = "SELECT COUNT(*) FROM dish WHERE categoryId = ?";
+    
+    public static final String GET_DISH_ORDERS_COUNT = "SELECT dishId, dishName, IFNULL((SELECT SUM(count) FROM receiptHasDish WHERE receiptHasDish.dishId = dish.dishId), 0) AS orders FROM dish ORDER BY dishId";
+    
     private static final Logger logger = LoggerFactory.getLogger(SqlUtils.class);
 
     // Other constants and methods
 
+    public static final Map<String, String> sortingTypes = new HashMap<>();
+
+    static {
+        sortingTypes.put("Price", "price");
+        sortingTypes.put("Name", "dishName");
+        sortingTypes.put("Category", "categoryId");
+    }
+    
     public static void rollback(Connection con) {
         try {
             con.rollback();

@@ -5,6 +5,7 @@
 package com.nolaneg.myrestaurantprj.web.servlets;
 
 import com.nolaneg.myrestaurantprj.db.InterfaceDAO.DAO;
+import com.nolaneg.myrestaurantprj.db.entity.Category;
 import com.nolaneg.myrestaurantprj.db.entity.Dish;
 import com.nolaneg.myrestaurantprj.exceptions.DbException;
 import jakarta.annotation.Resource;
@@ -20,47 +21,53 @@ import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.*;
+import javax.servlet.http.HttpSession;
 @WebServlet("/menu")
 
 public class MenuServlet extends HttpServlet{
-    @Override
     
-    protected void doGet(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
-        
-//    }
-//    protected void doPost(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
-
-        List<Dish> dishes = null;
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int category = Integer.parseInt(req.getParameter("category"));
+        int page = Integer.parseInt(req.getParameter("page"));
+        int dishesInPage = Integer.parseInt(req.getParameter("dishesInPage"));
+        String sortBy = req.getParameter("sortBy");
+        HttpSession session = req.getSession();
         try {
-            dishes = DAO.getDAO().getDishDAO().getDishes();
-            int totalItems = dishes.size(); 
-            int itemsPerPage = 8;
-
-            // Tính số trang
-            int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage);
+            if (session.getAttribute("categories") == null) {
+                List<Category> categories = DAO.getDAO().getCategoryDAO().getAllCategories();
+                session.setAttribute("categories", categories);
+            }
+            
+            List<Dish> dishes;
+            //dishes = DAO.getDAO().getDishDAO().getDishes();
+            //int totalItems = dishes.size(); 
+            //int itemsPerPage = 8;
+            int totalPages;
+            if (category == 0) {
+                dishes = DAO.getDAO().getDishDAO().getSortedDishesOnPage(sortBy, dishesInPage, page);
+                totalPages = DAO.getDAO().getDishDAO().getDishesNumber();
+            } else {
+                dishes = DAO.getDAO().getDishDAO().getSortedDishesFromCategoryOnPage(category, sortBy, dishesInPage, page);
+                totalPages = DAO.getDAO().getDishDAO().getDishesNumberInCategory(category);
+            }
+            totalPages = (int) Math.ceil((double) totalPages / dishesInPage) - 1;
 
             // Lấy trang hiện tại từ request
-            String pageParam = req.getParameter("page");
-            int currentPage = (pageParam != null) ? Integer.parseInt(pageParam) : 1;
+            //String pageParam = req.getParameter("page");
+            //int currentPage = (pageParam != null) ? Integer.parseInt(pageParam) : 1;
 
             // Xác định phạm vi món ăn cần hiển thị
-            int startItem = (currentPage - 1) * itemsPerPage;
-            int endItem = Math.min(startItem + itemsPerPage, totalItems);
+            //int startItem = (currentPage - 1) * itemsPerPage;
+            //int endItem = Math.min(startItem + itemsPerPage, totalItems);
           
-            List<Dish> currentDishes = dishes.subList(startItem, endItem);
+            //List<Dish> currentDishes = dishes.subList(startItem, endItem);
            
             
             // Truyền dữ liệu sang JSP
-            req.setAttribute("dishes", currentDishes);
-            req.setAttribute("currentPage", currentPage);
-            req.setAttribute("totalPages", totalPages);
-            
-            
-            
-//            
-            req.getRequestDispatcher("/WEB-INF/jsp/menu.jsp").forward(req, response);
-
-            
+            session.setAttribute("totalPages", totalPages);
+            session.setAttribute("dishes", dishes);
+            req.getRequestDispatcher("/WEB-INF/jsp/menu.jsp").forward(req, resp);  
         }
         catch (DbException ex) {
             Logger.getLogger(MenuServlet.class.getName()).log(Level.SEVERE, null, ex);
