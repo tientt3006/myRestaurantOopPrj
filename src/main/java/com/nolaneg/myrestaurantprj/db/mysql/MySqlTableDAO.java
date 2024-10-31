@@ -19,10 +19,14 @@ public class MySqlTableDAO implements TableDAO{
     @Override
     public int getReservedTable(int branchId, String date, String time) throws DbException {
         
+        return 0;
+        
     }
 
     @Override
     public int getOccupiedTable(int branchId, String date, String time) throws DbException {
+
+        return 0;
 
     }
     
