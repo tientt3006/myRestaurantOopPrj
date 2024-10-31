@@ -391,83 +391,76 @@ html, body {
    
 }
 
-.menu-container .nav {
-            display: flex;
-            justify-content: space-around;
-            background-color: #444;
-            padding: 10px 0;
-}
-.menu-container .nav a {
-            color: white;
-            text-decoration: none;
-            padding: 10px;
-}
 .menu-container {
     padding: 50px;
     background-color: #f2f2f2;
     
 }
 .menu-container .menu {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr); /* 4 cột */
-            gap: 20px; /* Khoảng cách giữa các món */
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 cột */
+    gap: 20px; /* Khoảng cách giữa các món */
 }
 .menu-container .menu-item {
-            background-color: white;
-            padding: 15px;
-            border-radius: 5px;
-            text-align: center;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Tạo bóng nhẹ */
+    background-color: white;
+    padding: 15px;
+    border-radius: 5px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Tạo bóng nhẹ */
 }
 .menu-container .menu-item img {
-            width: 100%;
-            height: auto;
-            border-radius: 5px;
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
 }
 .menu-container .menu-item h3 {
-            margin: 10px 0 5px;
-            font-size: 18px;
+    margin: 10px 0 5px;
+    font-size: 18px;
 }
-.menu-container .filter-sort-bar {
-            display: flex;
-            width: auto;
-            justify-content: space-between;
-            margin-bottom: 20px;
-}
+
 .menu-container .filter-sort-bar select, .filter-sort-bar button {
     width: auto;
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background: #ddd;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: #ddd;
 }
 .menu-container  p {
-            margin: 0;
-            font-size: 16px;
+    margin: 0;
+    font-size: 16px;
 }
 .menu-container .pagination {
-            display: flex;
-            justify-content: center; /* Căn giữa các liên kết phân trang */
-            align-items: center;
-            margin-top: 20px;
-        }
+    display: flex;
+    justify-content: center; /* Căn giữa các liên kết phân trang */
+    align-items: center;
+    margin-top: 20px;
+    list-style: none;
+}
+
 .menu-container .pagination a {
-            text-decoration: none;
-            color: #333;
-            padding: 10px 15px;
-            margin: 0 5px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-        }
+    text-decoration: none;
+    color: #333;
+    padding: 10px 15px;
+    margin: 0 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
 .menu-container .pagination a:hover {
-            background-color: #eee;
-        }
+    background-color: #eee;
+}
 .menu-container .pagination a.active {
-            font-weight: bold;
-            background-color: #ddd;
+    font-weight: bold;
+    background-color: #ddd;
 }        
+.menu-container .pagination .page-item.active .page-link {
+    font-weight: bold; /* Làm chữ in đậm */
+    background-color: #007bff; /* Màu nền khi được chọn */
+    color: white; /* Màu chữ */
+    border-radius: 0.25rem; /* Bo tròn góc */
+}
+
 /* Location */
 .location-main {
     flex: 1;  

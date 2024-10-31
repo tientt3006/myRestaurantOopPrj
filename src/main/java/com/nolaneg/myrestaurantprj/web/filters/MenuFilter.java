@@ -23,12 +23,18 @@ import java.io.IOException;
  */
 @WebFilter({"/","/menu"})
 public class MenuFilter extends HttpFilter {
+    @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
-        int category = req.getIntHeader("category");
-        String sort = req.getParameter("sort");
-        if (category == 0 || sort == null) {
-            res.sendRedirect(req.getContextPath() + "/menu?category=0&sort=categoryId&page=0&dishesOnPage=5");
-        }else {
+        String category = req.getParameter("category");
+        String sortBy = req.getParameter("sortBy");
+//        User user = (User) req.getSession().getAttribute("user");
+//        if (user != null && user.getRoleId() == 2) {
+//            res.sendRedirect(req.getContextPath() + "/users");
+//            return;
+//        }
+        if (category == null || sortBy == null) {
+            res.sendRedirect(req.getContextPath() + "/menu?category=0&sortBy=categoryId&page=0&dishesInPage=8");
+        } else {
             chain.doFilter(req, res);
         }
     }

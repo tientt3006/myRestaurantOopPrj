@@ -1,17 +1,14 @@
 package com.nolaneg.myrestaurantprj.db.entity;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Hoàng Hướng
  */
-public class Category {
+public class Category implements Serializable {
     private int categoryId;
     private String categoryName;
-
-    public Category(int categoryId, String categoryName) {
-        this.categoryId = categoryId;
-        this.categoryName = categoryName;
-    }
 
     public int getCategoryId() {
         return categoryId;
@@ -20,13 +17,22 @@ public class Category {
     public String getCategoryName() {
         return categoryName;
     }
-
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
-    }
     
+    public static class Builder {
+        Category category = new Category();
+
+        public Category getCategory() {
+            return category;
+        }
+
+        public Builder setCategoryId(int id) {
+            category.categoryId = id;
+            return this;
+        }
+
+        public Builder setCategoryName(String name) {
+            category.categoryName = name;
+            return this;
+        }
+    }
 }

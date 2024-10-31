@@ -14,4 +14,5 @@ public abstract class DAO {
     
     public abstract UserDAO getUserDAO();
     public abstract DishDAO getDishDAO();
+    public abstract CategoryDAO getCategoryDAO();
 }
