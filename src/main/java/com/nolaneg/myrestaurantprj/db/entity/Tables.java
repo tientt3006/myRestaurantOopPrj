@@ -10,56 +10,31 @@ package com.nolaneg.myrestaurantprj.db.entity;
  */
 import java.io.*;
 import java.util.*;
-public class Tables implements Serializable{
-    private int table_id;
-    private int restaurant_id;
-    private int table_number;
-    private int seats = 6;
-    private int floor;
-    private String status = "Available";
-    //
-    public int getTable_id(){
-        return table_id;
+public class Tables implements Serializable {
+    private int tableId;
+    private String status;
+    
+    public int getTableId(){
+        return tableId;
     }
-    public int getRestaurant_id(){
-        return restaurant_id;
-    }
-    public int getTable_number(){
-        return table_number;
-    }
-    public int getSeats(){
-        return seats;
-    }
-    public int getFloor(){
-        return floor;
-    }
+//    public Branch getBranch(){
+//        return branch;
+//    }
     public String getStatus(){
         return status;
     }
-    //
-    public static class Build{
+    
+    public static class Builder{
         Tables table = new Tables();
-        public Build setTable_id(int table_id){
-            table.table_id = table_id;
+        public Builder setTableId(int id){
+            table.tableId = id;
             return this;
         }
-        public Build setRestaurant_id(int restaurant_id){
-            table.restaurant_id = restaurant_id;
-            return this;
-        }
-        public Build setTable_number(int table_number){
-            table.table_number = table_number;
-            return this;
-        }
-        public Build setSeats(int seats){
-            table.seats = seats;
-            return this;
-        }
-        public Build setFloor(int floor){
-            table.floor = floor;
-            return this;
-        }
-        public Build setStatus(String status){
+//        public Builder setBranchId(int branchId){
+//            table.d = branchId;
+//            return this;
+//        }
+        public Builder setStatus(String status){
             table.status = status;
             return this;
         }

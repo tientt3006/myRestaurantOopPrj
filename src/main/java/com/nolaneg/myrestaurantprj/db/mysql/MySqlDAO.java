@@ -1,10 +1,7 @@
 
 
 package com.nolaneg.myrestaurantprj.db.mysql;
-import com.nolaneg.myrestaurantprj.db.InterfaceDAO.CategoryDAO;
-import com.nolaneg.myrestaurantprj.db.InterfaceDAO.UserDAO;
-import com.nolaneg.myrestaurantprj.db.InterfaceDAO.DAO;
-import com.nolaneg.myrestaurantprj.db.InterfaceDAO.DishDAO;
+import com.nolaneg.myrestaurantprj.db.InterfaceDAO.*;
 import java.util.*;
 import java.io.*;
 import java.math.*;
@@ -25,5 +22,15 @@ public class MySqlDAO extends DAO {
     @Override
     public CategoryDAO getCategoryDAO() {
         return new MySqlCategoryDAO();
+    }
+    
+    @Override
+    public TableDAO getTableDAO() {
+        return new MySqlTableDAO();
+    }
+    
+    @Override
+    public BranchDAO getBranchDAO() {
+        return new MySqlBranchDAO();
     }
 }

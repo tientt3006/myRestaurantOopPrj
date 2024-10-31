@@ -12,7 +12,14 @@ DROP TABLE IF EXISTS receiptHasTable;
 DROP TABLE IF EXISTS category;
 DROP TABLE IF EXISTS dish;
 DROP TABLE IF EXISTS tableHasDish;
+DROP TABLE IF EXISTS branch;
 
+CREATE TABLE branch (
+    branchId INT AUTO_INCREMENT PRIMARY KEY,
+    address VARCHAR(255),
+    mnId INT NOT NULL,
+    FOREIGN KEY (mnId) REFERENCES users(userId) ON DELETE CASCADE ON UPDATE CASCADE
+);
 
 CREATE TABLE role (
     roleId INT AUTO_INCREMENT PRIMARY KEY,
@@ -39,17 +46,18 @@ CREATE TABLE receipt (
     receiptType VARCHAR(20) NOT NULL,            -- Loại hóa đơn: 'deposit' (cọc bàn) hoặc 'food' (tiền thức ăn)
     FOREIGN KEY (userId) REFERENCES users(userId) ON DELETE CASCADE ON UPDATE CASCADE
 );
+-- Maximum 50 tables per branch, in real life. So that each branch can handle maximun 300 people at the same time
 CREATE TABLE tables (
-    tableId INT PRIMARY KEY,               -- Mã ID duy nhất cho mỗi bàn
-    maxSeats INT DEFAULT 6,                -- Số lượng người tối đa mỗi bàn có thể phục vụ, mặc định là 6
-    status VARCHAR(20) NOT NULL,            -- Trạng thái của bàn: 'available'(trống), 'reserved' (đã đặt), 'occupied' (đang ngồi ăn)
-    reservation_date DATE,                  -- Ngày đặt bàn, NULL nếu chưa có đặt chỗ
-    reservation_time TIME,                  -- Giờ đặt bàn, NULL nếu chưa có đặt chỗ
-    num_people INT,                         -- Số lượng người đặt chỗ, NULL nếu chưa có đặt chỗ
-    start_time DATETIME,                    -- Thời gian bắt đầu sử dụng bàn, NULL nếu chưa sử dụng
-    end_time DATETIME,                       -- Thời gian kết thúc sử dụng bàn, NULL nếu bàn chưa hoàn tất phục vụ
-    userId INT NOT NULL,
-    FOREIGN KEY (userId) REFERENCES users(userId) ON DELETE CASCADE ON UPDATE CASCADE
+    tableId INT PRIMARY KEY,               
+    reservation_date DATE PRIMARY KEY,               
+    reservation_time TIME PRIMARY KEY,
+    maxSeats INT DEFAULT 6,
+    status VARCHAR(20) NOT NULL, -- available, reserved, occupied  
+    num_people INT, 
+    start_time DATETIME,
+    end_time DATETIME,
+    branchId INT,
+    FOREIGN KEY (branchId) REFERENCES branch(branchId) ON DELETE CASCADE ON UPDATE CASCADE
 );
 CREATE TABLE receiptHasTable (
     receiptId INT,                              -- Mã hóa đơn (khóa ngoại)
