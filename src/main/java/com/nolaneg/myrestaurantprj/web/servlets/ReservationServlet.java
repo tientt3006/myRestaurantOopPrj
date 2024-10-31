@@ -16,12 +16,12 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-@WebServlet("/FindTable")
+@WebServlet("/reservation")
 
-public class FindTable extends HttpServlet{
+public class ReservationServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     // Chuyển hướng người dùng đến trang đăng nhập khi yêu cầu là GET
-        request.getRequestDispatcher("/WEB-INF/jsp/FindTable.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/jsp/reservation.jsp").forward(request, response);
     }
 }
