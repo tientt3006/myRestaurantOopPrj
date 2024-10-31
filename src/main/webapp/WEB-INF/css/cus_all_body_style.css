@@ -385,43 +385,13 @@ html, body {
 
 
 /*menu*/
-.menu-container h2{
-    margin-bottom: 20px;
-    font-size: 50px;
-   
-}
 
 .menu-container {
     padding: 50px;
     background-color: #f2f2f2;
-    
 }
-.menu-container .menu {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 cột */
-    gap: 20px; /* Khoảng cách giữa các món */
-}
-.menu-container .menu-item {
-    background-color: white;
-    padding: 15px;
-    border-radius: 5px;
-    text-align: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Tạo bóng nhẹ */
-}
-.menu-container .menu-item img {
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
-}
-.menu-container .menu-item h3 {
-    margin: 10px 0 5px;
-    font-size: 18px;
-}
-.menu-container .c_category_name {
-    font-size: 20px;
-    /*color: #ff3333;*/
-}
-.menu-container  select,.filter-sort-bar button {
+
+.menu-container  select{
     width: auto;
     padding: 10px;
     font-size: 16px;
@@ -436,25 +406,49 @@ html, body {
 .menu-container .c_selectsort_form {
     display: flex;
 }
-.menu-container  .left{
+.menu-container  .c_selectsort_form .left{
     display: flex;
     width: 80%;               /* Mỗi phần tử chiếm 50% chiều rộng */
     padding: 10px;            /* Tạo khoảng đệm */
     box-sizing: border-box;   /* Đảm bảo padding không làm vỡ bố cục */
 }
-.menu-container .left div{
+.menu-container .c_selectsort_form .left div{
     width: 25%;
 }
-.menu-container  .right {
+.menu-container .c_selectsort_form .right {
     width: 20%;               /* Mỗi phần tử chiếm 50% chiều rộng */
     padding: 10px;            /* Tạo khoảng đệm */
     box-sizing: border-box;
     display: flex;
     justify-content: flex-end;/* Đảm bảo padding không làm vỡ bố cục */
 }
-.menu-container .right input{
+.menu-container .c_selectsort_form .right input{
     border-radius: 5px;
 }
+
+.menu-container .menu {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 cột */
+    gap: 20px; /* Khoảng cách giữa các món */
+}
+.menu-container .menu .menu-item {
+    background-color: white;
+    padding: 15px;
+    border-radius: 5px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+}
+.menu-container .menu .menu-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+.menu-container .menu .menu-item h3 {
+    margin: 10px 0 5px;
+    font-size: 18px;
+}
+
+
 .menu-container .pagination {
     display: flex;
     justify-content: center; /* Căn giữa các liên kết phân trang */

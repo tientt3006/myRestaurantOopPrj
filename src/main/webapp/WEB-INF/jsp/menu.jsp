@@ -14,16 +14,12 @@
         
         <!--Main Section-->
         <div class="main-container">
-            
             <div class="menu-container">
-                <h2>Menu</h2>
-                
                 <jsp:useBean id="categories" scope="session" type="java.util.List"/>
                 <jsp:useBean id="sortTypes" scope="application" type="java.util.HashMap"/>
                 <jsp:useBean id="dishes" scope="session" type="java.util.List"/>
                 <jsp:useBean id="totalPages" scope="session" type="java.lang.Integer"/>
                 <nav class="c_header">
-                    <p class="c_category_name">${empty param.category || param.category == 0 ? "All dishes" : categories.get(param.category-1).categoryName}</p>
                     <form class="c_selectsort_form" action="${pageContext.request.contextPath}/menu" method="get">
                         <div class="left">
                             <div>
@@ -106,10 +102,10 @@
                         </c:if>
                     </ul>
                 </nav>
-                
             </div>
-            
         </div>
+                        
+                        
         <!-- Footer Section -->
         <%@ include file="cus_footer.jspf" %>
     </div>
