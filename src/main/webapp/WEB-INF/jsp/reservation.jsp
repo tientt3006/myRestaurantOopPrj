@@ -18,25 +18,33 @@
         <div class="main-container">
             <div class="reservations-container">
                 <div class="form-box">
-                    <h2>Find A Table</h2>
+                    <div class ="form-box-header">
+                        <h2>Find A Table</h2>    
+                    </div>
+                    <div class="form-box-main">
+                        <label for="location">Location</label>
+                        <select id="location" name="location">
+                            <option value="">...</option>
+                            <option value="">Hoc vien Cong nghe Buu chinh vien thong</option>
+                            <option value="">Nha hat Lon Ha Noi</option>
+                            <option value="">Ho Tay</option>
+                            <option value="">Keangnam</option>
+                        </select>
 
-                    <label for="branch">Branch Location</label>
-                    <select id="branch" name="branch">
-                        <option value="">làm thế nào đó chọn chi nhánh ở đây</option>
-                    </select>
+                        <label for="date">Date</label>
+                        <input type="date" id="date" name="date" placeholder="làm thế nào đó chọn ngày ở đây">
 
-                    <label for="date">Date</label>
-                    <input type="date" id="date" name="date" placeholder="làm thế nào đó chọn ngày ở đây">
+                        <label for="time">Time</label>
+                        <input type="time" id="time" name="time" placeholder="làm thế nào đó chọn giờ ở đây">
 
-                    <label for="time">Time</label>
-                    <input type="time" id="time" name="time" placeholder="làm thế nào đó chọn giờ ở đây">
-
-                    <label for="people">Number of people</label>
-                    <input type="number" id="people" name="people" min="1" max="6" placeholder="làm thế nào đó chọn số người ở đây">
-
-                    <p class="error-message">If there are more than six people, please reserve a second table</p>
-
-                    <button type="submit">Search button</button>
+                        <label for="people">Number of people</label>
+                        <input type="number" id="people" name="people" min="1" max="6" placeholder="làm thế nào đó chọn số người ở đây">    
+                    </div>
+                    <div class ="form-box-footer">
+                        <p class="error-message">If there are more than six people, please reserve a second table</p>
+                        <button type="submit">Search button</button>    
+                    </div>
+                    
                 </div>
                 
             </div>
