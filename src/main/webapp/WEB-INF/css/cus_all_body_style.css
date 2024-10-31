@@ -322,6 +322,7 @@ html, body {
 
 
 .reservations-container{
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -334,8 +335,9 @@ html, body {
     color: white;
     padding: 30px;
     border-radius: 8px;
-    width: 300px;
+    width: 80%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    display: grid;
 }
 
 .reservations-container .form-box h2 {
