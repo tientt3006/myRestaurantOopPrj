@@ -383,7 +383,26 @@ html, body {
     text-align: center;
 }
 
+.findTable-container .findTable-box  {
+    max-height: 600px;
+    width: 400px;
+}
 
+.findTable-container .findTable-box form#findTableForm select, form#findTableForm input[type="date"], 
+form#findTableForm input[type="time"], form#findTableForm input[type="number"] {
+    display: block;
+    width: 95%;
+    padding: 10px;
+    margin: 10px 0;
+    margin-right: 20px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.findTable-container .findTable-box form#findTableForm select{
+    width: 100%;
+}
 /*menu*/
 .menu-container h2{
     margin-bottom: 20px;

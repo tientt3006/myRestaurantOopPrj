@@ -19,6 +19,11 @@ import javax.servlet.http.HttpServletResponse;
  * @author $_{user}
  */
 public class Utils {
+    
+    // MAX constain in a branch, every branch have the same this MAX constain.
+    public static final int MAX_TABLE = 50;
+    public static final int MAX_PEOPLE = 300;
+    
     public static String hashPassword(String password) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
