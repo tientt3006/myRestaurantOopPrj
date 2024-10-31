@@ -17,28 +17,6 @@
             
             <div class="menu-container">
                 <h2>Menu</h2>
-<<<<<<< HEAD
-                <div class="filter-sort-bar">
-                    <!--<div>-->
-<!--                    Category:
-                        <label>
-                            <select name="category" class="form-select">
-                                <option value="0">All dishes</option>
-                                <--c:forEach var="category" items="${categories}">
-                                    <option ${param.category == category.id ? "selected" : ""} value="${category.id}">
-                                            ${category.name}
-                                    </option>
-                                <--/c:forEach>
-                            </select>
-                        </label>
-                    </div>
-                    <div>
-                        SortBy:
-                        <select name="sort" class="form-select">
-                            <--c:forEach var="sort" items="${sortTypes}">
-                                <option ${param.sortBy == sort.value ? "selected" : ""} value="${sort.value}">${sort.key}</option>
-                            <--/c:forEach>
-=======
                 
                 <jsp:useBean id="categories" scope="session" type="java.util.List"/>
                 <jsp:useBean id="sortTypes" scope="application" type="java.util.HashMap"/>
@@ -47,40 +25,44 @@
                 <nav class="c_header">
                     <p class="c_category_name">${empty param.category || param.category == 0 ? "All dishes" : categories.get(param.category-1).categoryName}</p>
                     <form class="c_selectsort_form" action="${pageContext.request.contextPath}/menu" method="get">
-                        <div>
-                            Category:
-                            <label>
-                                <select name="category" class="form-select">
-                                    <option value="0">All dishes</option>
-                                    <c:forEach var="category" items="${categories}">
-                                        <option ${param.category == category.categoryId ? "selected" : ""} value="${category.categoryId}">
-                                                ${category.categoryName}
-                                        </option>
+                        <div class="left">
+                            <div>
+                                Category:
+                                <label>
+                                    <select name="category" class="form-select">
+                                        <option value="0">All dishes</option>
+                                        <c:forEach var="category" items="${categories}">
+                                            <option ${param.category == category.categoryId ? "selected" : ""} value="${category.categoryId}">
+                                                    ${category.categoryName}
+                                            </option>
+                                        </c:forEach>
+                                    </select>
+                                </label>
+                            </div>
+                            <div>
+                                SortBy:
+                                <select name="sortBy" class="form-select">
+                                    <c:forEach var="sort" items="${sortTypes}">
+                                        <option ${param.sortBy == sort.value ? "selected" : ""} value="${sort.value}">${sort.key}</option>
                                     </c:forEach>
                                 </select>
-                            </label>
-                        </div>
-                        <div>
-                            SortBy:
-                            <select name="sortBy" class="form-select">
-                                <c:forEach var="sort" items="${sortTypes}">
-                                    <option ${param.sortBy == sort.value ? "selected" : ""} value="${sort.value}">${sort.key}</option>
-                                </c:forEach>
+                            </div>
+                            <div>
+                                ShowOnPage:
+                                <select name="dishesInPage" class="form-select">
+                                    <c:forTokens items="8,16,30" delims="," var="item">
+                                        <option ${param.dishesInPage == item ? "selected" : ""}>${item}</option>
+                                    </c:forTokens>
+                                </select>
+                            </div>
+                            <select name="page" style="display: none">
+                                <option value="0" selected></option>
                             </select>
                         </div>
-                        <div>
-                            ShowOnPage:
-                            <select name="dishesInPage" class="form-select">
-                                <c:forTokens items="8,16,30" delims="," var="item">
-                                    <option ${param.dishesInPage == item ? "selected" : ""}>${item}</option>
-                                </c:forTokens>
-                            </select>
+                        <div class="right">
+                            <input class="btn btn-outline-secondary" type="submit" value="SHOW"/>
                         </div>
-                        <select name="page" style="display: none">
-                            <option value="0" selected></option>
->>>>>>> 9cf9e75071991e602bd3663bffb7117fba42b1c4
-                        </select>
-                        <input class="btn btn-outline-secondary" type="submit" value="show"/>
+                        
                     </form>
                 </nav>
                         

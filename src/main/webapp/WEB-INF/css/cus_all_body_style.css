@@ -417,18 +417,43 @@ html, body {
     margin: 10px 0 5px;
     font-size: 18px;
 }
-
-.menu-container .filter-sort-bar select, .filter-sort-bar button {
+.menu-container .c_category_name {
+    font-size: 20px;
+    /*color: #ff3333;*/
+}
+.menu-container  select,.filter-sort-bar button {
     width: auto;
     padding: 10px;
     font-size: 16px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    background: #ddd;
+    background: #f9f9f9;
 }
 .menu-container  p {
     margin: 0;
     font-size: 16px;
+}
+.menu-container .c_selectsort_form {
+    display: flex;
+}
+.menu-container  .left{
+    display: flex;
+    width: 80%;               /* Mỗi phần tử chiếm 50% chiều rộng */
+    padding: 10px;            /* Tạo khoảng đệm */
+    box-sizing: border-box;   /* Đảm bảo padding không làm vỡ bố cục */
+}
+.menu-container .left div{
+    width: 25%;
+}
+.menu-container  .right {
+    width: 20%;               /* Mỗi phần tử chiếm 50% chiều rộng */
+    padding: 10px;            /* Tạo khoảng đệm */
+    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-end;/* Đảm bảo padding không làm vỡ bố cục */
+}
+.menu-container .right input{
+    border-radius: 5px;
 }
 .menu-container .pagination {
     display: flex;
