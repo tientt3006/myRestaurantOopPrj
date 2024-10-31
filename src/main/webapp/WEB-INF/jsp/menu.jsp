@@ -22,20 +22,20 @@
                         <label>
                             <select name="category" class="form-select">
                                 <option value="0">All dishes</option>
-                                <c:forEach var="category" items="${categories}">
+                                <--c:forEach var="category" items="${categories}">
                                     <option ${param.category == category.id ? "selected" : ""} value="${category.id}">
                                             ${category.name}
                                     </option>
-                                </c:forEach>
+                                <--/c:forEach>
                             </select>
                         </label>
                     </div>
                     <div>
                         SortBy:
                         <select name="sort" class="form-select">
-                            <c:forEach var="sort" items="${sortTypes}">
+                            <--c:forEach var="sort" items="${sortTypes}">
                                 <option ${param.sortBy == sort.value ? "selected" : ""} value="${sort.value}">${sort.key}</option>
-                            </c:forEach>
+                            <--/c:forEach>
                         </select>
                     </div>-->
                     
