@@ -15,7 +15,7 @@
         
         <!-- Main Content -->
         <div class="main-container">
-            <jsp:useBean id="branchs" scope="session" type="java.util.List"/>
+            <%--<jsp:useBean id="branchs" scope="session" type="java.util.List"/>--%>
             <div class="login-container findTable-container">
                 <div class="findTable-box login-box">
                     <h2>Find A Table</h2>
