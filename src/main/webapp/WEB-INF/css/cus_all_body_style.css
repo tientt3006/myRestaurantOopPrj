@@ -400,7 +400,7 @@ html, body {
     background: #f9f9f9;
 }
 .menu-container  p {
-    margin: 0;
+    margin: 10px 0 5px;
     font-size: 16px;
 }
 .menu-container .c_selectsort_form {
