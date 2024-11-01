@@ -36,6 +36,20 @@ public class MySqlUserDAO implements UserDAO {
     }
     
     @Override
+    public User getUserById(int id) throws DbException {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement ps = connection.prepareStatement(SqlUtils.FIND_USER_BY_ID)) {
+            ps.setString(1, String.valueOf(id));
+            try (ResultSet rs = ps.executeQuery()) {
+                if (!rs.next()) return null;
+                return mapUser(rs);
+            }
+        } catch (SQLException ex) {
+            throw new DbException("Cannot getUserByEmail", ex);
+        }
+    }
+    
+    @Override
     public User getUserByEmail(String email) throws DbException {
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement ps = connection.prepareStatement(SqlUtils.FIND_USER_BY_EMAIL)) {

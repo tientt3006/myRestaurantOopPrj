@@ -18,9 +18,15 @@ import org.slf4j.LoggerFactory;
  * @author $_{user}
  */
 public class SqlUtils {
-
+    
+    public static final String GET_BRANCHS = "SELECT * FROM branch";
+    
+    public static final String FIND_RESERVED_TABLE = "SELECT COUNT(*) FROM tables WHERE branchId = ? AND reservation_date = ? AND status = 'reserved';";
+    public static final String FIND_OCCUPIED_TABLE = "SELECT COUNT(*) FROM tables WHERE branchId = ? AND reservation_date = ? AND status = 'occupied';";
+    
     public static final String LOG_IN = "SELECT * FROM users WHERE email LIKE ? AND password LIKE ?";
     public static final String SIGN_UP = "INSERT INTO users (firstName, lastName, password, email, phone) VALUES (?, ?, ?, ?, ?)";
+    public static final String FIND_USER_BY_ID = "SELECT * FROM users WHERE userId LIKE ?";
     public static final String FIND_USER_BY_EMAIL = "SELECT * FROM users WHERE email LIKE ?";
     public static final String FIND_USER_BY_PHONE = "SELECT * FROM users WHERE phone LIKE ?";
     public static final String CHANGE_PASSWORD = "UPDATE users SET password = ? WHERE userId = ?";
