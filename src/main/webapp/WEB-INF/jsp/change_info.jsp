@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
     
-<c:set var="title" value="OOP Dinner - Log in" scope="page"/>
+<c:set var="title" value="OOP Dinner - Change Info" scope="page"/>
 <%@ include file="head.jspf" %>
 
 <body>
