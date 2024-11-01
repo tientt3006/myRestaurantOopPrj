@@ -57,7 +57,7 @@ public class FindTablesServlet extends HttpServlet{
         try {
             if (numOfTables <= Utils.MAX_TABLE - DAO.getDAO().getTableDAO().getReservedTable(branchId, date, time) - DAO.getDAO().getTableDAO().getOccupiedTable(branchId, date, time)) {
                 
-                resp.sendRedirect(req.getContextPath() + "/complete_reservation");
+                resp.sendRedirect(req.getContextPath() + "/select_payment_method");
             } else {
                 resp.sendRedirect(req.getContextPath() + "/find_table?failure=outOfTable");
             }

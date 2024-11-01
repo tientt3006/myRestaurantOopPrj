@@ -384,7 +384,7 @@ html, body {
     font-size: 12px;
     text-align: center;
 }
-
+/* findTable main content */
 .findTable-container .findTable-box  {
     max-height: 600px;
     width: 400px;
@@ -404,6 +404,41 @@ form#findTableForm input[type="time"], form#findTableForm input[type="number"] {
 
 .findTable-container .findTable-box form#findTableForm select{
     width: 100%;
+}
+
+/* select_pament_method main content */
+.selent-pm-container .select-pm-box  {
+    max-height: 100%;
+    width: 600px;
+}
+
+.selent-pm-container .select-pm-box form#selectPmForm select, form#selectPmForm input[type="date"], 
+form#selectPmForm input[type="time"], form#selectPmForm input[type="number"] {
+    display: block;
+    width: 95%;
+    padding: 10px;
+    margin: 10px 0;
+    margin-right: 20px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.selent-pm-container .select-pm-box form#selectPmForm select{
+    width: 100%;
+}
+
+.selent-pm-container .select-pm-box form#selectPmForm select[name="paymentMethod"] {
+    margin-right: 0px;
+}
+.selent-pm-container .select-pm-box form#selectPmForm select[name="expMonth"] {
+    margin-right: 0px;
+}
+.selent-pm-container .select-pm-box form#selectPmForm select[name="expYear"]  {
+    margin-right: 0px;
+}
+.selent-pm-container .select-pm-box form#selectPmForm select[name="country"]  {
+    margin-right: 0px;
 }
 /*menu*/
 
