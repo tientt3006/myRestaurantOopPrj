@@ -575,18 +575,58 @@ form#findTableForm input[type="time"], form#findTableForm input[type="number"] {
     border-radius: 5px;
 }
 .select-container .selected-items{
+    padding: 5px;
     height: auto;
-    width: 50%;
-    background: #FFFF99;
+    width: auto;
+    background: #FFFFFF;
     display: grid;
     text-align: center;
     border-radius: 5px;
 }
-.select-container .selected-items .cart-dishes{
+.selected-items .cart-dishes{
     display: grid;
 }
 .select-container img{
     width: 100%;
     height: auto;
     border-radius: 5px;
+}
+.selected-items .cart-dishes .cart-dish{
+    display: flex;
+}
+.cart-dish-img{
+    display: flex;
+    padding: 10px;
+    width: 40%;
+    height: auto;
+    justify-items: center;
+}
+.cart-dish-img img{
+    width: 40%;
+    height: auto;
+    border-radius: 5px;
+}
+.cart-dish-inf{
+    padding: 10px;
+    width: 30%;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+}
+
+.cart-dish-remove{
+    display: flex;
+    padding: 10px;
+    width: 30%;
+    align-items: center;
+    justify-content: center;
+}
+.cart-dish-remove button{
+    background: #ff3333;
+    width: 50%;
+    height: 50%;
+    font-size: 16px;
+    width: 60%;
+    border-radius: 5px;
+    text-align: center;
 }
