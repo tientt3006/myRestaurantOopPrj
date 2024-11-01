@@ -4,6 +4,10 @@
  */
 package com.nolaneg.myrestaurantprj.web.servlets;
 
+import com.nolaneg.myrestaurantprj.db.InterfaceDAO.DAO;
+import com.nolaneg.myrestaurantprj.db.entity.Category;
+import com.nolaneg.myrestaurantprj.db.entity.Dish;
+import com.nolaneg.myrestaurantprj.exceptions.DbException;
 import jakarta.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,12 +20,23 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.*;
+import javax.servlet.http.HttpSession;
+
+
 @WebServlet("/select_dish")
 
 public class SelectDishServlet extends HttpServlet{
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    // Chuyển hướng người dùng đến trang đăng nhập khi yêu cầu là GET
-        request.getRequestDispatcher("/WEB-INF/jsp/select_dish.jsp").forward(request, response);
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<Dish> dishes = null;
+        try {
+            dishes = DAO.getDAO().getDishDAO().getDishes();
+            req.setAttribute("dishes", dishes);
+            req.getRequestDispatcher("/WEB-INF/jsp/select_dish.jsp").forward(req, resp);
+            
+        } catch (DbException ex) {
+            Logger.getLogger(SelectDishServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 }

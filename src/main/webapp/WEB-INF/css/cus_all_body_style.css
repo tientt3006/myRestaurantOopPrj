@@ -542,3 +542,51 @@ form#findTableForm input[type="time"], form#findTableForm input[type="number"] {
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+/*select_dish*/
+.select-container{
+    display: grid;
+    gap: 20px;
+}
+.select-container .menu {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 cột */
+    gap: 20px; /* Khoảng cách giữa các món */
+}
+.select-container .menu .menu-item {
+    background-color: white;
+    padding: 15px;
+    border-radius: 5px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+}
+.select-container .menu .menu-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+.select-container .menu .menu-item h3 {
+    margin: 10px 0 5px;
+    font-size: 18px;
+}
+.select-container .menu .menu-item button{
+    background: #FFFF99;
+    font-size: 16px;
+    width: 60%;
+    border-radius: 5px;
+}
+.select-container .selected-items{
+    height: auto;
+    width: 50%;
+    background: #FFFF99;
+    display: grid;
+    text-align: center;
+    border-radius: 5px;
+}
+.select-container .selected-items .cart-dishes{
+    display: grid;
+}
+.select-container img{
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}

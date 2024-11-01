@@ -140,4 +140,21 @@ public class MySqlDishDAO implements DishDAO {
             throw new DbException("Cannot getDishesOrderCount", e);
         }
     }
+
+    @Override
+    public List<Dish> getDishes() throws DbException {
+        List<Dish> dishes = new ArrayList<>();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement ps = connection.prepareStatement(SqlUtils.GET_DISHES);
+             ResultSet rs = ps.executeQuery()) {
+
+            // Lặp qua tất cả các kết quả và thêm từng món vào danh sách
+            while (rs.next()) {
+                dishes.add(mapDish(rs));
+            }
+        } catch (SQLException ex) {
+            throw new DbException("Cannot get dishes", ex);
+        }
+        return dishes;
+    }
 }
