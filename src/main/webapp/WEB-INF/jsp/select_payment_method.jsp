@@ -15,14 +15,33 @@
         
         <!-- Main Content -->
         <div class="main-container">
-            <div class="login-container selent-pm-container">
+            <div class="login-container selent-pm-container" style="align-items: flex-start;">
+                
+                
+                
+<!--                HttpSession session = request.getSession();
+                session.setAttribute("reservationDate", selectedDate);
+                session.setAttribute("reservationTime", selectedTime);
+                session.setAttribute("numberOfPeople", selectedPeopleCount); here are what inside servlet-->
+
+                <div class="reser-detail-box login-box" style="color: white;">
+                    <h2>Reservation Details</h2>
+                    <!--<p style="text-align: center;">Please review your reservation details before proceeding with the payment.</p>-->
+                    <p><strong>Selected Table(s):</strong> ${selectedTableNumber}</p>
+                    <p><strong>Number of People:</strong> ${numberOfPeople}</p>
+                    <p><strong>Date:</strong> ${reservationDate}</p>
+                    <p><strong>Time:</strong> ${reservationTime}</p>
+                    <p><strong>Branch:</strong> ${reservationBranch}</p>
+                    <p><strong>Deposit Amount:</strong> ${depositAmount} $</p>
+                </div>
+                
                 <div class="select-pm-box login-box">
                     <h2>Payment Method</h2>
                     <div class="error-message" style="color: red; text-align: center; margin-bottom: 10px;">
                         Your table may still be reserved by someone else at this time.
                     </div>
                     <br>
-                    <form id="selectPmForm" action="${pageContext.request.contextPath}/complete_reservation" method="post">
+                    <form id="selectPmForm" action="${pageContext.request.contextPath}/select_payment_method" method="post">
                         
                         <div style="display: flex; gap: 60px;">
                             <label class="password-text" for="paymentMethod" style="flex: 1;">Payment Method:</label>
@@ -120,17 +139,21 @@
                             </div>
                         </div>
 
-                        <br>
-                        <p class="password-text" style="text-align: center;">You'll have a chance to review your order before it's placed.</p>
-                        <br>
+<!--                        <br>
+                        <p class="password-text" style="text-align: center;">By pressing the pay button, you will be officially charged if the payment is successful..</p>
+                        <br>-->
                         
-                        <button type="submit">Continue</button>
+                        <button type="submit">Pay</button>
                     </form>
                 </div>
                 
             </div>
         </div>
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="${pageContext.request.contextPath}/select_payment_method?error=payment_faile" style="margin-right: 40px; text-decoration: underline;">Payment Error</a>
 
+            <a href="${pageContext.request.contextPath}/find_table?error=out_of_table" style="text-decoration: underline;">Out of Tables</a>
+        </div>
         <!-- Footer -->
         <%@ include file="cus_footer.jspf" %>
     </div>

@@ -88,16 +88,7 @@ html, body {
     transition: background-color 0.3s ease, transform 0.2s ease;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-.login-container .login-box button[type="submit"]:hover,
-.login-container .login-box .google-btn:hover {
-    background-color: #ff3333;
-    transform: translateY(-3px);
-}
-.login-container .login-box button[type="submit"]:active,
-.login-container .login-box .google-btn:active {
-    transform: translateY(0);
-    background-color: #c30000;
-}
+
 .login-container .left-image {
     width: 50%;
     background: url('${pageContext.request.contextPath}/img/PRRestaurant.jpg') no-repeat center center;
@@ -407,6 +398,10 @@ form#findTableForm input[type="time"], form#findTableForm input[type="number"] {
 }
 
 /* select_pament_method main content */
+.selent-pm-container .reser-detail-box  {
+    max-height: 100%;
+    width: 500px;
+}
 .selent-pm-container .select-pm-box  {
     max-height: 100%;
     width: 600px;
@@ -664,4 +659,34 @@ form#selectPmForm input[type="time"], form#selectPmForm input[type="number"] {
     width: 60%;
     border-radius: 5px;
     text-align: center;
+}
+
+/*complete_reservation*/
+.cpl-reser-container .cpl-reser-box  {
+    max-height: 100%;
+    width: 500px;
+}
+.cpl-reser-container .cpl-reser-box a{
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    background-color: #d40000;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    text-decoration: none;
+}
+.cpl-reser-container .cpl-reser-box a:hover{
+    background-color: #ff3333;
+    transform: translateY(-3px);
+}
+.cpl-reser-container .cpl-reser-box a:active{
+    transform: translateY(0);
+    background-color: #c30000;
 }
