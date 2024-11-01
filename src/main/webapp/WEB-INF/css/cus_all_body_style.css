@@ -623,36 +623,47 @@ form#selectPmForm input[type="time"], form#selectPmForm input[type="number"] {
 }
 .selected-items .cart-dishes .cart-dish{
     display: flex;
+    padding: 10px;
+   
 }
 .cart-dish-img{
-    display: flex;
+    
     padding: 10px;
-    width: 40%;
+    width: 25%;
     height: auto;
     justify-items: center;
 }
 .cart-dish-img img{
+    border: 2px solid black;
     width: 40%;
     height: auto;
     border-radius: 5px;
 }
 .cart-dish-inf{
+    border: 2px solid black;
+    border-radius: 5px;
     padding: 10px;
-    width: 30%;
-    display: grid;
+    width: 50%;
+    display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
 }
-
+.cart-dish-inf span, input{
+    margin: 10px 0 5px;
+    font-size: 18px;
+}
+.cart-dish-inf input{
+    width: 20%;
+}
 .cart-dish-remove{
     display: flex;
     padding: 10px;
-    width: 30%;
+    width: 25%;
     align-items: center;
     justify-content: center;
 }
 .cart-dish-remove button{
-    background: #ff3333;
+    background: #ffcccc;
     width: 50%;
     height: 50%;
     font-size: 16px;
