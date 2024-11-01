@@ -58,16 +58,14 @@
                     
                     renderCart();
                 }
-                
-                
-                
                 function renderCart() {
                     const cartItemsDiv = document.getElementById("cart-dishes");
                     cartItemsDiv.innerHTML = "";  
                     cart.forEach((item, index) => {
+                        const id = item.id;
                         cartItemsDiv.innerHTML += `
                             <div class="cart-dish">
-                                <img src="${pageContext.request.contextPath}/img/dish-${item.id}.jpg" alt="${item.name}">
+                                <img src="${pageContext.request.contextPath}/img/dish-${id}.jpg" alt="${item.name}">
                                 <span>${item.name}</span>
                                 <input type="number" value="${item.quantity}" min="1" onchange="updateQuantity(${index}, this.value)">
                                 <span>${item.quantity * item.price} VND</span>
