@@ -47,7 +47,7 @@ CREATE TABLE receipt (
 );
 -- Maximum 50 tables per branch, in real life. So that each branch can handle maximun 300 people at the same time
 CREATE TABLE tables (
-    tableId INT,               
+    tableId INT PRIMARY KEY AUTO_INCREMENT,               
     reservation_date DATE,               
     reservation_time TIME,
     maxSeats INT DEFAULT 6,
@@ -56,7 +56,6 @@ CREATE TABLE tables (
     start_time DATETIME,
     end_time DATETIME,
     branchId INT,
-    PRIMARY KEY (tableId),
     FOREIGN KEY (branchId) REFERENCES branch(branchId) ON DELETE CASCADE ON UPDATE CASCADE
 );
 CREATE TABLE receiptHasTable (
