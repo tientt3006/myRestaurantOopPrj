@@ -23,4 +23,6 @@ public interface DishDAO {
     int getDishesNumberInCategory(int categoryId) throws DbException;
     Map<Integer, Pair<String, Integer>> getDishesOrderCount() throws DbException;
 
+    public List<Dish> getDishes()throws DbException;
+
 }
