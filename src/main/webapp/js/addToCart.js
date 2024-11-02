@@ -19,9 +19,12 @@ function addToCart(id, name, price) {
 }
 function renderCart() {
     const cartItemsDiv = document.getElementById("cart-dishes");
-    cartItemsDiv.innerHTML = "";  
+    const cartTotalDiv = document.getElementById("total");
+    cartItemsDiv.innerHTML = "";
+    let Total = 0;
+    cartTotalDiv.innerHTML = `<span>Total = ${Total} VND</span>`;
+    
     cart.forEach((item, index) => {
-        const id = item.id;
         const innerHTML = `
             <div class="cart-dish">
                 <div class="cart-dish-img">
@@ -29,6 +32,7 @@ function renderCart() {
                 </div>
                 
                 <div class="cart-dish-inf">
+                    
                     <span>${item.name}</span>
                     <input type="number" value="${item.quantity}" min="1" onchange="updateQuantity(${index}, this.value)">
                     <span>${item.quantity * item.price} VND</span>
@@ -39,7 +43,10 @@ function renderCart() {
             </div>
         `;
         cartItemsDiv.innerHTML += innerHTML;
+        Total += item.quantity * item.price;
+        
     });
+    cartTotalDiv.innerHTML = `<span>Total = ${Total} VND</span>`;
 }
 
 

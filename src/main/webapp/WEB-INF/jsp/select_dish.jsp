@@ -23,7 +23,7 @@
                             <img src="${pageContext.request.contextPath}/img/dish-${dish.dishId}.jpg" alt="${dish.dishName}">
                             <h3>${dish.dishName}</h3>
                             <p>${dish.ingredient}</p>
-                            <p>${dish.price} VNĐ</p>
+                            <p>${dish.price} VND</p>
                             <button onclick="addToCart(${dish.dishId}, '${dish.dishName}', ${dish.price})">Select</button>
                         </div>
                     </c:forEach>
@@ -34,8 +34,17 @@
                     <h3>Chọn món cho bàn số 01</h3>
                     <div class="cart-dishes" id="cart-dishes">
                     </div>
-                    <button class="save-button" onclick="saveOrder()">SAVE</button>
+                    <div class="total-and-save">
+                        <div>
+                          
+                        </div>
+                        <div class="total" id="total">
+                        </div>
+                        <button class="save-button" onclick="saveOrder()">SAVE</button>
+                    </div>
+                    
                 </div>
+                <a href="#top" class="back-to-top">^</a>
             </div>
             <script>
                 const contextPath = "${pageContext.request.contextPath}";
@@ -43,6 +52,7 @@
             <script src = "${pageContext.request.contextPath}/js/addToCart.js">
                 
             </script>
+            
 
             </div>
         </div>        

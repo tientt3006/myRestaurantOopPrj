@@ -651,6 +651,7 @@ form#selectPmForm input[type="time"], form#selectPmForm input[type="number"] {
 .cart-dish-inf span, input{
     margin: 10px 0 5px;
     font-size: 18px;
+    width: 35%;
 }
 .cart-dish-inf input{
     width: 20%;
@@ -671,6 +672,56 @@ form#selectPmForm input[type="time"], form#selectPmForm input[type="number"] {
     border-radius: 5px;
     text-align: center;
 }
+.selected-items .total-and-save{
+    display: flex;
+    border: 10px;
+    justify-content: space-between;
+    padding: 10px;
+    
+}
+.total-and-save .save-button{
+    background: #FFFF99;
+    font-size: 18px;
+    border-radius: 5px; 
+}
+.total-and-save .total{
+    border-radius: 5px;
+    padding: 5px;
+    border: 2px solid black;
+    font-size: 18px;
+    background: greenyellow;
+}
+/* Đảm bảo rằng phần tử #top có trong HTML của bạn */
+body::before {
+    content: "";
+    display: block;
+    height: 0;
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+}
+
+.select-container .back-to-top {
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+    background-color: #d40000;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 20px;
+    transition: opacity 0.3s;
+}
+.select-container:has(.back-to-top:hover) .back-to-top {
+    display: inline;
+    opacity: 1;
+}
+/*.select-container:not(:has(.back-to-top:hover)) .select-container .back-to-top {
+    opacity: 0;
+    pointer-events: none;
+}*/
+
 
 /*complete_reservation*/
 .cpl-reser-container .cpl-reser-box  {
