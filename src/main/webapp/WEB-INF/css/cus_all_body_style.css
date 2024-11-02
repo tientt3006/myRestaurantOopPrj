@@ -560,9 +560,9 @@ form#selectPmForm input[type="time"], form#selectPmForm input[type="number"] {
     font-weight: bold;
 }
 
-.location-main .map {
+.location-main .map{
     width: 55%;
-    border: 2px solid black;
+    border: 4px solid black;
     background-color: #ddd;
     display: flex;
     align-items: center;
@@ -571,6 +571,12 @@ form#selectPmForm input[type="time"], form#selectPmForm input[type="number"] {
     height: 50vh;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.map iframe{
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    
 }
 /*select_dish*/
 .select-container{
@@ -708,7 +714,7 @@ body::before {
     background-color: #d40000;
     color: white;
     padding: 10px 15px;
-    border-radius: 5px;
+    border-radius: 50%;
     text-decoration: none;
     font-size: 20px;
     transition: opacity 0.3s;
