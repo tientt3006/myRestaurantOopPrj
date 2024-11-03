@@ -67,7 +67,7 @@ function removeFromCart(index) {
 function saveOrder() {
     // Chuyển giỏ hàng thành JSON để gửi về server
     const order = JSON.stringify(cart);
-    alert("Đơn hàng đã được lưu: " + order);
+    alert("Đơn hàng đã được lưu" + order);
 
     // Ở đây bạn có thể dùng AJAX để gửi đơn hàng về server
 }

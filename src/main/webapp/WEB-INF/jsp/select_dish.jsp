@@ -40,7 +40,7 @@
                         </div>
                         <div class="total" id="total">
                         </div>
-                        <button class="save-button" onclick="saveOrder()">SAVE</button>
+                        <button class="save-button" onclick="saveOrder()" >SAVE</button>
                     </div>
                     
                 </div>
