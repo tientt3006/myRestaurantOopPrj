@@ -68,6 +68,7 @@ function saveOrder() {
     // Chuyển giỏ hàng thành JSON để gửi về server
     const order = JSON.stringify(cart);
     alert("Đơn hàng đã được lưu" + order);
+    window.location.href = `${contextPath}/cart`;
 
     // Ở đây bạn có thể dùng AJAX để gửi đơn hàng về server
 }

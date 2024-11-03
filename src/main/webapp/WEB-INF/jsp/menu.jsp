@@ -68,7 +68,7 @@
                             <img src="${pageContext.request.contextPath}/img/dish-${dish.dishId}.jpg" alt="${dish.dishName}">
                             <h3>${dish.dishName}</h3>
                             <p>${dish.ingredient}</p>
-                            <p>${dish.price} VNĐ</p>
+                            <p>${dish.price} VND</p>
                         </div>
                     </c:forEach>
                 </div>

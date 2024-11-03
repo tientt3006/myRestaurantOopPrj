@@ -31,7 +31,7 @@
                       
 <!--            Bảng chọn món -->  
                 <div class="selected-items">
-                    <h3>Chọn món cho bàn số 01</h3>
+                    <h3>ORDER</h3>
                     <div class="cart-dishes" id="cart-dishes">
                     </div>
                     <div class="total-and-save">
