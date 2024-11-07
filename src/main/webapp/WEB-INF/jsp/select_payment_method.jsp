@@ -31,8 +31,8 @@
                     <p><strong>Number of People:</strong> ${numberOfPeople}</p>
                     <p><strong>Date:</strong> ${reservationDate}</p>
                     <p><strong>Time:</strong> ${reservationTime}</p>
-                    <p><strong>Branch:</strong> ${reservationBranch}</p>
-                    <p><strong>Deposit Amount:</strong> ${depositAmount} $</p>
+                    <p><strong>Branch:</strong> ${reservationBranchName}</p>
+                    <p><strong>Deposit Amount:</strong> ${selectedTableNumber * 100000} VND</p>
                 </div>
                 
                 <div class="select-pm-box login-box">

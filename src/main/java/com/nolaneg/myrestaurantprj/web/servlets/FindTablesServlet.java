@@ -55,9 +55,20 @@ public class FindTablesServlet extends HttpServlet{
         int numOfPeople = Integer.parseInt(req.getParameter("people"));
         int numOfTables = Integer.parseInt(req.getParameter("tables"));
         try {
+            String branchName = "";
+            List<Branch> branchs = DAO.getDAO().getBranchDAO().getBranchs();
+            for(Branch x:branchs){
+                if(x.getBranchId() == branchId){
+                    branchName = x.getLocation();
+                }
+            }
             if (numOfTables <= Utils.MAX_TABLE - DAO.getDAO().getTableDAO().getReservedTable(branchId, date, time) - DAO.getDAO().getTableDAO().getOccupiedTable(branchId, date, time)) {
-                
-                resp.sendRedirect(req.getContextPath() + "/select_payment_method");
+                String redirectUrl = String.format(
+                    "%s/select_payment_method?branchName=%s&date=%s&time=%s&people=%d&tables=%d",
+                    req.getContextPath(), branchName, date, time, numOfPeople, numOfTables
+                );
+                resp.sendRedirect(redirectUrl);
+                //resp.sendRedirect(req.getContextPath() + "/select_payment_method");
             } else {
                 resp.sendRedirect(req.getContextPath() + "/find_table?failure=outOfTable");
             }

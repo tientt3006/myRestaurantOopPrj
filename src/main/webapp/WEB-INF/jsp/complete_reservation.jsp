@@ -26,12 +26,12 @@
 
                 <div class="cpl-reser-box login-box" style="color: white;">
                     <h2>Reservation successful</h2>
-                    <p><strong>Selected Table(s):</strong> ${selectedTableNumber}</p>
-                    <p><strong>Number of People:</strong> ${numberOfPeople}</p>
-                    <p><strong>Date:</strong> ${reservationDate}</p>
-                    <p><strong>Time:</strong> ${reservationTime}</p>
-                    <p><strong>Branch:</strong> ${reservationBranch}</p>
-                    <p><strong>Deposit Amount:</strong> ${depositAmount} $</p>
+                    <p><strong>Selected Table(s):</strong> ${completeselectedTableNumber}</p>
+                    <p><strong>Number of People:</strong> ${completenumberOfPeople}</p>
+                    <p><strong>Date:</strong> ${completereservationDate}</p>
+                    <p><strong>Time:</strong> ${completereservationTime}</p>
+                    <p><strong>Branch:</strong> ${completereservationBranchName}</p>
+                    <p><strong>Deposit Amount:</strong> ${completeselectedTableNumber * 100000} VND</p>
                     <p style="text-align: center;">You can choose your dishes now or review your reserved tables.</p>
                     <div style="display: flex; gap: 20px;">
                     <a href="${pageContext.request.contextPath}/select_dish">Select Dish</a>

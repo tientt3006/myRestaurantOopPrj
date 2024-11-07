@@ -47,5 +47,4 @@ public class MySqlBranchDAO implements BranchDAO{
         }
         return branchs;
     }
-    
 }
