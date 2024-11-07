@@ -43,6 +43,13 @@
                     <br>
                     <form id="selectPmForm" action="${pageContext.request.contextPath}/select_payment_method" method="post">
                         
+                        <input type="hidden" name="branchName" value="${reservationBranchName}" />
+                        <input type="hidden" name="date" value="${reservationDate}" />
+                        <input type="hidden" name="time" value="${reservationTime}" />
+                        <input type="hidden" name="people" value="${numberOfPeople}" />
+                        <input type="hidden" name="tables" value="${selectedTableNumber}" />
+
+
                         <div style="display: flex; gap: 60px;">
                             <label class="password-text" for="paymentMethod" style="flex: 1;">Payment Method:</label>
                             <label class="password-text" for="expMonth" style="flex: 1;">Expiration date:</label>

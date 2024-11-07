@@ -16,4 +16,6 @@ import java.math.*;
 public interface TableDAO {
     int getReservedTable(int branchId, String date, String time) throws DbException;
     int getOccupiedTable(int branchId, String date, String time) throws DbException;
+
+    void addTable(String date, String time, int numOfPeople, int branchId) throws DbException;
 }

@@ -4,6 +4,7 @@
  */
 
 package com.nolaneg.myrestaurantprj.web.servlets;
+import static com.mysql.cj.conf.PropertyKey.logger;
 import com.nolaneg.myrestaurantprj.db.InterfaceDAO.DAO;
 import com.nolaneg.myrestaurantprj.db.entity.Branch;
 import com.nolaneg.myrestaurantprj.db.entity.Category;
@@ -33,6 +34,37 @@ import org.slf4j.LoggerFactory;
  */
 @WebServlet("/select_payment_method")
 public class SelectPaymentMethodServlet extends HttpServlet {
+//    public class ReservationPay{
+//        private String branchName,date,time;
+//        private int numOfPeople, numOfTables;
+//
+//        public String getBranchName() {return branchName;}
+//
+//        public String getDate() {return date;}
+//
+//        public String getTime() {return time;}
+//
+//        public int getNumOfPeople() {return numOfPeople;}
+//
+//        public int getNumOfTables() { return numOfTables;}
+//        
+//        public ReservationPay(String branchName, String date, String time, int people, int table){
+//            this.branchName = branchName;
+//            this.date = date;
+//            this.time = time;
+//            this.numOfPeople = people;
+//            this.numOfTables = table;
+//        }
+//    }
+//    private ReservationPay getReservationPay(HttpServletRequest req) {
+//        String branchName = req.getParameter("branchName");
+//        String date = req.getParameter("date");
+//        String time = req.getParameter("time");
+//        int numOfPeople = Integer.parseInt(req.getParameter("people"));
+//        int numOfTables = Integer.parseInt(req.getParameter("tables"));
+//
+//        return new ReservationPay(branchName, date, time, numOfPeople, numOfTables);
+//    }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String branchName = req.getParameter("branchName");
@@ -40,7 +72,7 @@ public class SelectPaymentMethodServlet extends HttpServlet {
         String time = req.getParameter("time");
         int numOfPeople = Integer.parseInt(req.getParameter("people"));
         int numOfTables = Integer.parseInt(req.getParameter("tables"));
-
+//        ReservationPay reservationDay = getReservationPay(req);
         req.setAttribute("reservationBranchName", branchName);
         req.setAttribute("reservationDate", date);
         req.setAttribute("reservationTime", time);
@@ -53,17 +85,38 @@ public class SelectPaymentMethodServlet extends HttpServlet {
     
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-       
+        
         String branchName = req.getParameter("branchName");
         String date = req.getParameter("date");
-        String time = req.getParameter("time");
+        String time = req.getParameter("time"); 
         int numOfPeople = Integer.parseInt(req.getParameter("people"));
         int numOfTables = Integer.parseInt(req.getParameter("tables"));
-
-        // Lưu thông tin vào session
-        String redirectUrl = String.format("%s/complete_reservation?branchName=%s&date=%s&time=%s&people=%d&tables=%d",
-            req.getContextPath(), branchName, date, time, numOfPeople, numOfTables
-        );
-        resp.sendRedirect(redirectUrl);
+//        ReservationPay reservationDay = getReservationPay(req);
+        int branchId = 0;
+        List<Branch> branchs = null;
+        try {
+            branchs = DAO.getDAO().getBranchDAO().getBranchs();
+            for(Branch x:branchs){
+                if(x.getLocation().equals(branchName)){
+                    branchId = x.getBranchId();
+                }
+            }    
+        } catch (DbException ex) {
+            Logger.getLogger(SelectPaymentMethodServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        // Lưu thông tin vào DataBase tables;
+        if(branchId ==0 || numOfPeople ==0 || numOfTables ==0 || 
+                date == null || date.isEmpty() || 
+                time == null || time.isEmpty()){
+            resp.sendRedirect(req.getContextPath() + "/select_payment_method?error=paymentfalse");
+            return;
+        }
+        try {
+            
+            DAO.getDAO().getTableDAO().addTable(date , time , numOfPeople , branchId);
+            resp.sendRedirect(req.getContextPath() + "/complete_reservation");
+        } catch (DbException ex) {
+            Logger.getLogger(SelectPaymentMethodServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
