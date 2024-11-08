@@ -23,7 +23,7 @@ public class SqlUtils {
     
     public static final String FIND_RESERVED_TABLE = "SELECT COUNT(*) FROM tables WHERE branchId = ? AND reservation_date = ? AND status = 'reserved';";
     public static final String FIND_OCCUPIED_TABLE = "SELECT COUNT(*) FROM tables WHERE branchId = ? AND reservation_date = ? AND status = 'occupied';";
-    public static final String ADD_TABLE = "INSERT INTO tables (reservation_date, reservation_time, num_people, branchId) VALUES (?, ?, ?, ?)";
+    public static final String ADD_TABLE = "INSERT INTO tables (reservation_date, reservation_time,status, num_people, branchId) VALUES (?, ?, ?, ?, ?)";
     public static final String LOG_IN = "SELECT * FROM users WHERE email LIKE ? AND password LIKE ?";
     public static final String SIGN_UP = "INSERT INTO users (firstName, lastName, password, email, phone) VALUES (?, ?, ?, ?, ?)";
     public static final String FIND_USER_BY_ID = "SELECT * FROM users WHERE userId LIKE ?";

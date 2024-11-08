@@ -68,7 +68,7 @@ public class MySqlTableDAO implements TableDAO{
      * @throws DbException
      */
     @Override
-    public void addTable(String date,String time,int numOfPeople,int branchId) throws DbException {
+    public void addTable(String date,String time,String status,int numOfPeople,int branchId) throws DbException {
         Connection con = null;
         PreparedStatement ps = null;
         try {
@@ -77,7 +77,8 @@ public class MySqlTableDAO implements TableDAO{
             int k = 0;
             ps.setString(++k, date);
             ps.setString(++k, time);
-            k+=2;
+            ++k;
+            ps.setString(++k, status);
             ps.setInt(++k, numOfPeople);
             k+=2;
             ps.setInt(++k, branchId);

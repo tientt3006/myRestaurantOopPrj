@@ -17,12 +17,6 @@
         <div class="main-container">
             <div class="login-container selent-pm-container" style="align-items: flex-start;">
                 
-                
-                
-<!--                HttpSession session = request.getSession();
-                session.setAttribute("reservationDate", selectedDate);
-                session.setAttribute("reservationTime", selectedTime);
-                session.setAttribute("numberOfPeople", selectedPeopleCount); here are what inside servlet-->
 
                 <div class="reser-detail-box login-box" style="color: white;">
                     <h2>Reservation Details</h2>
@@ -43,11 +37,11 @@
                     <br>
                     <form id="selectPmForm" action="${pageContext.request.contextPath}/select_payment_method" method="post">
                         
-                        <input type="hidden" name="branchName" value="${reservationBranchName}" />
-                        <input type="hidden" name="date" value="${reservationDate}" />
-                        <input type="hidden" name="time" value="${reservationTime}" />
-                        <input type="hidden" name="people" value="${numberOfPeople}" />
-                        <input type="hidden" name="tables" value="${selectedTableNumber}" />
+                        <input type="hidden" name="branchName1" value="${reservationBranchName}" />
+                        <input type="hidden" name="date1" value="${reservationDate}" />
+                        <input type="hidden" name="time1" value="${reservationTime}" />
+                        <input type="hidden" name="people1" value="${numberOfPeople}" />
+                        <input type="hidden" name="tables1" value="${selectedTableNumber}" />
 
 
                         <div style="display: flex; gap: 60px;">
@@ -145,10 +139,6 @@
                                 <input type="text" name="phoneNumber" id="phoneNumber" style="flex: 1;">
                             </div>
                         </div>
-
-<!--                        <br>
-                        <p class="password-text" style="text-align: center;">By pressing the pay button, you will be officially charged if the payment is successful..</p>
-                        <br>-->
                         
                         <button type="submit">Pay</button>
                     </form>
