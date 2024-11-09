@@ -80,7 +80,7 @@ public class MySqlTableDAO implements TableDAO{
             ++k;
             ps.setString(++k, status);
             ps.setInt(++k, numOfPeople);
-            k+=2;
+            ++k;++k;
             ps.setInt(++k, branchId);
 
             if (ps.executeUpdate() == 0) {

@@ -64,7 +64,7 @@ public class FindTablesServlet extends HttpServlet{
             }
             if (numOfTables <= Utils.MAX_TABLE - DAO.getDAO().getTableDAO().getReservedTable(branchId, date, time) - DAO.getDAO().getTableDAO().getOccupiedTable(branchId, date, time)) {
                 String redirectUrl = String.format(
-                    "%s/select_payment_method?branchName=%s&date=%s&time=%s&people=%d&tables=%d",
+                    "%s/select_payment_method?branchName=%s&date=%s&time=%s&people=%s&tables=%s",
                     req.getContextPath(), branchName, date, time, numOfPeople, numOfTables
                 );
                 resp.sendRedirect(redirectUrl);

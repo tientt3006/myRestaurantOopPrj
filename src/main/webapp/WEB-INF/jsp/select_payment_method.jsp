@@ -27,6 +27,11 @@
                     <p><strong>Time:</strong> ${reservationTime}</p>
                     <p><strong>Branch:</strong> ${reservationBranchName}</p>
                     <p><strong>Deposit Amount:</strong> ${selectedTableNumber * 100000} VND</p>
+                    <input type="hidden" name="branchName" value="${reservationBranchName}" />
+                    <input type="hidden" name="date" value="${reservationDate}" />
+                    <input type="hidden" name="time" value="${reservationTime}" />
+                    <input type="hidden" name="people" value="${numberOfPeople}" />
+                    <input type="hidden" name="tables" value="${selectedTableNumber}" />
                 </div>
                 
                 <div class="select-pm-box login-box">
@@ -37,11 +42,11 @@
                     <br>
                     <form id="selectPmForm" action="${pageContext.request.contextPath}/select_payment_method" method="post">
                         
-                        <input type="hidden" name="branchName1" value="${reservationBranchName}" />
-                        <input type="hidden" name="date1" value="${reservationDate}" />
-                        <input type="hidden" name="time1" value="${reservationTime}" />
-                        <input type="hidden" name="people1" value="${numberOfPeople}" />
-                        <input type="hidden" name="tables1" value="${selectedTableNumber}" />
+                        <input type="hidden" name="branchName" value="${reservationBranchName}" />
+                        <input type="hidden" name="date" value="${reservationDate}" />
+                        <input type="hidden" name="time" value="${reservationTime}" />
+                        <input type="hidden" name="people" value="${numberOfPeople}" />
+                        <input type="hidden" name="tables" value="${selectedTableNumber}" />
 
 
                         <div style="display: flex; gap: 60px;">

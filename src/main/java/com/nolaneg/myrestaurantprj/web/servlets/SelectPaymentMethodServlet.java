@@ -38,46 +38,22 @@ public class SelectPaymentMethodServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         
         String branchName = req.getParameter("branchName");
-//        if (branchName == null || branchName.isEmpty()) {
-//            resp.sendRedirect(req.getContextPath() + "/select_payment_method?error=missing_parametersNAME");
-//            return;
-//        }
-//        
         String date = req.getParameter("date");
-//        if (date == null || date.isEmpty()) {
-//            resp.sendRedirect(req.getContextPath() + "/select_payment_method?error=missing_parametersDATE");
-//            return;
-//        }
-        
         String time = req.getParameter("time");
-//        if (time == null || time.isEmpty()) {
-//            resp.sendRedirect(req.getContextPath() + "/select_payment_method?error=missing_parametersTIME");
-//            return;
-//        }
-//        if (req.getParameter("people") == null || req.getParameter("people").isEmpty()) {
-//            resp.sendRedirect(req.getContextPath() + "/select_payment_method?error=missing_parametersPEOPLE");
-//            return;
-//        }
+//        String peopleParam = req.getParameter("people");
+//        String tablesParam = req.getParameter("tables");
+
+//        int numOfPeople = (peopleParam != null && !peopleParam.isEmpty()) ? Integer.parseInt(peopleParam) : 0;
+//        int numOfTables = (tablesParam != null && !tablesParam.isEmpty()) ? Integer.parseInt(tablesParam) : 0;
         int numOfPeople = Integer.parseInt(req.getParameter("people"));
-        
-//        if (req.getParameter("tables") == null || req.getParameter("tables").isEmpty()) {
-//            resp.sendRedirect(req.getContextPath() + "/select_payment_method?error=missing_parametersTABLES");
-//            return;
-//        }
         int numOfTables = Integer.parseInt(req.getParameter("tables"));
-        System.out.println(branchName);
-        System.out.println(date);
-        System.out.println(time);
-        System.out.println(numOfPeople);
-        System.out.println(numOfTables);
         
-//        ReservationPay reservationDay = getReservationPay(req);
         req.setAttribute("reservationBranchName", branchName);
         req.setAttribute("reservationDate", date);
         req.setAttribute("reservationTime", time);
         req.setAttribute("numberOfPeople", numOfPeople);
         req.setAttribute("selectedTableNumber", numOfTables);
-//        
+        
         req.getRequestDispatcher("/WEB-INF/jsp/select_payment_method.jsp").forward(req, resp);
         
     }
@@ -88,6 +64,7 @@ public class SelectPaymentMethodServlet extends HttpServlet {
         String branchName = req.getParameter("branchName1");
         String date = req.getParameter("date1");
         String time = req.getParameter("time1"); 
+        
         int numOfPeople = Integer.parseInt(req.getParameter("people1"));
         int numOfTables = Integer.parseInt(req.getParameter("tables1"));
 //        ReservationPay reservationDay = getReservationPay(req);
@@ -111,11 +88,9 @@ public class SelectPaymentMethodServlet extends HttpServlet {
             return;
         }
         try {
-            
             DAO.getDAO().getTableDAO().addTable(date , time ,"reserved", numOfPeople , branchId);
             resp.sendRedirect(req.getContextPath() + "/complete_reservation");
         } catch (DbException ex) {
-//            ex.printStackTrace();
             Logger.getLogger(SelectPaymentMethodServlet.class.getName()).log(Level.SEVERE, null, ex);
             resp.sendRedirect(req.getContextPath() + "/select_payment_method?error=db_error");
         }
