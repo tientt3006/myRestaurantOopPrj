@@ -40,11 +40,6 @@ public class SelectPaymentMethodServlet extends HttpServlet {
         String branchName = req.getParameter("branchName");
         String date = req.getParameter("date");
         String time = req.getParameter("time");
-//        String peopleParam = req.getParameter("people");
-//        String tablesParam = req.getParameter("tables");
-
-//        int numOfPeople = (peopleParam != null && !peopleParam.isEmpty()) ? Integer.parseInt(peopleParam) : 0;
-//        int numOfTables = (tablesParam != null && !tablesParam.isEmpty()) ? Integer.parseInt(tablesParam) : 0;
         int numOfPeople = Integer.parseInt(req.getParameter("people"));
         int numOfTables = Integer.parseInt(req.getParameter("tables"));
         
@@ -61,12 +56,13 @@ public class SelectPaymentMethodServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         
-        String branchName = req.getParameter("branchName1");
-        String date = req.getParameter("date1");
-        String time = req.getParameter("time1"); 
+        String branchName = req.getParameter("branchName");
+        String date = req.getParameter("date");
+        String time = req.getParameter("time"); 
         
-        int numOfPeople = Integer.parseInt(req.getParameter("people1"));
-        int numOfTables = Integer.parseInt(req.getParameter("tables1"));
+        int numOfPeople = Integer.parseInt(req.getParameter("people"));
+        int numOfTables = Integer.parseInt(req.getParameter("tables"));
+        
 //        ReservationPay reservationDay = getReservationPay(req);
         int branchId = 0;
         List<Branch> branchs = null;
@@ -90,7 +86,8 @@ public class SelectPaymentMethodServlet extends HttpServlet {
         try {
             DAO.getDAO().getTableDAO().addTable(date , time ,"reserved", numOfPeople , branchId);
             resp.sendRedirect(req.getContextPath() + "/complete_reservation");
-        } catch (DbException ex) {
+        }
+        catch (DbException ex) {
             Logger.getLogger(SelectPaymentMethodServlet.class.getName()).log(Level.SEVERE, null, ex);
             resp.sendRedirect(req.getContextPath() + "/select_payment_method?error=db_error");
         }

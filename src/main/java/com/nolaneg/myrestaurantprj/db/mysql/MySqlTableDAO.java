@@ -77,10 +77,8 @@ public class MySqlTableDAO implements TableDAO{
             int k = 0;
             ps.setString(++k, date);
             ps.setString(++k, time);
-            ++k;
             ps.setString(++k, status);
             ps.setInt(++k, numOfPeople);
-            ++k;++k;
             ps.setInt(++k, branchId);
 
             if (ps.executeUpdate() == 0) {
@@ -92,7 +90,6 @@ public class MySqlTableDAO implements TableDAO{
             SqlUtils.close(con);
             SqlUtils.close(ps);
         }
-        return;
     }
 
 }

@@ -27,11 +27,7 @@
                     <p><strong>Time:</strong> ${reservationTime}</p>
                     <p><strong>Branch:</strong> ${reservationBranchName}</p>
                     <p><strong>Deposit Amount:</strong> ${selectedTableNumber * 100000} VND</p>
-                    <input type="hidden" name="branchName" value="${reservationBranchName}" />
-                    <input type="hidden" name="date" value="${reservationDate}" />
-                    <input type="hidden" name="time" value="${reservationTime}" />
-                    <input type="hidden" name="people" value="${numberOfPeople}" />
-                    <input type="hidden" name="tables" value="${selectedTableNumber}" />
+
                 </div>
                 
                 <div class="select-pm-box login-box">
