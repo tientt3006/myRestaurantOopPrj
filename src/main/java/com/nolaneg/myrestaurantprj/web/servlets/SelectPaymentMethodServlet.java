@@ -84,7 +84,14 @@ public class SelectPaymentMethodServlet extends HttpServlet {
             return;
         }
         try {
-            DAO.getDAO().getTableDAO().addTable(date , time ,"reserved", numOfPeople , branchId);
+            while(numOfTables-- > 1){
+                if(numOfPeople > 6){
+                    DAO.getDAO().getTableDAO().addTable(date , time ,"reserved", 6 , branchId);
+                    numOfPeople -= 6;
+                }
+                DAO.getDAO().getTableDAO().addTable(date , time ,"reserved", numOfPeople , branchId);
+            }
+            
             resp.sendRedirect(req.getContextPath() + "/complete_reservation");
         }
         catch (DbException ex) {

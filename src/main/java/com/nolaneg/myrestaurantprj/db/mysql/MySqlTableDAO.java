@@ -84,6 +84,7 @@ public class MySqlTableDAO implements TableDAO{
             if (ps.executeUpdate() == 0) {
                 throw new DbException("AddTable failed, no rows attached");
             }
+            con.commit();
         } catch (SQLException ex) {
             throw new DbException("Cannot addition table", ex);
         } finally {

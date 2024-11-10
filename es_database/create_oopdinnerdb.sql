@@ -47,7 +47,8 @@ CREATE TABLE receipt (
 );
 -- Maximum 50 tables per branch, in real life. So that each branch can handle maximun 300 people at the same time
 CREATE TABLE tables (
-    tableId INT PRIMARY KEY AUTO_INCREMENT,               
+    tableId INT PRIMARY KEY AUTO_INCREMENT,      
+    receiptId INT,
     reservation_date DATE,               
     reservation_time TIME,
     maxSeats INT DEFAULT 6,
@@ -56,7 +57,8 @@ CREATE TABLE tables (
     start_time DATETIME,
     end_time DATETIME,
     branchId INT,
-    FOREIGN KEY (branchId) REFERENCES branch(branchId) ON DELETE CASCADE ON UPDATE CASCADE
+    FOREIGN KEY (branchId) REFERENCES branch(branchId) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (receiptId) REFERENCES receipt(receiptId)  ON DELETE CASCADE ON UPDATE CASCADE
 );
 CREATE TABLE receiptHasTable (
     receiptId INT,                              -- Mã hóa đơn (khóa ngoại)
@@ -114,7 +116,7 @@ INSERT INTO oopdinnerdb.branch (branchId, address, mnId) VALUES
 (3, 'Ho Tay', 301),
 (4, 'Keangnam Landmark 72', 401);
 
-INSERT INTO category (categoryId, categoryName) VALUES 
+INSERT INTO oopdinnerdb.category (categoryId, categoryName) VALUES 
 (1, "Meat"),
 (2, "Drink"),
 (3, "Vergetable");
