@@ -42,10 +42,10 @@
                         <input type="time" name="time" required>
                         
                         <p class="password-text"> Number Of People: </p>
-                        <input type="number" name="people" min="1" max="300" required>
+                        <input type="number" name="people" min="1" max="300" value="1" required>
                         
                         <p class="password-text"> Number Of Tables: </p>
-                        <input type="number" name="tables" min="1" max="50" required>
+                        <input type="number" name="tables" min="1" max="50" value="1" required>
                         
                         <p style="color: white; text-align: center; font-size: 14px;">Maximum 6 people per table.</p>
                         
@@ -73,75 +73,33 @@
             tablesInput.value = numTables; 
             tablesInput.min = numTables;
         });
-
-//        // Restrict past dates and times
-//        document.addEventListener("DOMContentLoaded", function() {
-//            const dateInput = document.querySelector('input[name="date"]');
-//            const timeInput = document.querySelector('input[name="time"]');
-//
-//            const now = new Date();
-//            const today = now.toISOString().split('T')[0];
-//            dateInput.setAttribute('min', today);
-//
-//            dateInput.addEventListener('change', function() {
-//                if (this.value === today) {
-//                    const currentTime = now.toTimeString().slice(0, 5);
-//                    timeInput.setAttribute('min', currentTime);
-//                } else {
-//                    timeInput.removeAttribute('min');
-//                }
-//            });
-//        });
-        // Restrict past dates and times and limit time input to 5 PM - 11 PM
-//        document.addEventListener("DOMContentLoaded", function() {
-//            const dateInput = document.querySelector('input[name="date"]');
-//            const timeInput = document.querySelector('input[name="time"]');
-//
-//            // Restrict date to today and future dates only
-//            const now = new Date();
-//            const today = now.toISOString().split('T')[0];
-//            dateInput.setAttribute('min', today);
-//
-//            dateInput.addEventListener('change', function() {
-//                const selectedDate = this.value;
-//                const currentTime = now.toTimeString().slice(0, 5);
-//
-//                // Limit time selection to 17:00 (5 PM) to 23:00 (11 PM)
-//                timeInput.setAttribute('min', selectedDate === today ? Math.max("17:00", currentTime) : "17:00");
-//                timeInput.setAttribute('max', "23:00");
-//
-//                // Reset time if it doesn't fall within the allowed range
-//                if (timeInput.value && (timeInput.value < timeInput.min || timeInput.value > timeInput.max)) {
-//                    timeInput.value = "";
-//                }
-//            });
-//        });
+        // Auto date time
         document.addEventListener("DOMContentLoaded", function() {
             const dateInput = document.querySelector('input[name="date"]');
             const timeInput = document.querySelector('input[name="time"]');
 
+            // Lấy ngày hiện tại
             const now = new Date();
             const today = now.toISOString().split('T')[0];
-            const currentHour = now.getHours();
 
-            // Check if it's past 11 PM, if so, set the minimum date to tomorrow
-            if (currentHour >= 23) {
-                const tomorrow = new Date(now);
-                tomorrow.setDate(now.getDate() + 1);
-                dateInput.setAttribute('min', tomorrow.toISOString().split('T')[0]);
-            } else {
-                dateInput.setAttribute('min', today);
-            }
+            // Đặt ngày hiện tại làm giá trị mặc định cho ô Date
+            dateInput.value = today;
+            dateInput.setAttribute('min', today);
 
-            // Restrict time selection from 5 PM to 11 PM
+            // Đặt giờ mặc định là 5 giờ chiều (17:00) cho ô Time
+            timeInput.value = "17:00";
+            timeInput.setAttribute('min', "17:00");
+            timeInput.setAttribute('max', "23:00");
+
+            // Nếu người dùng chọn ngày hôm nay, giới hạn giờ bắt đầu từ giờ hiện tại hoặc 17:00
             dateInput.addEventListener('change', function() {
-                if (this.value === today && currentHour < 23) {
+                if (this.value === today) {
+                    const currentHour = now.getHours();
                     const currentTime = now.toTimeString().slice(0, 5);
                     timeInput.setAttribute('min', currentTime < "17:00" ? "17:00" : currentTime);
                 } else {
                     timeInput.setAttribute('min', "17:00");
                 }
-                timeInput.setAttribute('max', "23:00");
             });
         });
     </script>
