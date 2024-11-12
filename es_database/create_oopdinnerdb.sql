@@ -1,7 +1,7 @@
 
 -- File: creat_oopdinnerdb.sql
 
-CREATE DATABASE IF NOT EXISTS oopdinnerdb;
+CREATE DATABASE IF NOT EXISTS oopdinnerdb CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE oopdinnerdb;
 
 DROP TABLE IF EXISTS users;
@@ -87,7 +87,6 @@ CREATE TABLE tableHasDish (
     FOREIGN KEY (dishId) REFERENCES dish(dishId) ON DELETE CASCADE ON UPDATE CASCADE,
     PRIMARY KEY (tableId, dishId)               -- Khóa chính kết hợp giữa bàn và món ăn
 );
-
 
 INSERT INTO role (roleName) VALUES 
 ('customer'),
