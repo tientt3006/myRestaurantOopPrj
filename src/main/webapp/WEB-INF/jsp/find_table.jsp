@@ -19,7 +19,7 @@
             <div class="login-container findTable-container">
                 <div class="findTable-box login-box">
                     <h2>Find A Table</h2>
-                    <% if ("outOfTable".equals(request.getParameter("failure"))) { %>
+                    <% if ("true".equals(request.getParameter("out_of_table"))) { %>
                         <div class="error-message" style="color: red; text-align: center; margin-bottom: 10px;">
                             Out of table at the time you picked.
                         </div>

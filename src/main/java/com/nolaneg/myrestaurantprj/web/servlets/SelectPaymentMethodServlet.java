@@ -36,34 +36,20 @@ import org.slf4j.LoggerFactory;
 public class SelectPaymentMethodServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        
-        String branchName = req.getParameter("branchName");
-        String date = req.getParameter("date");
-        String time = req.getParameter("time");
-        int numOfPeople = Integer.parseInt(req.getParameter("people"));
-        int numOfTables = Integer.parseInt(req.getParameter("tables"));
-        
-        req.setAttribute("reservationBranchName", branchName);
-        req.setAttribute("reservationDate", date);
-        req.setAttribute("reservationTime", time);
-        req.setAttribute("numberOfPeople", numOfPeople);
-        req.setAttribute("selectedTableNumber", numOfTables);
-        
         req.getRequestDispatcher("/WEB-INF/jsp/select_payment_method.jsp").forward(req, resp);
-        
     }
     
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        
-        String branchName = req.getParameter("branchName");
-        String date = req.getParameter("date");
-        String time = req.getParameter("time"); 
-        
-        int numOfPeople = Integer.parseInt(req.getParameter("people"));
-        int numOfTables = Integer.parseInt(req.getParameter("tables"));
-        
-//        ReservationPay reservationDay = getReservationPay(req);
+        String numOfTables = (String) req.getAttribute("tables");
+        String numOfPeople = (String) req.getAttribute("people");
+        String date = (String) req.getAttribute("date");
+        String time = (String) req.getAttribute("time");
+        String branchName = (String) req.getAttribute("branchName");
+
+        int people = Integer.parseInt(numOfPeople);
+        int tables = Integer.parseInt(numOfTables);
+
         int branchId = 0;
         List<Branch> branchs = null;
         try {
@@ -76,27 +62,25 @@ public class SelectPaymentMethodServlet extends HttpServlet {
         } catch (DbException ex) {
             Logger.getLogger(SelectPaymentMethodServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        // Lưu thông tin vào DataBase tables;
-        if(branchId ==0 || numOfPeople ==0 || numOfTables ==0 || 
-                date == null || date.isEmpty() || 
-                time == null || time.isEmpty()){
-            resp.sendRedirect(req.getContextPath() + "/select_payment_method?error=paymentfalse");
-            return;
-        }
         try {
-            while(numOfTables-- > 1){
-                if(numOfPeople > 6){
-                    DAO.getDAO().getTableDAO().addTable(date , time ,"reserved", 6 , branchId);
-                    numOfPeople -= 6;
+            if (tables <= Utils.MAX_TABLE 
+                        - DAO.getDAO().getTableDAO().getReservedTable(branchId, date, time) 
+                        - DAO.getDAO().getTableDAO().getOccupiedTable(branchId, date, time)){
+                while(tables-- > 1){
+                    if(people > 6){
+                        DAO.getDAO().getTableDAO().addTable(date , time ,"reserved", 6 , branchId);
+                        people -= 6;
+                    }
+                    DAO.getDAO().getTableDAO().addTable(date , time ,"reserved", people , branchId);
                 }
-                DAO.getDAO().getTableDAO().addTable(date , time ,"reserved", numOfPeople , branchId);
+                resp.sendRedirect(req.getContextPath() + "/complete_reservation");
+            } else {
+                resp.sendRedirect(req.getContextPath() + "/find_table?out_of_table=true");
             }
-            
-            resp.sendRedirect(req.getContextPath() + "/complete_reservation");
         }
         catch (DbException ex) {
-            Logger.getLogger(SelectPaymentMethodServlet.class.getName()).log(Level.SEVERE, null, ex);
-            resp.sendRedirect(req.getContextPath() + "/select_payment_method?error=db_error");
+                Logger.getLogger(SelectPaymentMethodServlet.class.getName()).log(Level.SEVERE, null, ex);
+                resp.sendRedirect(req.getContextPath() + "/select_payment_method?error=db_error");
         }
     }
 }

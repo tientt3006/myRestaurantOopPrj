@@ -48,12 +48,13 @@ public class FindTablesServlet extends HttpServlet{
     }
     
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         int branchId = Integer.parseInt(req.getParameter("branch"));
         String date = req.getParameter("date");
         String time = req.getParameter("time");
-        int numOfPeople = Integer.parseInt(req.getParameter("people"));
-        int numOfTables = Integer.parseInt(req.getParameter("tables"));
+        String numOfTables = (String) req.getParameter("tables");
+        String numOfPeople = (String) req.getParameter("people");
+        int tables = Integer.parseInt(numOfTables);
         try {
             String branchName = "";
             List<Branch> branchs = DAO.getDAO().getBranchDAO().getBranchs();
@@ -62,15 +63,17 @@ public class FindTablesServlet extends HttpServlet{
                     branchName = x.getLocation();
                 }
             }
-            if (numOfTables <= Utils.MAX_TABLE - DAO.getDAO().getTableDAO().getReservedTable(branchId, date, time) - DAO.getDAO().getTableDAO().getOccupiedTable(branchId, date, time)) {
+            if (tables <= Utils.MAX_TABLE 
+                    - DAO.getDAO().getTableDAO().getReservedTable(branchId, date, time) 
+                    - DAO.getDAO().getTableDAO().getOccupiedTable(branchId, date, time)) {
+                
                 String redirectUrl = String.format(
                     "%s/select_payment_method?branchName=%s&date=%s&time=%s&people=%s&tables=%s",
                     req.getContextPath(), branchName, date, time, numOfPeople, numOfTables
                 );
                 resp.sendRedirect(redirectUrl);
-                //resp.sendRedirect(req.getContextPath() + "/select_payment_method");
             } else {
-                resp.sendRedirect(req.getContextPath() + "/find_table?failure=outOfTable");
+                resp.sendRedirect(req.getContextPath() + "/find_table?out_of_table=true");
             }
         } catch (DbException e) {
             logger.error(Utils.getErrMessage(e), e);

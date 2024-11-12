@@ -14,6 +14,11 @@
         <%@ include file="cus_header.jspf" %>
         
         <!-- Main Content -->
+        <% if ("true".equals(request.getParameter("payment_failed"))) { %>
+            <div class="alert alert-warning" style="color: red; text-align: center;">
+                Payment Failed
+            </div>
+        <% } %>
         <div class="main-container">
             <div class="login-container selent-pm-container" style="align-items: flex-start;">
                 
@@ -21,12 +26,12 @@
                 <div class="reser-detail-box login-box" style="color: white;">
                     <h2>Reservation Details</h2>
                     <!--<p style="text-align: center;">Please review your reservation details before proceeding with the payment.</p>-->
-                    <p><strong>Selected Table(s):</strong> ${selectedTableNumber}</p>
-                    <p><strong>Number of People:</strong> ${numberOfPeople}</p>
-                    <p><strong>Date:</strong> ${reservationDate}</p>
-                    <p><strong>Time:</strong> ${reservationTime}</p>
-                    <p><strong>Branch:</strong> ${reservationBranchName}</p>
-                    <p><strong>Deposit Amount:</strong> ${selectedTableNumber * 100000} VND</p>
+                    <p><strong>Selected Table(s):</strong> ${requestScope.tables}</p>
+                    <p><strong>Number of People:</strong> ${requestScope.people}</p>
+                    <p><strong>Date:</strong> ${requestScope.date}</p>
+                    <p><strong>Time:</strong> ${requestScope.time}</p>
+                    <p><strong>Branch:</strong> ${requestScope.branchName}</p>
+                    <p><strong>Deposit Amount:</strong> ${requestScope.tables * 100000} VND</p>
 
                 </div>
                 
@@ -38,13 +43,12 @@
                     <br>
                     <form id="selectPmForm" action="${pageContext.request.contextPath}/select_payment_method" method="post">
                         
-                        <input type="hidden" name="branchName" value="${reservationBranchName}" />
-                        <input type="hidden" name="date" value="${reservationDate}" />
-                        <input type="hidden" name="time" value="${reservationTime}" />
-                        <input type="hidden" name="people" value="${numberOfPeople}" />
-                        <input type="hidden" name="tables" value="${selectedTableNumber}" />
-
-
+                        <input type="hidden" name="tables" value="${requestScope.tables}">
+                        <input type="hidden" name="people" value="${requestScope.people}">
+                        <input type="hidden" name="date" value="${requestScope.date}">
+                        <input type="hidden" name="time" value="${requestScope.time}">
+                        <input type="hidden" name="branchName" value="${requestScope.branchName}">
+                        
                         <div style="display: flex; gap: 60px;">
                             <label class="password-text" for="paymentMethod" style="flex: 1;">Payment Method:</label>
                             <label class="password-text" for="expMonth" style="flex: 1;">Expiration date:</label>
@@ -148,9 +152,8 @@
             </div>
         </div>
         <div style="text-align: center; margin-top: 20px;">
-            <a href="${pageContext.request.contextPath}/select_payment_method?error=payment_faile" style="margin-right: 40px; text-decoration: underline;">Payment Error</a>
-
-            <a href="${pageContext.request.contextPath}/find_table?error=out_of_table" style="text-decoration: underline;">Out of Tables</a>
+            <a href="${pageContext.request.contextPath}/select_payment_method?branchName=${requestScope.branchName}&date=${requestScope.date}&time=${requestScope.time}&people=${requestScope.people}&tables=${requestScope.tables}&payment_failed=true" style="margin-right: 40px; text-decoration: underline;">Payment Error</a>
+            <a href="${pageContext.request.contextPath}/find_table?out_of_table=true" style="text-decoration: underline;">Out of Tables</a>
         </div>
         <!-- Footer -->
         <%@ include file="cus_footer.jspf" %>

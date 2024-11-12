@@ -14,13 +14,21 @@
         <%@ include file="cus_header.jspf" %>
 
         <!-- Main Content Section -->
+        <% if ("true".equals(request.getAttribute("sessionExpired"))) { %>
+            <div class="error-message" style="color: red; text-align: center;">
+                Your session has expired. Please log in again.
+            </div>
+        <% } %>
+        <% String message = request.getParameter("message"); 
+            if (message != null) { 
+        %>
+            <div class="alert alert-warning" style="color: red; text-align: center;">
+                <%= message %>
+            </div>
+        <% } %>
         <div class="main-container">
-            <% if ("true".equals(request.getAttribute("sessionExpired"))) { %>
-                <div class="error-message" style="color: red; text-align: center;">
-                    Your session has expired. Please log in again.
-                </div>
-            <% } %>
-
+            
+            
             <div class="login-container">
                 <div class="left-image"></div>
                 <div class="login-box">
