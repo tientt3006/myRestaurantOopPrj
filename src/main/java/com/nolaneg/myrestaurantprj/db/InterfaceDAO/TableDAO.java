@@ -17,5 +17,5 @@ public interface TableDAO {
     int getReservedTable(int branchId, String date) throws DbException;
     int getUnpaidTable(int branchId, String date) throws DbException;
 
-    void addTable(int receiptId, int numOfPeople) throws DbException;
+    void addTable(int receiptId) throws DbException;
 }

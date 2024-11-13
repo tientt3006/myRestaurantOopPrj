@@ -16,22 +16,15 @@
         <!-- Main Content -->
         <div class="main-container">
             <div class="login-container cpl-reser-container" style="align-items: flex-start;">
-                
-                
-                
-<!--                HttpSession session = request.getSession();
-                session.setAttribute("reservationDate", selectedDate);
-                session.setAttribute("reservationTime", selectedTime);
-                session.setAttribute("numberOfPeople", selectedPeopleCount); here are what inside servlet-->
 
                 <div class="cpl-reser-box login-box" style="color: white;">
                     <h2>Reservation successful</h2>
-                    <p><strong>Selected Table(s):</strong> ${completeselectedTableNumber}</p>
-                    <p><strong>Number of People:</strong> ${completenumberOfPeople}</p>
-                    <p><strong>Date:</strong> ${completereservationDate}</p>
-                    <p><strong>Time:</strong> ${completereservationTime}</p>
-                    <p><strong>Branch:</strong> ${completereservationBranchName}</p>
-                    <p><strong>Deposit Amount:</strong> ${completeselectedTableNumber * 100000} VND</p>
+                    <p><strong>Selected Table(s):</strong> ${receipt.reservationFee / 100000}</p>
+                    <p><strong>Number of People:</strong> ${receipt.numOfPeople}</p>
+                    <p><strong>Date:</strong> ${receipt.reservationDate}</p>
+                    <p><strong>Time:</strong> ${receipt.reservationTime}</p>
+                    <p><strong>Branch:</strong> ${receipt.branch.location}</p>
+                    <p><strong>Deposit Amount:</strong> ${receipt.reservationFee} VND</p>
                     <p style="text-align: center;">You can choose your dishes now or review your reserved tables.</p>
                     <div style="display: flex; gap: 20px;">
                     <a href="${pageContext.request.contextPath}/select_dish">Select Dish</a>

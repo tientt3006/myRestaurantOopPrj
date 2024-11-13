@@ -40,9 +40,6 @@ public class MenuServlet extends HttpServlet{
             }
             
             List<Dish> dishes;
-            //dishes = DAO.getDAO().getDishDAO().getDishes();
-            //int totalItems = dishes.size(); 
-            //int itemsPerPage = 8;
             int totalPages;
             if (category == 0) {
                 dishes = DAO.getDAO().getDishDAO().getSortedDishesOnPage(sortBy, dishesInPage, page);
@@ -53,18 +50,6 @@ public class MenuServlet extends HttpServlet{
             }
             totalPages = (int) Math.ceil((double) totalPages / dishesInPage) - 1;
 
-            // Lấy trang hiện tại từ request
-            //String pageParam = req.getParameter("page");
-            //int currentPage = (pageParam != null) ? Integer.parseInt(pageParam) : 1;
-
-            // Xác định phạm vi món ăn cần hiển thị
-            //int startItem = (currentPage - 1) * itemsPerPage;
-            //int endItem = Math.min(startItem + itemsPerPage, totalItems);
-          
-            //List<Dish> currentDishes = dishes.subList(startItem, endItem);
-           
-            
-            // Truyền dữ liệu sang JSP
             session.setAttribute("totalPages", totalPages);
             session.setAttribute("dishes", dishes);
             req.getRequestDispatcher("/WEB-INF/jsp/menu.jsp").forward(req, resp);  

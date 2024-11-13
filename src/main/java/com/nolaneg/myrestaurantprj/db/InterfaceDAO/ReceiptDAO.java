@@ -17,4 +17,6 @@ import java.math.*;
 public interface ReceiptDAO {
     Receipt getLastestReceiptOfAUser(int userId, int branchId) throws DbException;
     Receipt addReceipt(int userId, int branchId, Receipt receipt ) throws DbException;
+    int getUserIdByReceiptId(int receiptId) throws DbException;
+    Receipt getReceiptByReceiptId(int receiptId) throws DbException;
 }

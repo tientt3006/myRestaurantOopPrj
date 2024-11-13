@@ -27,11 +27,6 @@ public class MenuFilter extends HttpFilter {
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
         String category = req.getParameter("category");
         String sortBy = req.getParameter("sortBy");
-//        User user = (User) req.getSession().getAttribute("user");
-//        if (user != null && user.getRoleId() == 2) {
-//            res.sendRedirect(req.getContextPath() + "/users");
-//            return;
-//        }
         if (category == null || sortBy == null) {
             res.sendRedirect(req.getContextPath() + "/menu?category=0&sortBy=categoryId&page=0&dishesInPage=8");
         } else {

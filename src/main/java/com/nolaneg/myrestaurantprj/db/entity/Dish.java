@@ -42,10 +42,6 @@ public class Dish implements Serializable {
     public int hashCode() {
         return Objects.hash(dishId);
     }
-
-    public int getQuantity() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
     
     public static class Builder {
         Dish dish = new Dish();

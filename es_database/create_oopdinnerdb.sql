@@ -49,6 +49,7 @@ CREATE TABLE receipt (
     end_time DATETIME,
     status VARCHAR(20) NOT NULL, -- reserved (đã đặt bàn thành công, các bàn đợi được dùng), unpaid (chưa thanh toán tiền ăn, các bàn đang được sử dụng), paid (đã thanh toán tất cả, các bàn nhàn dỗi), refunded, canceled
 	createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    num_people INT, 
 	FOREIGN KEY (userId) REFERENCES users(userId) ON DELETE CASCADE ON UPDATE CASCADE,
 	FOREIGN KEY (branchId) REFERENCES branch(branchId) ON DELETE CASCADE ON UPDATE CASCADE
 );
@@ -56,7 +57,6 @@ CREATE TABLE receipt (
 CREATE TABLE tables (
     tableId INT PRIMARY KEY AUTO_INCREMENT,      
     receiptId INT,
-    num_people INT, 
     FOREIGN KEY (receiptId) REFERENCES receipt(receiptId)  ON DELETE CASCADE ON UPDATE CASCADE
 );
 CREATE TABLE category (
@@ -71,13 +71,13 @@ CREATE TABLE dish (
     ingredient VARCHAR(1023),
     FOREIGN KEY (categoryId) REFERENCES category(categoryId) ON DELETE CASCADE ON UPDATE CASCADE
 );
-CREATE TABLE tableHasDish (
-    tableId INT, 
+CREATE TABLE receiptHasDish (
+    receiptId INT, 
     dishId INT,  
-    quantity INT NOT NULL,
-    FOREIGN KEY (tableId) REFERENCES tables(tableId) ON DELETE CASCADE ON UPDATE CASCADE,
+    quantity INT,
+    FOREIGN KEY (receiptId) REFERENCES receipt(receiptId) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (dishId) REFERENCES dish(dishId) ON DELETE CASCADE ON UPDATE CASCADE,
-    PRIMARY KEY (tableId, dishId) 
+    PRIMARY KEY (receiptId, dishId) 
 );
 
 INSERT INTO role (roleId, roleName) VALUES 

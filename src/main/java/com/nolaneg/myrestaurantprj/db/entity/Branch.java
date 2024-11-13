@@ -10,8 +10,7 @@ public class Branch implements Serializable{
     private int branchId;
     private String location;
     private User manager;
-    private Tables[] tables;
-    //
+
     public int getBranchId(){
         return branchId;
     }
@@ -21,10 +20,6 @@ public class Branch implements Serializable{
     public User getManager(){
         return manager;
     }
-    public Tables[] getTables(){
-        return tables;
-    }
-    //
     public static class Builder{
         Branch branch = new Branch();
         
@@ -38,10 +33,6 @@ public class Branch implements Serializable{
         }
         public Builder setManager(User manager){
             branch.manager = manager;
-            return this;
-        }
-        public Builder setTables(Tables[] tables){
-            branch.tables = tables;
             return this;
         }
         public Branch getBranch(){

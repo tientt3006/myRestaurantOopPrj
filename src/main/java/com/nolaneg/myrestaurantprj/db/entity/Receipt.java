@@ -25,6 +25,10 @@ public class Receipt {
     private LocalDateTime endTime;
     private String status;
     private LocalDateTime createDate;
+    private int numOfPeople;
+    private ArrayList<Tables> tables;
+    private ArrayList<Dish> dishes;
+    private Branch branch;
 
     public int getReceiptId() {
         return receiptId;
@@ -68,6 +72,22 @@ public class Receipt {
 
     public LocalDateTime getCreateDate() {
         return createDate;
+    }
+
+    public int getNumOfPeople() {
+        return numOfPeople;
+    }
+
+    public ArrayList<Tables> getTables() {
+        return tables;
+    }
+
+    public ArrayList<Dish> getDishes() {
+        return dishes;
+    }
+
+    public Branch getBranch() {
+        return branch;
     }
     
     public static class Builder{
@@ -125,8 +145,28 @@ public class Receipt {
             receipt.createDate = dateTime;
             return this;
         }
+        public Builder setNumOfPeople(int n) {
+            receipt.numOfPeople = n;
+            return this;
+        }
+        public Builder setTables(ArrayList<Tables> tables) {
+            receipt.tables = tables;
+            return this;
+        }
+
+        public Builder setDishes(ArrayList<Dish> dishes) {
+            receipt.dishes = dishes;
+            return this;
+        }
+
+        public Builder setBranch(Branch branch) {
+            receipt.branch = branch;
+            return this;
+        }
         public Receipt getReceipt(){
             return receipt;
         }
+        
+        
     }
 }

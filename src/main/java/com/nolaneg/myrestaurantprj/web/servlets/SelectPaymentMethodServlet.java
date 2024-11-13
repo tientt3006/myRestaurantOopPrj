@@ -66,27 +66,22 @@ public class SelectPaymentMethodServlet extends HttpServlet {
                         .setReservationDate(LocalDate.parse(date))
                         .setReservationTime(LocalTime.parse(time))
                         .setStatus("reserved")
+                        .setNumOfPeople(people)
                         .getReceipt();
                 receipt = DAO.getDAO().getReceiptDAO().addReceipt(user.getUserId(), Integer.parseInt(branchId), receipt);
-                
+                int receiptId = receipt.getReceiptId();
                 while(tables-- >= 1){
-                    if(people >= 6){
-                        DAO.getDAO().getTableDAO().addTable(receipt.getReceiptId(), 6);
-                        people -= 6;
-                    }else{
-                        DAO.getDAO().getTableDAO().addTable(receipt.getReceiptId(), people);
-                        people = 0;
-                    }
+                    DAO.getDAO().getTableDAO().addTable(receiptId);
                 }
                 
-                resp.sendRedirect(req.getContextPath() + "/complete_reservation");
+                resp.sendRedirect(req.getContextPath() + "/complete_reservation?receipt_id=" + receiptId);
             } else {
                 resp.sendRedirect(req.getContextPath() + "/find_table?out_of_table=true");
             }
         }
         catch (DbException ex) {
                 Logger.getLogger(SelectPaymentMethodServlet.class.getName()).log(Level.SEVERE, null, ex);
-                resp.sendRedirect(req.getContextPath() + "/select_payment_method?error=db_error");
+                resp.sendRedirect(req.getContextPath() + "/find_table?error=db_error");
         }
     }
 }

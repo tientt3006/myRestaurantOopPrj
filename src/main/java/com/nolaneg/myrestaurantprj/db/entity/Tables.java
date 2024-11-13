@@ -12,7 +12,6 @@ import java.io.*;
 import java.util.*;
 public class Tables implements Serializable {
     private int tableId;
-    private Dish[] dishes;
     
     public int getTableId(){
         return tableId;
