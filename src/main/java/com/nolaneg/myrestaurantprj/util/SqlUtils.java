@@ -4,12 +4,17 @@
  */
 
 package com.nolaneg.myrestaurantprj.util;
+import com.nolaneg.myrestaurantprj.db.InterfaceDAO.DAO;
+import com.nolaneg.myrestaurantprj.db.entity.Branch;
+import com.nolaneg.myrestaurantprj.exceptions.AppException;
+import com.nolaneg.myrestaurantprj.exceptions.DbException;
 import java.util.*;
 import java.io.*;
 import java.math.*;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Savepoint;
+import java.util.logging.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,9 +23,15 @@ import org.slf4j.LoggerFactory;
  * @author $_{user}
  */
 public class SqlUtils {
-
+    
+    public static final String GET_BRANCHS = "SELECT * FROM branch";
+    
+    public static final String FIND_RESERVED_TABLE = "SELECT COUNT(*) FROM tables WHERE branchId = ? AND reservation_date = ? AND status = 'reserved';";
+    public static final String FIND_OCCUPIED_TABLE = "SELECT COUNT(*) FROM tables WHERE branchId = ? AND reservation_date = ? AND status = 'occupied';";
+    public static final String ADD_TABLE = "INSERT INTO tables (reservation_date, reservation_time,status, num_people, branchId) VALUES (?, ?, ?, ?, ?)";
     public static final String LOG_IN = "SELECT * FROM users WHERE email LIKE ? AND password LIKE ?";
     public static final String SIGN_UP = "INSERT INTO users (firstName, lastName, password, email, phone) VALUES (?, ?, ?, ?, ?)";
+    public static final String FIND_USER_BY_ID = "SELECT * FROM users WHERE userId LIKE ?";
     public static final String FIND_USER_BY_EMAIL = "SELECT * FROM users WHERE email LIKE ?";
     public static final String FIND_USER_BY_PHONE = "SELECT * FROM users WHERE phone LIKE ?";
     public static final String CHANGE_PASSWORD = "UPDATE users SET password = ? WHERE userId = ?";
@@ -40,14 +51,23 @@ public class SqlUtils {
     private static final Logger logger = LoggerFactory.getLogger(SqlUtils.class);
 
     // Other constants and methods
-
+    public static ArrayList<Branch> branchs;
+    static {
+        try {
+            branchs = DAO.getDAO().getBranchDAO().getBranchs();
+        } catch (DbException e) {
+            logger.error("Failed to initialize branchs", e);
+        }
+    }
+    
     public static final Map<String, String> sortingTypes = new HashMap<>();
-
     static {
         sortingTypes.put("Price", "price");
         sortingTypes.put("Name", "dishName");
         sortingTypes.put("Category", "categoryId");
     }
+    
+    
     
     public static void rollback(Connection con) {
         try {

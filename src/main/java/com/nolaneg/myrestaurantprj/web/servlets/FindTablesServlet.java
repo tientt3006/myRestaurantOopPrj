@@ -5,6 +5,8 @@
 
 package com.nolaneg.myrestaurantprj.web.servlets;
 import com.nolaneg.myrestaurantprj.db.InterfaceDAO.DAO;
+import com.nolaneg.myrestaurantprj.db.entity.Branch;
+import com.nolaneg.myrestaurantprj.db.entity.Category;
 import com.nolaneg.myrestaurantprj.db.entity.User;
 import com.nolaneg.myrestaurantprj.exceptions.AppException;
 import com.nolaneg.myrestaurantprj.exceptions.DbException;
@@ -19,12 +21,14 @@ import javax.sql.DataSource;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.HttpSession;
 import org.slf4j.LoggerFactory;
 @WebServlet("/find_table")
 
-public class FindTables extends HttpServlet{
+public class FindTablesServlet extends HttpServlet{
         private static final org.slf4j.Logger logger = LoggerFactory.getLogger(SqlUtils.class);
 
     
@@ -34,18 +38,32 @@ public class FindTables extends HttpServlet{
     }
     
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         int branchId = Integer.parseInt(req.getParameter("branch"));
         String date = req.getParameter("date");
         String time = req.getParameter("time");
-        int numOfPeople = Integer.parseInt(req.getParameter("people"));
-        int numOfTables = Integer.parseInt(req.getParameter("tables"));
-
+        String numOfTables = (String) req.getParameter("tables");
+        String numOfPeople = (String) req.getParameter("people");
+        int tables = Integer.parseInt(numOfTables);
         try {
-            if (numOfTables <= Utils.MAX_TABLE - DAO.getDAO().getTableDAO().getReservedTable(branchId, date, time) - DAO.getDAO().getTableDAO().getOccupiedTable(branchId, date, time)) {
-                resp.sendRedirect(req.getContextPath() + "/complete_reservation");
+            String branchName = "";
+            List<Branch> branchs = DAO.getDAO().getBranchDAO().getBranchs();
+            for(Branch x:branchs){
+                if(x.getBranchId() == branchId){
+                    branchName = x.getLocation();
+                }
+            }
+            if (tables <= Utils.MAX_TABLE 
+                    - DAO.getDAO().getTableDAO().getReservedTable(branchId, date, time) 
+                    - DAO.getDAO().getTableDAO().getOccupiedTable(branchId, date, time)) {
+                
+                String redirectUrl = String.format(
+                    "%s/select_payment_method?branchName=%s&date=%s&time=%s&people=%s&tables=%s",
+                    req.getContextPath(), branchName, date, time, numOfPeople, numOfTables
+                );
+                resp.sendRedirect(redirectUrl);
             } else {
-                resp.sendRedirect(req.getContextPath() + "/find_table?failure=outOfTable");
+                resp.sendRedirect(req.getContextPath() + "/find_table?out_of_table=true");
             }
         } catch (DbException e) {
             logger.error(Utils.getErrMessage(e), e);

@@ -4,6 +4,7 @@
  */
 
 package com.nolaneg.myrestaurantprj.db.InterfaceDAO;
+import com.nolaneg.myrestaurantprj.db.entity.Branch;
 import com.nolaneg.myrestaurantprj.exceptions.DbException;
 import java.util.*;
 import java.io.*;
@@ -14,5 +15,5 @@ import java.math.*;
  * @author $_{user}
  */
 public interface BranchDAO {
-    
+    ArrayList<Branch> getBranchs() throws DbException;
 }

@@ -1,6 +1,6 @@
 -- Thêm tài khoản mẫu
 INSERT INTO users (firstName, lastName, password, email, phone, roleId) VALUES 
-('admin', 'mod', SHA2('123456', 256), 'admin.doe@gmail.com', '0234567890', 2),
+('admin', 'mod', SHA2('123456', 256), 'admin.doe@gmail.com', '0234567890', 5),
 ('Khanh', 'Nguyen', SHA2('123456', 256), 'khanh@gmail.com', '1234567890', 1),
 ('Hieu', 'Nguyen', SHA2('123456', 256), 'hieu.doe@gmail.com', '2234567890', 1),
 ('Huong', 'Nguyen', SHA2('123456', 256), 'huong.doe@gmail.com', '3234567890', 1),

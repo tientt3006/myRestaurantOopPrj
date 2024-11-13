@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
     
 <c:set var="title" value="OOP Dinner - Find Table" scope="page"/>
 <%@ include file="head.jspf" %>
@@ -19,7 +19,7 @@
             <div class="login-container findTable-container">
                 <div class="findTable-box login-box">
                     <h2>Find A Table</h2>
-                    <% if ("outOfTable".equals(request.getParameter("failure"))) { %>
+                    <% if ("true".equals(request.getParameter("out_of_table"))) { %>
                         <div class="error-message" style="color: red; text-align: center; margin-bottom: 10px;">
                             Out of table at the time you picked.
                         </div>
@@ -27,25 +27,25 @@
                     <form id="findTableForm" action="${pageContext.request.contextPath}/find_table" method="post"  onsubmit="return validateNumOfTables()">
                         
                         <p class="password-text"> Branch: </p>
-                        <select name="branch">
-                            <c:forEach var="branch" items="${branchs}">
+                        <select name="branch" required>
+                            <c:forEach var="branch" items="${applicationScope.branchs}">
                                 <option ${param.branch == branch.branchId ? "selected" : ""} value="${branch.branchId}">
-                                        ${branch.branchName}
+                                        ${branch.location}
                                 </option>
                             </c:forEach>
                         </select>
                         
                         <p class="password-text"> Date: </p>
-                        <input type="date" name="date">
+                        <input type="date" name="date" required>
                         
                         <p class="password-text"> Time: </p>
-                        <input type="time" name="time">
+                        <input type="time" name="time" min="17:00" max="23:00" required>
                         
                         <p class="password-text"> Number Of People: </p>
-                        <input type="number" name="people" min="1">
+                        <input type="number" name="people" min="1" max="300" value="1" required>
                         
                         <p class="password-text"> Number Of Tables: </p>
-                        <input type="number" name="tables" min="1">
+                        <input type="number" name="tables" min="1" max="50" value="1" required>
                         
                         <p style="color: white; text-align: center; font-size: 14px;">Maximum 6 people per table.</p>
                         
@@ -73,22 +73,38 @@
             tablesInput.value = numTables; 
             tablesInput.min = numTables;
         });
-
-        // Restrict past dates and times
+        // Auto date time
         document.addEventListener("DOMContentLoaded", function() {
             const dateInput = document.querySelector('input[name="date"]');
             const timeInput = document.querySelector('input[name="time"]');
 
             const now = new Date();
+            const currentTime = now.toTimeString().slice(0, 5);
             const today = now.toISOString().split('T')[0];
-            dateInput.setAttribute('min', today);
+            const nextDay = new Date(now.setDate(now.getDate() + 1)).toISOString().split('T')[0];
+
+            if (now.getHours() >= 23) {
+                dateInput.value = nextDay;
+                dateInput.setAttribute('min', nextDay);
+            } else {
+                dateInput.value = today;
+                dateInput.setAttribute('min', today);
+            }
+            
+            timeInput.value = (currentTime < "17:00" ? "17:00" : currentTime);
+            timeInput.setAttribute('min', currentTime < "17:00" ? "17:00" : currentTime);
+            timeInput.setAttribute('max', "23:00");
 
             dateInput.addEventListener('change', function() {
+                const now = new Date();
+                const today = now.toISOString().split('T')[0];        
                 if (this.value === today) {
                     const currentTime = now.toTimeString().slice(0, 5);
-                    timeInput.setAttribute('min', currentTime);
+                    timeInput.value = (currentTime < "17:00" ? "17:00" : currentTime);
+                    timeInput.setAttribute('min', currentTime < "17:00" ? "17:00" : currentTime);
                 } else {
-                    timeInput.removeAttribute('min');
+                    timeInput.value = "17:00";
+                    timeInput.setAttribute('min', "17:00");
                 }
             });
         });
