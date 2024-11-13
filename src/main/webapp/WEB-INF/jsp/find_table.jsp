@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
-<html lang="en-GB">
+<html lang="en">
     
 <c:set var="title" value="OOP Dinner - Find Table" scope="page"/>
 <%@ include file="head.jspf" %>
@@ -75,13 +75,24 @@
         });
         // Auto date time
         document.addEventListener("DOMContentLoaded", function() {
+
             const dateInput = document.querySelector('input[name="date"]');
             const timeInput = document.querySelector('input[name="time"]');
 
             const now = new Date();
             const currentTime = now.toTimeString().slice(0, 5);
-            const today = now.toISOString().split('T')[0];
-            const nextDay = new Date(now.setDate(now.getDate() + 1)).toISOString().split('T')[0];
+            //const today = now.toISOString().split('T')[0];
+            const today = now.toLocaleDateString('en-CA');
+            
+            const nextDayDate = new Date();
+            nextDayDate.setDate(now.getDate() + 1);
+            //const nextDay = nextDayDate.toISOString().split('T')[0];
+            const nextDay = nextDayDate.toLocaleDateString('en-CA');
+
+//            console.log("Múi giờ hiện tại:", Intl.DateTimeFormat().resolvedOptions().timeZone);
+//            console.log("Giờ hiện tại:", now, currentTime);
+//            console.log("Ngày hiện tại:", today, currentTime);
+//            console.log("Ngày hôm sau:", nextDay);
 
             if (now.getHours() >= 23) {
                 dateInput.value = nextDay;
@@ -95,17 +106,26 @@
             timeInput.setAttribute('min', currentTime < "17:00" ? "17:00" : currentTime);
         });
         function validateTime() {
+            const dateInput = document.querySelector('input[name="date"]').value;
             const timeInput = document.querySelector('input[name="time"]').value;
-            const selectedTime = timeInput.split(":");
-            const hours = parseInt(selectedTime[0], 10);
-            const minutes = parseInt(selectedTime[1], 10);
+            const selectedDate = new Date(dateInput + 'T' + timeInput);
 
-            if (hours < 17 || (hours === 17 && minutes < 0) || hours > 23 || (hours === 23 && minutes > 0)) {
+            const now = new Date();
+            const minTime = new Date(dateInput + 'T17:00');
+            const maxTime = new Date(dateInput + 'T23:00');
+
+            if (selectedDate < now) {
+                alert("The selected date and time must not be in the past.");
+                return false;
+            }
+
+            if (selectedDate < minTime || selectedDate > maxTime) {
                 alert("The selected time must be between 17:00 and 23:00.");
                 return false;
             }
+
             return true;
-        }
+        };
     </script>
 </body>
 </html>
