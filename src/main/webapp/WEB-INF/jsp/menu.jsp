@@ -38,7 +38,7 @@
                             <div>
                                 SortBy:
                                 <select name="sortBy" class="form-select">
-                                    <c:forEach var="sort" items="${sortTypes}">
+                                    <c:forEach var="sort" items="${applicationScope.sortTypes}">
                                         <option ${param.sortBy == sort.value ? "selected" : ""} value="${sort.value}">${sort.key}</option>
                                     </c:forEach>
                                 </select>

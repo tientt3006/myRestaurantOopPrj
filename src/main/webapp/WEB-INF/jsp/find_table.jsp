@@ -28,7 +28,7 @@
                         
                         <p class="password-text"> Branch: </p>
                         <select name="branch" required>
-                            <c:forEach var="branch" items="${branchs}">
+                            <c:forEach var="branch" items="${applicationScope.branchs}">
                                 <option ${param.branch == branch.branchId ? "selected" : ""} value="${branch.branchId}">
                                         ${branch.location}
                                 </option>

@@ -68,12 +68,9 @@ public class MySqlTableDAO implements TableDAO{
      * @throws DbException
      */
     @Override
-    public void addTable(String date,String time,String status,int numOfPeople,int branchId) throws DbException {
-        Connection con = null;
-        PreparedStatement ps = null;
-        try {
-            con = ConnectionPool.getInstance().getConnection();
-            ps = con.prepareStatement(SqlUtils.ADD_TABLE);
+    public void addTable(String date, String time, String status, int numOfPeople, int branchId) throws DbException {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement ps = connection.prepareStatement(SqlUtils.ADD_TABLE)) {
             int k = 0;
             ps.setString(++k, date);
             ps.setString(++k, time);
@@ -84,12 +81,9 @@ public class MySqlTableDAO implements TableDAO{
             if (ps.executeUpdate() == 0) {
                 throw new DbException("AddTable failed, no rows attached");
             }
-            con.commit();
+            connection.commit();
         } catch (SQLException ex) {
             throw new DbException("Cannot addition table", ex);
-        } finally {
-            SqlUtils.close(con);
-            SqlUtils.close(ps);
         }
     }
 

@@ -79,9 +79,7 @@ public class MySqlUserDAO implements UserDAO {
     
     @Override
     public boolean isLoginUnique(String login) throws DbException {
-        if(getUserByEmail(login) == null && getUserByPhone(login) == null)
-            return true;
-        return false;
+        return getUserByEmail(login) == null && getUserByPhone(login) == null;
     }
     
     @Override

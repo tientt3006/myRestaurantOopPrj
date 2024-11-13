@@ -22,9 +22,10 @@ import javax.sql.DataSource;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import org.slf4j.LoggerFactory;
 
@@ -50,29 +51,29 @@ public class SelectPaymentMethodServlet extends HttpServlet {
         int people = Integer.parseInt(numOfPeople);
         int tables = Integer.parseInt(numOfTables);
 
+        ServletContext context = getServletContext();
+        ArrayList<Branch> branchs = (ArrayList<Branch>) context.getAttribute("branchs");
         int branchId = 0;
-        List<Branch> branchs = null;
-        try {
-            branchs = DAO.getDAO().getBranchDAO().getBranchs();
-            for(Branch x:branchs){
-                if(x.getLocation().equals(branchName)){
-                    branchId = x.getBranchId();
-                }
-            }    
-        } catch (DbException ex) {
-            Logger.getLogger(SelectPaymentMethodServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        for(Branch x : branchs){
+            if(x.getLocation().equals(branchName)){
+                branchId = x.getBranchId();
+            }
+        }    
+
         try {
             if (tables <= Utils.MAX_TABLE 
                         - DAO.getDAO().getTableDAO().getReservedTable(branchId, date, time) 
                         - DAO.getDAO().getTableDAO().getOccupiedTable(branchId, date, time)){
-                while(tables-- > 1){
-                    if(people > 6){
+                while(tables-- >= 1){
+                    if(people >= 6){
                         DAO.getDAO().getTableDAO().addTable(date , time ,"reserved", 6 , branchId);
                         people -= 6;
+                    }else{
+                        DAO.getDAO().getTableDAO().addTable(date , time ,"reserved", people , branchId);
+                        people = 0;
                     }
-                    DAO.getDAO().getTableDAO().addTable(date , time ,"reserved", people , branchId);
                 }
+                
                 resp.sendRedirect(req.getContextPath() + "/complete_reservation");
             } else {
                 resp.sendRedirect(req.getContextPath() + "/find_table?out_of_table=true");
