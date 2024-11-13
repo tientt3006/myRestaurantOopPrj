@@ -37,35 +37,26 @@ CREATE TABLE branch (
     FOREIGN KEY (mnId) REFERENCES users(userId) ON DELETE CASCADE ON UPDATE CASCADE
 );
 CREATE TABLE receipt (
-    receiptId INT PRIMARY KEY AUTO_INCREMENT,   -- Mã hóa đơn (khóa chính, tự động tăng)
+    receiptId INT PRIMARY KEY AUTO_INCREMENT,
     userId INT NOT NULL,
-    totalAmount DECIMAL(10, 2) NOT NULL,        -- Tổng số tiền trong hóa đơn
-    receiptDate DATE NOT NULL,                  -- Ngày lập hóa đơn
-    receiptTime TIME NOT NULL,                   -- Thời gian lập hóa đơn
-    receiptType VARCHAR(20) NOT NULL,            -- Loại hóa đơn: 'deposit' (cọc bàn) hoặc 'food' (tiền thức ăn)
+    reservationFee DECIMAL(10, 2) NOT NULL,
+    foodCost DECIMAL(10, 2),
+    totalAmount DECIMAL(10, 2),
+    reservation_date DATE,
+    reservation_time TIME, 
+    start_time DATETIME,
+    end_time DATETIME,
+    status VARCHAR(20) NOT NULL, -- reserved (đã đặt bàn thành công, các bàn đợi được dùng), unpaid (chưa thanh toán tiền ăn, các bàn đang được sử dụng), paid (đã thanh toán tất cả, các bàn nhàn dỗi)
     FOREIGN KEY (userId) REFERENCES users(userId) ON DELETE CASCADE ON UPDATE CASCADE
 );
--- Maximum 50 tables per branch, in real life. So that each branch can handle maximun 300 people at the same time
+-- Maximum 50 tables per branch. So that each branch can handle maximun 300 people at a time
 CREATE TABLE tables (
     tableId INT PRIMARY KEY AUTO_INCREMENT,      
     receiptId INT,
-    reservation_date DATE,               
-    reservation_time TIME,
-    maxSeats INT DEFAULT 6,
-    status VARCHAR(20) NOT NULL, -- available, reserved, occupied  
     num_people INT, 
-    start_time DATETIME,
-    end_time DATETIME,
     branchId INT,
     FOREIGN KEY (branchId) REFERENCES branch(branchId) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (receiptId) REFERENCES receipt(receiptId)  ON DELETE CASCADE ON UPDATE CASCADE
-);
-CREATE TABLE receiptHasTable (
-    receiptId INT,                              -- Mã hóa đơn (khóa ngoại)
-    tableId INT,                                -- Mã bàn (khóa ngoại)
-    FOREIGN KEY (receiptId) REFERENCES receipt(receiptId) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (tableId) REFERENCES tables(tableId) ON DELETE CASCADE ON UPDATE CASCADE,
-    PRIMARY KEY (receiptId, tableId)            -- Khóa chính kết hợp giữa hóa đơn và bàn
 );
 CREATE TABLE category (
 	categoryId INT AUTO_INCREMENT PRIMARY KEY,
@@ -80,12 +71,12 @@ CREATE TABLE dish (
     FOREIGN KEY (categoryId) REFERENCES category(categoryId) ON DELETE CASCADE ON UPDATE CASCADE
 );
 CREATE TABLE tableHasDish (
-    tableId INT,                                -- Mã bàn (khóa ngoại)
-    dishId INT,                                 -- Mã món ăn (khóa ngoại)
-    quantity INT NOT NULL,                      -- Số lượng món ăn được gọi
+    tableId INT, 
+    dishId INT,  
+    quantity INT NOT NULL,
     FOREIGN KEY (tableId) REFERENCES tables(tableId) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (dishId) REFERENCES dish(dishId) ON DELETE CASCADE ON UPDATE CASCADE,
-    PRIMARY KEY (tableId, dishId)               -- Khóa chính kết hợp giữa bàn và món ăn
+    PRIMARY KEY (tableId, dishId) 
 );
 
 INSERT INTO role (roleName) VALUES 
