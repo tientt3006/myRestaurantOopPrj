@@ -12,16 +12,10 @@ import java.io.*;
 import java.util.*;
 public class Tables implements Serializable {
     private int tableId;
-    private String status;
+    private Dish[] dishes;
     
     public int getTableId(){
         return tableId;
-    }
-//    public Branch getBranch(){
-//        return branch;
-//    }
-    public String getStatus(){
-        return status;
     }
     
     public static class Builder{
@@ -30,17 +24,9 @@ public class Tables implements Serializable {
             table.tableId = id;
             return this;
         }
-//        public Builder setBranchId(int branchId){
-//            table.d = branchId;
-//            return this;
-//        }
-        public Builder setStatus(String status){
-            table.status = status;
-            return this;
-        }
+
         public Tables getTables(){
             return table;
         }
     }
-    //
 }

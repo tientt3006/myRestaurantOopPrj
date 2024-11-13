@@ -26,9 +26,19 @@ public class SqlUtils {
     
     public static final String GET_BRANCHS = "SELECT * FROM branch";
     
-    public static final String FIND_RESERVED_TABLE = "SELECT COUNT(*) FROM tables WHERE branchId = ? AND reservation_date = ? AND status = 'reserved';";
-    public static final String FIND_OCCUPIED_TABLE = "SELECT COUNT(*) FROM tables WHERE branchId = ? AND reservation_date = ? AND status = 'occupied';";
-    public static final String ADD_TABLE = "INSERT INTO tables (reservation_date, reservation_time,status, num_people, branchId) VALUES (?, ?, ?, ?, ?)";
+    public static final String RESERVED_TABLE_COUNT = "SELECT COUNT(*) AS reserved_tables_count\n" +
+                                                        "FROM tables t\n" +
+                                                        "JOIN receipt r ON t.receiptId = r.receiptId\n" +
+                                                        "WHERE r.branchId = ?\n" +
+                                                        "  AND r.reservation_date = ?\n" +
+                                                        "  AND r.status = 'reserved';";
+    public static final String UNPAID_TABLE_COUNT = "SELECT COUNT(*) AS unpaid_tables_count\n" +
+                                                        "FROM tables t\n" +
+                                                        "JOIN receipt r ON t.receiptId = r.receiptId\n" +
+                                                        "WHERE r.branchId = ?\n" +
+                                                        "  AND r.reservation_date = ?\n" +
+                                                        "  AND r.status = 'unpaid';";
+    public static final String ADD_TABLE = "INSERT INTO tables (receiptId, num_people) VALUES (?, ?)";
     public static final String LOG_IN = "SELECT * FROM users WHERE email LIKE ? AND password LIKE ?";
     public static final String SIGN_UP = "INSERT INTO users (firstName, lastName, password, email, phone) VALUES (?, ?, ?, ?, ?)";
     public static final String FIND_USER_BY_ID = "SELECT * FROM users WHERE userId LIKE ?";
@@ -48,6 +58,12 @@ public class SqlUtils {
     
     public static final String GET_DISH_ORDERS_COUNT = "SELECT dishId, dishName, IFNULL((SELECT SUM(count) FROM receiptHasDish WHERE receiptHasDish.dishId = dish.dishId), 0) AS orders FROM dish ORDER BY dishId";
     
+    public static final String ADD_RECEIPT = "INSERT INTO receipt(userId, branchId, reservationFee, reservation_date, reservation_time, status) VALUES (?, ?, ?, ?, ?, ?)";
+    public static final String GET_LASTEST_RECEIPT = "SELECT *\n" +
+                                                        "FROM receipt\n" +
+                                                        "WHERE userId = ? AND branchId = ?\n" +
+                                                        "ORDER BY createDate DESC\n" +
+                                                        "LIMIT 1;";
     private static final Logger logger = LoggerFactory.getLogger(SqlUtils.class);
 
     // Other constants and methods

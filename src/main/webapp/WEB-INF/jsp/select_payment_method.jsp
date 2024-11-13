@@ -1,3 +1,5 @@
+<%@page import="com.nolaneg.myrestaurantprj.util.SqlUtils"%>
+<%@page import="com.nolaneg.myrestaurantprj.db.entity.Branch"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
@@ -26,12 +28,23 @@
                 <div class="reser-detail-box login-box" style="color: white;">
                     <h2>Reservation Details</h2>
                     <!--<p style="text-align: center;">Please review your reservation details before proceeding with the payment.</p>-->
-                    <p><strong>Selected Table(s):</strong> ${requestScope.tables}</p>
-                    <p><strong>Number of People:</strong> ${requestScope.people}</p>
-                    <p><strong>Date:</strong> ${requestScope.date}</p>
-                    <p><strong>Time:</strong> ${requestScope.time}</p>
-                    <p><strong>Branch:</strong> ${requestScope.branchName}</p>
-                    <p><strong>Deposit Amount:</strong> ${requestScope.tables * 100000} VND</p>
+                    <p><strong>Selected Table(s):</strong> ${param.tables}</p>
+                    <p><strong>Number of People:</strong> ${param.people}</p>
+                    <p><strong>Date:</strong> ${param.date}</p>
+                    <p><strong>Time:</strong> ${param.time}</p>
+                    <% 
+                        int branchId = Integer.parseInt(request.getParameter("branchId"));
+                        String branchName = "Not found";
+
+                        for (Branch branch : SqlUtils.branchs) {
+                            if (branch.getBranchId() == branchId) {
+                                branchName = branch.getLocation();
+                                break;
+                            }
+                        }
+                    %>
+                    <p><strong>Branch:</strong> <%= branchName %></p>
+                    <p><strong>Deposit Amount:</strong> ${param.tables * 100000} VND</p>
 
                 </div>
                 
@@ -43,11 +56,11 @@
                     <br>
                     <form id="selectPmForm" action="${pageContext.request.contextPath}/select_payment_method" method="post">
                         
-                        <input type="hidden" name="tables" value="${requestScope.tables}">
-                        <input type="hidden" name="people" value="${requestScope.people}">
-                        <input type="hidden" name="date" value="${requestScope.date}">
-                        <input type="hidden" name="time" value="${requestScope.time}">
-                        <input type="hidden" name="branchName" value="${requestScope.branchName}">
+                        <input type="hidden" name="tables" value="${param.tables}">
+                        <input type="hidden" name="people" value="${param.people}">
+                        <input type="hidden" name="date" value="${param.date}">
+                        <input type="hidden" name="time" value="${param.time}">
+                        <input type="hidden" name="branchId" value="${param.branchId}">
                         
                         <div style="display: flex; gap: 60px;">
                             <label class="password-text" for="paymentMethod" style="flex: 1;">Payment Method:</label>
@@ -152,7 +165,7 @@
             </div>
         </div>
         <div style="text-align: center; margin-top: 20px;">
-            <a href="${pageContext.request.contextPath}/select_payment_method?branchName=${requestScope.branchName}&date=${requestScope.date}&time=${requestScope.time}&people=${requestScope.people}&tables=${requestScope.tables}&payment_failed=true" style="margin-right: 40px; text-decoration: underline;">Payment Error</a>
+            <a href="${pageContext.request.contextPath}/select_payment_method?branchId=${param.branchId}&date=${param.date}&time=${param.time}&people=${param.people}&tables=${param.tables}&payment_failed=true" style="margin-right: 40px; text-decoration: underline;">Payment Error</a>
             <a href="${pageContext.request.contextPath}/find_table?out_of_table=true" style="text-decoration: underline;">Out of Tables</a>
         </div>
         <!-- Footer -->

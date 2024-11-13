@@ -39,28 +39,17 @@ public class FindTablesServlet extends HttpServlet{
     
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        int branchId = Integer.parseInt(req.getParameter("branch"));
+        String branchId = req.getParameter("branch");
         String date = req.getParameter("date");
         String time = req.getParameter("time");
         String numOfTables = (String) req.getParameter("tables");
         String numOfPeople = (String) req.getParameter("people");
         int tables = Integer.parseInt(numOfTables);
         try {
-            String branchName = "";
-            List<Branch> branchs = DAO.getDAO().getBranchDAO().getBranchs();
-            for(Branch x:branchs){
-                if(x.getBranchId() == branchId){
-                    branchName = x.getLocation();
-                }
-            }
-            if (tables <= Utils.MAX_TABLE 
-                    - DAO.getDAO().getTableDAO().getReservedTable(branchId, date, time) 
-                    - DAO.getDAO().getTableDAO().getOccupiedTable(branchId, date, time)) {
-                
-                String redirectUrl = String.format(
-                    "%s/select_payment_method?branchName=%s&date=%s&time=%s&people=%s&tables=%s",
-                    req.getContextPath(), branchName, date, time, numOfPeople, numOfTables
-                );
+            if (tables <= Utils.MAX_TABLE - DAO.getDAO().getTableDAO().getReservedTable(Integer.parseInt(branchId), date) 
+                                          - DAO.getDAO().getTableDAO().getUnpaidTable(Integer.parseInt(branchId), date)) {
+                String redirectUrl = String.format("%s/select_payment_method?branchId=%s&date=%s&time=%s&people=%s&tables=%s",
+                                                    req.getContextPath(), branchId, date, time, numOfPeople, numOfTables);
                 resp.sendRedirect(redirectUrl);
             } else {
                 resp.sendRedirect(req.getContextPath() + "/find_table?out_of_table=true");

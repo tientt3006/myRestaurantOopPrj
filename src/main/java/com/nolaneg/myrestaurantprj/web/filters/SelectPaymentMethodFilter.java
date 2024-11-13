@@ -29,13 +29,7 @@ public class SelectPaymentMethodFilter extends HttpFilter {
         String numOfPeople = req.getParameter("people");
         String date = req.getParameter("date");
         String time = req.getParameter("time");
-        String branchName = req.getParameter("branchName");
-        
-        req.setAttribute("branchName", branchName);
-        req.setAttribute("date", date);
-        req.setAttribute("time", time);
-        req.setAttribute("people", numOfPeople);
-        req.setAttribute("tables", numOfTables);
+        String branchId = req.getParameter("branchId");
         
         User user = (User) req.getSession().getAttribute("user");
         
@@ -44,7 +38,7 @@ public class SelectPaymentMethodFilter extends HttpFilter {
                 || numOfPeople == null || numOfPeople.isEmpty()
                 || date == null || date.isEmpty()
                 || time == null || time.isEmpty()
-                || branchName == null || branchName.isEmpty()) {
+                || branchId == null || branchId.isEmpty()) {
             res.sendRedirect(req.getContextPath() + "/find_table");
             return;
         }

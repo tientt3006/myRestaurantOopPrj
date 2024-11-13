@@ -22,16 +22,16 @@ import java.sql.SQLException;
 public class MySqlTableDAO implements TableDAO{
 
     @Override
-    public int getReservedTable(int branchId, String date, String time) throws DbException {
+    public int getReservedTable(int branchId, String date) throws DbException {
         int reservedTableCount = 0;
         try (Connection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement ps = connection.prepareStatement(SqlUtils.FIND_RESERVED_TABLE)) {
+             PreparedStatement ps = connection.prepareStatement(SqlUtils.RESERVED_TABLE_COUNT)) {
             ps.setInt(1, branchId);
             ps.setString(2, date);
 
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    reservedTableCount = rs.getInt(1); // Assuming the query returns the count in the first column
+                    reservedTableCount = rs.getInt(1);
                 }
             }
         } catch (SQLException ex) {
@@ -41,22 +41,22 @@ public class MySqlTableDAO implements TableDAO{
     }
 
     @Override
-    public int getOccupiedTable(int branchId, String date, String time) throws DbException {
-        int occupiedTableCount = 0;
+    public int getUnpaidTable(int branchId, String date) throws DbException {
+        int unpaidTableCount = 0;
         try (Connection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement ps = connection.prepareStatement(SqlUtils.FIND_OCCUPIED_TABLE)) {
+             PreparedStatement ps = connection.prepareStatement(SqlUtils.UNPAID_TABLE_COUNT)) {
             ps.setInt(1, branchId);
             ps.setString(2, date);
 
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    occupiedTableCount = rs.getInt(1); // Assuming the query returns the count in the first column
+                    unpaidTableCount = rs.getInt(1);
                 }
             }
         } catch (SQLException ex) {
             throw new DbException("Cannot getReservedTable", ex);
         }
-        return occupiedTableCount;
+        return unpaidTableCount;
     }
     
     /**
@@ -68,15 +68,12 @@ public class MySqlTableDAO implements TableDAO{
      * @throws DbException
      */
     @Override
-    public void addTable(String date, String time, String status, int numOfPeople, int branchId) throws DbException {
+    public void addTable(int receiptId, int numOfPeople) throws DbException {
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement ps = connection.prepareStatement(SqlUtils.ADD_TABLE)) {
             int k = 0;
-            ps.setString(++k, date);
-            ps.setString(++k, time);
-            ps.setString(++k, status);
+            ps.setInt(++k, receiptId);
             ps.setInt(++k, numOfPeople);
-            ps.setInt(++k, branchId);
 
             if (ps.executeUpdate() == 0) {
                 throw new DbException("AddTable failed, no rows attached");

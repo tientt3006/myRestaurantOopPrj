@@ -39,6 +39,7 @@ CREATE TABLE branch (
 CREATE TABLE receipt (
     receiptId INT PRIMARY KEY AUTO_INCREMENT,
     userId INT NOT NULL,
+	branchId INT,
     reservationFee DECIMAL(10, 2) NOT NULL,
     foodCost DECIMAL(10, 2),
     totalAmount DECIMAL(10, 2),
@@ -46,16 +47,16 @@ CREATE TABLE receipt (
     reservation_time TIME, 
     start_time DATETIME,
     end_time DATETIME,
-    status VARCHAR(20) NOT NULL, -- reserved (đã đặt bàn thành công, các bàn đợi được dùng), unpaid (chưa thanh toán tiền ăn, các bàn đang được sử dụng), paid (đã thanh toán tất cả, các bàn nhàn dỗi)
-    FOREIGN KEY (userId) REFERENCES users(userId) ON DELETE CASCADE ON UPDATE CASCADE
+    status VARCHAR(20) NOT NULL, -- reserved (đã đặt bàn thành công, các bàn đợi được dùng), unpaid (chưa thanh toán tiền ăn, các bàn đang được sử dụng), paid (đã thanh toán tất cả, các bàn nhàn dỗi), refunded, canceled
+	createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	FOREIGN KEY (userId) REFERENCES users(userId) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY (branchId) REFERENCES branch(branchId) ON DELETE CASCADE ON UPDATE CASCADE
 );
 -- Maximum 50 tables per branch. So that each branch can handle maximun 300 people at a time
 CREATE TABLE tables (
     tableId INT PRIMARY KEY AUTO_INCREMENT,      
     receiptId INT,
     num_people INT, 
-    branchId INT,
-    FOREIGN KEY (branchId) REFERENCES branch(branchId) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (receiptId) REFERENCES receipt(receiptId)  ON DELETE CASCADE ON UPDATE CASCADE
 );
 CREATE TABLE category (
@@ -79,12 +80,12 @@ CREATE TABLE tableHasDish (
     PRIMARY KEY (tableId, dishId) 
 );
 
-INSERT INTO role (roleName) VALUES 
-('customer'),
-('staff'),
-('manager'),
-('chairman'),
-('admin');
+INSERT INTO role (roleId, roleName) VALUES 
+(1, 'customer'),
+(2, 'staff'),
+(3, 'manager'),
+(4, 'chairman'),
+(5, 'admin');
 
 INSERT INTO users (userId, firstName, lastName, password, email, phone, roleId) VALUES 
 (101, 'mn1', 'mn', SHA2('123456', 256), 'mn1@mn', '1111111111', 3),

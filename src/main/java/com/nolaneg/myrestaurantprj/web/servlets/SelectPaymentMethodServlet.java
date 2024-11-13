@@ -8,6 +8,7 @@ import static com.mysql.cj.conf.PropertyKey.logger;
 import com.nolaneg.myrestaurantprj.db.InterfaceDAO.DAO;
 import com.nolaneg.myrestaurantprj.db.entity.Branch;
 import com.nolaneg.myrestaurantprj.db.entity.Category;
+import com.nolaneg.myrestaurantprj.db.entity.Receipt;
 import com.nolaneg.myrestaurantprj.db.entity.User;
 import com.nolaneg.myrestaurantprj.exceptions.AppException;
 import com.nolaneg.myrestaurantprj.exceptions.DbException;
@@ -22,6 +23,8 @@ import javax.sql.DataSource;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,34 +45,36 @@ public class SelectPaymentMethodServlet extends HttpServlet {
     
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        String numOfTables = (String) req.getAttribute("tables");
-        String numOfPeople = (String) req.getAttribute("people");
-        String date = (String) req.getAttribute("date");
-        String time = (String) req.getAttribute("time");
-        String branchName = (String) req.getAttribute("branchName");
+        String numOfTables = req.getParameter("tables");
+        String numOfPeople =  req.getParameter("people");
+        String date = req.getParameter("date");
+        String time = req.getParameter("time");
+        String branchId = req.getParameter("branchId");
 
         int people = Integer.parseInt(numOfPeople);
-        int tables = Integer.parseInt(numOfTables);
-
-        ServletContext context = getServletContext();
-        ArrayList<Branch> branchs = (ArrayList<Branch>) context.getAttribute("branchs");
-        int branchId = 0;
-        for(Branch x : branchs){
-            if(x.getLocation().equals(branchName)){
-                branchId = x.getBranchId();
-            }
-        }    
-
+        int tables = Integer.parseInt(numOfTables);    
+        
+        User user = (User) req.getSession().getAttribute("user");
+        
         try {
-            if (tables <= Utils.MAX_TABLE 
-                        - DAO.getDAO().getTableDAO().getReservedTable(branchId, date, time) 
-                        - DAO.getDAO().getTableDAO().getOccupiedTable(branchId, date, time)){
+            if (tables <= Utils.MAX_TABLE - DAO.getDAO().getTableDAO().getReservedTable(Integer.parseInt(branchId), date) 
+                                          - DAO.getDAO().getTableDAO().getUnpaidTable(Integer.parseInt(branchId), date)) {
+                
+                // add to receipt table:
+                Receipt receipt = new Receipt.Builder()
+                        .setReservationFee((float) (tables*100000.0))
+                        .setReservationDate(LocalDate.parse(date))
+                        .setReservationTime(LocalTime.parse(time))
+                        .setStatus("reserved")
+                        .getReceipt();
+                receipt = DAO.getDAO().getReceiptDAO().addReceipt(user.getUserId(), Integer.parseInt(branchId), receipt);
+                
                 while(tables-- >= 1){
                     if(people >= 6){
-                        DAO.getDAO().getTableDAO().addTable(date , time ,"reserved", 6 , branchId);
+                        DAO.getDAO().getTableDAO().addTable(receipt.getReceiptId(), 6);
                         people -= 6;
                     }else{
-                        DAO.getDAO().getTableDAO().addTable(date , time ,"reserved", people , branchId);
+                        DAO.getDAO().getTableDAO().addTable(receipt.getReceiptId(), people);
                         people = 0;
                     }
                 }

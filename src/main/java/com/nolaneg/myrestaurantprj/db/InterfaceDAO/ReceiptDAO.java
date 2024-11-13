@@ -4,6 +4,7 @@
  */
 
 package com.nolaneg.myrestaurantprj.db.InterfaceDAO;
+import com.nolaneg.myrestaurantprj.db.entity.Receipt;
 import com.nolaneg.myrestaurantprj.exceptions.DbException;
 import java.util.*;
 import java.io.*;
@@ -13,9 +14,7 @@ import java.math.*;
  *
  * @author $_{user}
  */
-public interface TableDAO {
-    int getReservedTable(int branchId, String date) throws DbException;
-    int getUnpaidTable(int branchId, String date) throws DbException;
-
-    void addTable(int receiptId, int numOfPeople) throws DbException;
+public interface ReceiptDAO {
+    Receipt getLastestReceiptOfAUser(int userId, int branchId) throws DbException;
+    Receipt addReceipt(int userId, int branchId, Receipt receipt ) throws DbException;
 }

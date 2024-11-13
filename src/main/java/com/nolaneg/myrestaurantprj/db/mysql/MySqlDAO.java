@@ -33,4 +33,9 @@ public class MySqlDAO extends DAO {
     public BranchDAO getBranchDAO() {
         return new MySqlBranchDAO();
     }
+    
+    @Override
+    public ReceiptDAO getReceiptDAO() {
+        return new MySqlReceiptDAO();
+    }
 }
