@@ -7,7 +7,6 @@
 <c:set var="title" value="OOP Dinner - Log in" scope="page"/>
 <%@ include file="head.jspf" %>
 
-
 <body>
     <div class="wrapper">
         <!-- Header Section -->
@@ -19,43 +18,17 @@
             <div class="select-container">
                 <!-- Danh sách món ăn -->
                 <div class="menu">
-                    <% 
-                        // Tổng số món ăn (giả sử)
-                        int totalItems = 32; 
-
-                        // Số món ăn hiển thị trên mỗi trang
-                        int itemsPerPage = 8;
-
-                        // Tổng số trang
-                        int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage);
-
-                        // Lấy trang hiện tại từ URL (mặc định là trang 1)
-                        String pageParam = request.getParameter("page");
-                        int currentPage = (pageParam != null) ? Integer.parseInt(pageParam) : 1;
-
-                        // Tính toán món ăn bắt đầu và kết thúc cho trang hiện tại
-                        int startItem = (currentPage - 1) * itemsPerPage;
-                        int endItem = Math.min(startItem + itemsPerPage, totalItems);
-
-                        // Giả sử danh sách món ăn là một mảng (hoặc lấy từ database)
-                        String[] dishes = new String[totalItems];
-                        int[] prices = new int[totalItems];
-                        for (int i = 0; i < totalItems; i++) {
-                            dishes[i] = "Món ăn " + (i + 1);  // Tên giả lập cho các món
-                            prices[i] = 10000;
-                        }
-
-                        // Hiển thị các món ăn của trang hiện tại
-                        for (int i = startItem; i < endItem; i++) {
-                     %>
-                    <div class="menu-item">
-                        <img src="${pageContext.request.contextPath}/img/PRRestauant.jpg" alt="<%= dishes[i] %>">
-                        <h3><%= dishes[i] %></h3>
-                        <p><%= prices[i] %> VND</p>
-                        <button onclick="addToCart('<%= dishes[i] %>', <%= prices[i] %>)">Select</button>
-                    </div>
-                    <% } %>
-                </div>
+                    <c:forEach var="dish" items="${dishes}">
+                        <div class="menu-item">
+                            <img src="${pageContext.request.contextPath}/img/dish-${dish.dishId}.jpg" alt="${dish.dishName}">
+                            <h3>${dish.dishName}</h3>
+                            <p>${dish.ingredient}</p>
+                            <p>${dish.price} VNĐ</p>
+                            <!-- Thêm dấu nháy đơn quanh tên món ăn -->
+                            <button onclick="addToCart('${dish.dishName}', ${dish.price})">Select</button>
+                        </div>
+                    </c:forEach>
+                </div> 
 
                 <!-- Bảng chọn món -->
                 <div class="selected-items">
@@ -65,76 +38,89 @@
                     </div>
                     <button class="save-button" onclick="saveOrder()">SAVE</button>
                 </div>
-            </div>
 
-            <script>
-                let cart = [];
+                <script>
+                    let cart = [];
 
-                // Hàm thêm món vào giỏ hàng
-                function addToCart(dish, price) {
-                    const item = {
-                        name: dish,
-                        price: price,
-                        quantity: 1
-                    };
+                    // Lấy contextPath từ JSP
+                    const contextPath = '<%= request.getContextPath() %>';
 
-                    // Kiểm tra nếu món đã tồn tại trong giỏ hàng
-                    const existingItem = cart.find(cartItem => cartItem.name === dish);
-                    if (existingItem) {
-                        existingItem.quantity += 1;  // Tăng số lượng
-                    } else {
-                        cart.push(item);
+                    // Hàm thêm món vào giỏ hàng
+                    function addToCart(dish, price) {
+                        console.log("Tên món:", dish, "Giá:", price); // Kiểm tra xem tên món và giá có được truyền đúng không
+
+                        const item = {
+                            name: dish,
+                            price: price,
+                            quantity: 1
+                        };
+
+
+                        // Kiểm tra nếu món đã tồn tại trong giỏ hàng
+                        const existingItem = cart.find(cartItem => cartItem.name === dish);
+                        if (existingItem) {
+                            existingItem.quantity += 1;  // Tăng số lượng
+                        } else {
+                            cart.push(item);
+                        }
+
+                        // Cập nhật giao diện giỏ hàng
+                        renderCart();
                     }
 
-                    // Cập nhật giao diện giỏ hàng
-                    renderCart();
-                }
+                    // Hàm render giỏ hàng
+                    function renderCart() {
+                        const cartItemsDiv = document.getElementById('cart-items');
+                        cartItemsDiv.innerHTML = '';  // Xóa nội dung cũ
 
-                // Hàm render giỏ hàng
-                function renderCart() {
-                    const cartItemsDiv = document.getElementById('cart-items');
-                    cartItemsDiv.innerHTML = '';  // Xóa nội dung cũ
+                        let totalAmount = 0; // Tổng tiền giỏ hàng
 
-                    cart.forEach((item, index) => {
+                        cart.forEach((item, index) => {
+                            const itemTotal = item.price * item.quantity; // Tổng tiền của món
+                            totalAmount += itemTotal; // Cộng dồn vào tổng tiền giỏ hàng
+
+                            cartItemsDiv.innerHTML += `
+                                <div class="selected-item">
+                                    <img src="${contextPath}/img/PRRestauant.jpg" alt="${item.name}">
+                                    <span>${item.name}</span>
+                                    <input type="number" value="${item.quantity}" min="1" onchange="updateQuantity(${index}, this.value)">
+                                    <span>${itemTotal} VND</span>
+                                    <button onclick="removeFromCart(${index})">Remove</button>
+                                </div>
+                            `;
+                        });
+
+                        // Hiển thị tổng tiền giỏ hàng
                         cartItemsDiv.innerHTML += `
-                            <div class="selected-item">
-                                <img src="path/to/your/image.jpg" alt="${item.name}">
-                                <span>${item.name}</span>
-                                <input type="number" value="${item.quantity}" min="1" onchange="updateQuantity(${index}, this.value)">
-                                <span>${item.price * item.quantity} VND</span>
-                                <button onclick="removeFromCart(${index})">Remove</button>
+                            <div class="total-amount">
+                                <strong>Total: ${totalAmount} VND</strong>
                             </div>
                         `;
-                    });
-                }
+                    }
 
-                // Hàm cập nhật số lượng
-                function updateQuantity(index, quantity) {
-                    cart[index].quantity = parseInt(quantity);
-                    renderCart();
-                }
+                    // Hàm cập nhật số lượng
+                    function updateQuantity(index, quantity) {
+                        cart[index].quantity = parseInt(quantity);
+                        renderCart();
+                    }
 
-                // Hàm xóa món khỏi giỏ hàng
-                function removeFromCart(index) {
-                    cart.splice(index, 1);  // Xóa 1 phần tử tại vị trí index
-                    renderCart();
-                }
+                    // Hàm xóa món khỏi giỏ hàng
+                    function removeFromCart(index) {
+                        cart.splice(index, 1);  // Xóa 1 phần tử tại vị trí index
+                        renderCart();
+                    }
 
-                // Hàm lưu đơn hàng
-                function saveOrder() {
-                    // Chuyển giỏ hàng thành JSON để gửi về server
-                    const order = JSON.stringify(cart);
-                    alert("Đơn hàng đã được lưu: " + order);
-
-                    // Ở đây bạn có thể dùng AJAX để gửi đơn hàng về server
-                }
-            </script>
+                    // Hàm lưu đơn hàng
+                    function saveOrder() {
+                        const order = JSON.stringify(cart);
+                        alert("Đơn hàng đã được lưu: " + order);
+                    }
+                </script>
 
             </div>
         </div>        
-                <!-- Footer -->
-                <%@ include file="cus_footer.jspf" %>
+        <!-- Footer -->
+        <%@ include file="cus_footer.jspf" %>
     </div>
 </body>
 </html>                
-
