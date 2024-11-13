@@ -4,12 +4,17 @@
  */
 
 package com.nolaneg.myrestaurantprj.util;
+import com.nolaneg.myrestaurantprj.db.InterfaceDAO.DAO;
+import com.nolaneg.myrestaurantprj.db.entity.Branch;
+import com.nolaneg.myrestaurantprj.exceptions.AppException;
+import com.nolaneg.myrestaurantprj.exceptions.DbException;
 import java.util.*;
 import java.io.*;
 import java.math.*;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Savepoint;
+import java.util.logging.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,14 +51,23 @@ public class SqlUtils {
     private static final Logger logger = LoggerFactory.getLogger(SqlUtils.class);
 
     // Other constants and methods
-
+    public static ArrayList<Branch> branchs;
+    static {
+        try {
+            branchs = DAO.getDAO().getBranchDAO().getBranchs();
+        } catch (DbException e) {
+            logger.error("Failed to initialize branchs", e);
+        }
+    }
+    
     public static final Map<String, String> sortingTypes = new HashMap<>();
-
     static {
         sortingTypes.put("Price", "price");
         sortingTypes.put("Name", "dishName");
         sortingTypes.put("Category", "categoryId");
     }
+    
+    
     
     public static void rollback(Connection con) {
         try {

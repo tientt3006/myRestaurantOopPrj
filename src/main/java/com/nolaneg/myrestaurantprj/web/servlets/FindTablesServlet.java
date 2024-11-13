@@ -34,16 +34,6 @@ public class FindTablesServlet extends HttpServlet{
     
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-        try {
-            if (session.getAttribute("branchs") == null) {
-                List<Branch> branchs = DAO.getDAO().getBranchDAO().getBranchs();
-                session.setAttribute("branchs", branchs);
-            }
-        } catch (DbException e) {
-            logger.error(Utils.getErrMessage(e), e);
-            throw new AppException(e);
-        }
         req.getRequestDispatcher("/WEB-INF/jsp/find_table.jsp").forward(req, resp);
     }
     

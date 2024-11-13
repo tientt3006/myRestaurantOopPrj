@@ -32,13 +32,11 @@ public class MySqlBranchDAO implements BranchDAO{
     }
     
     @Override
-    public List<Branch> getBranchs() throws DbException {
-        List<Branch> branchs = new ArrayList<>();
+    public ArrayList<Branch> getBranchs() throws DbException {
+        ArrayList<Branch> branchs = new ArrayList<>();
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement ps = connection.prepareStatement(SqlUtils.GET_BRANCHS);
              ResultSet rs = ps.executeQuery()) {
-
-            // Lặp qua tất cả các kết quả và thêm từng món vào danh sách
             while (rs.next()) {
                 branchs.add(mapBranch(rs));
             }

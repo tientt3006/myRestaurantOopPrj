@@ -15,6 +15,6 @@ public class ContextListener implements ServletContextListener, HttpSessionListe
     public void contextInitialized(ServletContextEvent sce) {
         ServletContext context = sce.getServletContext();
         context.setAttribute("sortTypes", SqlUtils.sortingTypes);
-
+        context.setAttribute("branchs", SqlUtils.branchs);
     }
 }

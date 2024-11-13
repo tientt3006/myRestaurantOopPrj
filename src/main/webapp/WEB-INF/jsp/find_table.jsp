@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
     
 <c:set var="title" value="OOP Dinner - Find Table" scope="page"/>
 <%@ include file="head.jspf" %>
@@ -39,7 +39,7 @@
                         <input type="date" name="date" required>
                         
                         <p class="password-text"> Time: </p>
-                        <input type="time" name="time" required>
+                        <input type="time" name="time" min="17:00" max="23:00" required>
                         
                         <p class="password-text"> Number Of People: </p>
                         <input type="number" name="people" min="1" max="300" value="1" required>
@@ -78,26 +78,32 @@
             const dateInput = document.querySelector('input[name="date"]');
             const timeInput = document.querySelector('input[name="time"]');
 
-            // Lấy ngày hiện tại
             const now = new Date();
+            const currentTime = now.toTimeString().slice(0, 5);
             const today = now.toISOString().split('T')[0];
+            const nextDay = new Date(now.setDate(now.getDate() + 1)).toISOString().split('T')[0];
 
-            // Đặt ngày hiện tại làm giá trị mặc định cho ô Date
-            dateInput.value = today;
-            dateInput.setAttribute('min', today);
-
-            // Đặt giờ mặc định là 5 giờ chiều (17:00) cho ô Time
-            timeInput.value = "17:00";
-            timeInput.setAttribute('min', "17:00");
+            if (now.getHours() >= 23) {
+                dateInput.value = nextDay;
+                dateInput.setAttribute('min', nextDay);
+            } else {
+                dateInput.value = today;
+                dateInput.setAttribute('min', today);
+            }
+            
+            timeInput.value = (currentTime < "17:00" ? "17:00" : currentTime);
+            timeInput.setAttribute('min', currentTime < "17:00" ? "17:00" : currentTime);
             timeInput.setAttribute('max', "23:00");
 
-            // Nếu người dùng chọn ngày hôm nay, giới hạn giờ bắt đầu từ giờ hiện tại hoặc 17:00
             dateInput.addEventListener('change', function() {
+                const now = new Date();
+                const today = now.toISOString().split('T')[0];        
                 if (this.value === today) {
-                    const currentHour = now.getHours();
                     const currentTime = now.toTimeString().slice(0, 5);
+                    timeInput.value = (currentTime < "17:00" ? "17:00" : currentTime);
                     timeInput.setAttribute('min', currentTime < "17:00" ? "17:00" : currentTime);
                 } else {
+                    timeInput.value = "17:00";
                     timeInput.setAttribute('min', "17:00");
                 }
             });

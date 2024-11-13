@@ -15,5 +15,5 @@ import java.math.*;
  * @author $_{user}
  */
 public interface BranchDAO {
-    List<Branch> getBranchs() throws DbException;
+    ArrayList<Branch> getBranchs() throws DbException;
 }
