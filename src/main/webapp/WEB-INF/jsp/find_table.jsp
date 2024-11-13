@@ -24,7 +24,7 @@
                             Out of table at the time you picked.
                         </div>
                     <% } %>
-                    <form id="findTableForm" action="${pageContext.request.contextPath}/find_table" method="post"  onsubmit="return validateNumOfTables()">
+                    <form id="findTableForm" action="${pageContext.request.contextPath}/find_table" method="post"  onsubmit="return validateTime()">
                         
                         <p class="password-text"> Branch: </p>
                         <select name="branch" required>
@@ -91,23 +91,21 @@
                 dateInput.setAttribute('min', today);
             }
             
-            timeInput.value = (currentTime < "17:00" ? "17:00" : currentTime);
+            timeInput.value = ((currentTime < "17:00" || currentTime > "23:00") ? "17:00" : currentTime);
             timeInput.setAttribute('min', currentTime < "17:00" ? "17:00" : currentTime);
-            timeInput.setAttribute('max', "23:00");
-
-            dateInput.addEventListener('change', function() {
-                const now = new Date();
-                const today = now.toISOString().split('T')[0];        
-                if (this.value === today) {
-                    const currentTime = now.toTimeString().slice(0, 5);
-                    timeInput.value = (currentTime < "17:00" ? "17:00" : currentTime);
-                    timeInput.setAttribute('min', currentTime < "17:00" ? "17:00" : currentTime);
-                } else {
-                    timeInput.value = "17:00";
-                    timeInput.setAttribute('min', "17:00");
-                }
-            });
         });
+        function validateTime() {
+            const timeInput = document.querySelector('input[name="time"]').value;
+            const selectedTime = timeInput.split(":");
+            const hours = parseInt(selectedTime[0], 10);
+            const minutes = parseInt(selectedTime[1], 10);
+
+            if (hours < 17 || (hours === 17 && minutes < 0) || hours > 23 || (hours === 23 && minutes > 0)) {
+                alert("The selected time must be between 17:00 and 23:00.");
+                return false;
+            }
+            return true;
+        }
     </script>
 </body>
 </html>

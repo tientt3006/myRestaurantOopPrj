@@ -18,6 +18,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -26,13 +27,14 @@ import java.time.LocalTime;
 public class MySqlReceiptDAO implements ReceiptDAO {
 
     private static Receipt mapReceipt(ResultSet rs) throws SQLException {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return new Receipt.Builder()
                 .setReceiptId(rs.getInt(1))
                 .setReservationFee(rs.getFloat(4))
                 .setReservationDate(LocalDate.parse(rs.getString(7)))
                 .setReservationTime(LocalTime.parse(rs.getString(8)))
                 .setStatus(rs.getString(11))
-                .setCreatDate(LocalDateTime.parse(rs.getString(12)))
+                .setCreatDate(LocalDateTime.parse(rs.getString(12), dateTimeFormatter))
                 .getReceipt();
     }
     
