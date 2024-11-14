@@ -1,6 +1,6 @@
 let cart = [];
 // Hàm thêm món vào giỏ hàng
-function addToCart(id, name, price, receiptId) {
+function addToCart(id, name, price) {
 
     const item = {
         id: parseInt(id),
@@ -83,5 +83,6 @@ function saveOrder(receipt_id) {
             alert("Something wrong.");
         }
     })
-//    .catch(error => console.error("Error:", error));
+    .catch(error => console.error("Error:", error));
+    window.location.href = `${contextPath}/cart`;
 }

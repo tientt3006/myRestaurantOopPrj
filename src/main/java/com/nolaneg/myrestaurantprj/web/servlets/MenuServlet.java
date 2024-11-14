@@ -50,8 +50,8 @@ public class MenuServlet extends HttpServlet{
             }
             totalPages = (int) Math.ceil((double) totalPages / dishesInPage) - 1;
 
-            session.setAttribute("totalPages", totalPages);
-            session.setAttribute("dishes", dishes);
+            req.setAttribute("totalPages", totalPages);
+            req.setAttribute("dishes", dishes);
             req.getRequestDispatcher("/WEB-INF/jsp/menu.jsp").forward(req, resp);  
         }
         catch (DbException ex) {

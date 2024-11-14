@@ -26,6 +26,7 @@ import org.json.JSONObject;
 @WebServlet("/select_dish")
 public class SelectDishServlet extends HttpServlet{
 
+    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Dish> dishes = null;
         try {
@@ -35,9 +36,10 @@ public class SelectDishServlet extends HttpServlet{
         } catch (DbException ex) {
             Logger.getLogger(SelectDishServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        int receiptId = Integer.parseInt(req.getParameter("receipt_id"));
-        req.setAttribute("receipt_id", receiptId);
+//        int receiptId = Integer.parseInt(req.getParameter("receipt_id"));
+//        req.setAttribute("receipt_id", receiptId);
     }
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
      
         StringBuilder jsonString = new StringBuilder();
@@ -55,7 +57,8 @@ public class SelectDishServlet extends HttpServlet{
 
         // Xử lý đơn hàng từ JSONArray
         User user = (User) req.getSession().getAttribute("user");
-        int receiptId = Integer.parseInt(req.getAttribute("receipt_id").toString());
+        String tmp = String.valueOf(req.getParameter("receipt_id"));
+        int receiptId = Integer.parseInt(String.valueOf(req.getParameter("receipt_id")));
         for (int i = 0; i < cartArray.length(); i++) {
             JSONObject item = cartArray.getJSONObject(i);
             int id = item.getInt("id");

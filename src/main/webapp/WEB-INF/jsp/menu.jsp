@@ -17,8 +17,8 @@
             <div class="menu-container">
                 <jsp:useBean id="categories" scope="session" type="java.util.List"/>
                 <jsp:useBean id="sortTypes" scope="application" type="java.util.HashMap"/>
-                <jsp:useBean id="dishes" scope="session" type="java.util.List"/>
-                <jsp:useBean id="totalPages" scope="session" type="java.lang.Integer"/>
+                <jsp:useBean id="dishes" scope="request" type="java.util.List"/>
+                <jsp:useBean id="totalPages" scope="request" type="java.lang.Integer"/>
                 <nav class="c_header">
                     <form class="c_selectsort_form" action="${pageContext.request.contextPath}/menu" method="get">
                         <div class="left">

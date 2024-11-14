@@ -28,7 +28,7 @@
         }
     </style>
 </head>  
-<c:set var="title" value="OOP Dinner - Find Table" scope="page"/>
+<c:set var="title" value="OOP Dinner - Cart" scope="page"/>
 <body>
     <div class="wrapper">
         <!-- Header Section -->

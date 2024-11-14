@@ -127,7 +127,7 @@ public class MySqlReceiptDAO implements ReceiptDAO {
         PreparedStatement ps = null;
         try {
             con = ConnectionPool.getInstance().getConnection();
-            ps = con.prepareStatement(SqlUtils.ADD_RECEIPT);
+            ps = con.prepareStatement(SqlUtils.ADD_RECEIPT_HAS_DISH);
             int k = 0;
             ps.setInt(++k, receiptId);
             ps.setInt(++k, dishId);

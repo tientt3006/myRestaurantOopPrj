@@ -28,7 +28,6 @@
                             </div>
                         </c:forEach>
                     </div>
-                    <input type="hidden" name="receipt_id" value="${receipt_id}">
     <!--            Bảng chọn món -->  
                     <div class="selected-items">
                         <h3>ORDER</h3>
@@ -40,7 +39,7 @@
                             </div>
                             <div class="total" id="total">
                             </div>
-                            <button class="save-button" onclick="saveOrder(${receipt_id})">SAVE</button>
+                            <button class="save-button" onclick="saveOrder(${param.receipt_id})">SAVE</button>
                         </div>
                     </div>
                     <a href="#top" class="back-to-top">^</a>
