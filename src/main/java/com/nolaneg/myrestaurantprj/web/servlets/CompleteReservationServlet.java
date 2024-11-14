@@ -40,5 +40,18 @@ public class CompleteReservationServlet extends HttpServlet {
         req.getRequestDispatcher("/WEB-INF/jsp/complete_reservation.jsp").forward(req, resp);
         
     }
-    
+//    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        int receiptId = Integer.parseInt(req.getParameter("receipt_id"));
+//        Receipt receipt;
+//        try {
+//            receipt = DAO.getDAO().getReceiptDAO().getReceiptByReceiptId(receiptId);
+//        } catch (DbException ex) {
+//            Logger.getLogger(CompleteReservationFilter.class.getName()).log(Level.SEVERE, null, ex);
+//            resp.sendRedirect(req.getContextPath() + "/find_table?error=db_error");
+//            return;
+//        }
+//        req.setAttribute("receipt", receipt);
+//        req.getRequestDispatcher("/WEB-INF/jsp/complete_reservation.jsp").forward(req, resp);
+//        
+//    }
 }

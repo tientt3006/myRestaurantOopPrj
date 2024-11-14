@@ -121,8 +121,29 @@ public class MySqlReceiptDAO implements ReceiptDAO {
         } catch (SQLException ex) {
             throw new DbException("Cannot getLastestReceiptOfAUser", ex);
         }
-
     }
-
+    public void addReceiptHasDish(int receiptId, int dishId, int quantity)throws DbException{
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            con = ConnectionPool.getInstance().getConnection();
+            ps = con.prepareStatement(SqlUtils.ADD_RECEIPT);
+            int k = 0;
+            ps.setInt(++k, receiptId);
+            ps.setInt(++k, dishId);
+            ps.setInt(++k, quantity);
+            
+            if (ps.executeUpdate() == 0) {
+                throw new DbException("add receipt_has_dish failed, no rows attached");
+            }
+            con.commit();
+        } catch (SQLException ex) {
+            if (con != null) SqlUtils.rollback(con);
+            throw new DbException("Cannot add receipt_has_dish", ex);
+        } finally {
+            SqlUtils.close(con);
+            SqlUtils.close(ps);
+        }
+    }
     
 }

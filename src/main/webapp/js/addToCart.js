@@ -1,6 +1,6 @@
 let cart = [];
 // Hàm thêm món vào giỏ hàng
-function addToCart(id, name, price) {
+function addToCart(id, name, price, receiptId) {
 
     const item = {
         id: parseInt(id),
@@ -14,7 +14,6 @@ function addToCart(id, name, price) {
     } else {
         cart.push(item);
     }
-
     renderCart();
 }
 function renderCart() {
@@ -64,11 +63,25 @@ function removeFromCart(index) {
 }
 
 // Hàm lưu đơn hàng
-function saveOrder() {
-    // Chuyển giỏ hàng thành JSON để gửi về server
+function saveOrder(receipt_id) {
+     // Chuyển giỏ hàng thành JSON
     const order = JSON.stringify(cart);
-    alert("Đơn hàng đã được lưu" + order);
-    window.location.href = `${contextPath}/cart`;
 
-    // Ở đây bạn có thể dùng AJAX để gửi đơn hàng về server
+    // Gửi yêu cầu POST tới servlet
+    fetch(`${contextPath}/select_dish?receipt_id=${receipt_id}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: order
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === "success") {
+            alert("Order successfully!");
+        } else {
+            alert("Something wrong.");
+        }
+    })
+//    .catch(error => console.error("Error:", error));
 }

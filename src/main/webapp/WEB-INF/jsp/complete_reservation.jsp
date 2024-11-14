@@ -27,7 +27,7 @@
                     <p><strong>Deposit Amount:</strong> ${receipt.reservationFee} VND</p>
                     <p style="text-align: center;">You can choose your dishes now or review your reserved tables.</p>
                     <div style="display: flex; gap: 20px;">
-                    <a href="${pageContext.request.contextPath}/select_dish">Select Dish</a>
+                    <a href="${pageContext.request.contextPath}/select_dish?receipt_id=${receipt.receiptId}">Select Dish</a>
                     <a href="${pageContext.request.contextPath}/cart">Go to cart</a>
                     </div>
                 </div>

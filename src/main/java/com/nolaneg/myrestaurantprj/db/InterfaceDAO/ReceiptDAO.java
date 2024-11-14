@@ -19,4 +19,6 @@ public interface ReceiptDAO {
     Receipt addReceipt(int userId, int branchId, Receipt receipt ) throws DbException;
     int getUserIdByReceiptId(int receiptId) throws DbException;
     Receipt getReceiptByReceiptId(int receiptId) throws DbException;
+    void addReceiptHasDish(int receiptId, int dishId, int quantity)throws DbException;
+    
 }

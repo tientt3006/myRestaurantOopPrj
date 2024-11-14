@@ -65,6 +65,9 @@ public class SqlUtils {
                                                         "ORDER BY createDate DESC\n" +
                                                         "LIMIT 1;";
     public static final String GET_RECEIPT_BY_ID = "SELECT * FROM receipt WHERE receiptId = ?;";
+    
+    public static final String ADD_RECEIPT_HAS_DISH = "INSERT INTO receipthasdish(receiptId, dishId, quantity) VALUES (?, ?, ?)";
+    
     private static final Logger logger = LoggerFactory.getLogger(SqlUtils.class);
 
     // Other constants and methods
