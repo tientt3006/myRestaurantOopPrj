@@ -80,6 +80,9 @@
             const timeInput = document.querySelector('input[name="time"]');
 
             const now = new Date();
+            const nowPlusOneMinute = new Date(now);
+            nowPlusOneMinute.setMinutes(now.getMinutes() + 5);
+            const currentTimePlusOneMinute = nowPlusOneMinute.toTimeString().slice(0, 5);
             const currentTime = now.toTimeString().slice(0, 5);
             //const today = now.toISOString().split('T')[0];
             const today = now.toLocaleDateString('en-CA');
@@ -97,13 +100,13 @@
             if (now.getHours() >= 23) {
                 dateInput.value = nextDay;
                 dateInput.setAttribute('min', nextDay);
+                timeInput.setAttribute('min', "17:00");
             } else {
                 dateInput.value = today;
                 dateInput.setAttribute('min', today);
+                timeInput.setAttribute('min', currentTime < "17:00" ? "17:00" : currentTime);
             }
-            
-            timeInput.value = ((currentTime < "17:00" || currentTime > "23:00") ? "17:00" : currentTime);
-            timeInput.setAttribute('min', currentTime < "17:00" ? "17:00" : currentTime);
+            timeInput.value = ((currentTime < "17:00" || currentTime > "23:00") ? "17:00" : currentTimePlusOneMinute);
         });
         function validateTime() {
             const dateInput = document.querySelector('input[name="date"]').value;
