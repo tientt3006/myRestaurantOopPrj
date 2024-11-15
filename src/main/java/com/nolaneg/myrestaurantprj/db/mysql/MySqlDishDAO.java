@@ -157,4 +157,24 @@ public class MySqlDishDAO implements DishDAO {
         }
         return dishes;
     }
+    public List<Dish> getDishByReceiptId(int receiptId) throws DbException {
+        List<Dish> dishes = new ArrayList<>();
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            con = ConnectionPool.getInstance().getConnection();
+            ps = con.prepareStatement(SqlUtils.GET_DISHES_BY_RECEIPT_ID);
+            ps.setInt(1, receiptId);
+            ResultSet rs = ps.executeQuery();
+
+            // Lặp qua tất cả các kết quả và thêm từng món vào danh sách
+            while (rs.next()) {
+                dishes.add(mapDish(rs));
+            }
+        }
+        catch (SQLException ex) {
+            throw new DbException("Cannot get dishes", ex);
+        }
+        return dishes;
+    }
 }

@@ -145,5 +145,18 @@ public class MySqlReceiptDAO implements ReceiptDAO {
             SqlUtils.close(ps);
         }
     }
+    @Override
+    public Receipt getReceiptByUserId(int userId)throws DbException{
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement ps = connection.prepareStatement(SqlUtils.GET_LASTEST_RECEIPT_BY_USER_ID)) {
+            ps.setInt(1, userId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (!rs.next()) return null;
+                return mapReceipt(rs);
+            }
+        } catch (SQLException ex) {
+            throw new DbException("Cannot getLastestReceiptOfAUser", ex);
+        }
+    }
     
 }

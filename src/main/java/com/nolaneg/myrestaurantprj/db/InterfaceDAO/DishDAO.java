@@ -24,5 +24,5 @@ public interface DishDAO {
     Map<Integer, Pair<String, Integer>> getDishesOrderCount() throws DbException;
 
     public List<Dish> getDishes()throws DbException;
-
+    public List<Dish> getDishByReceiptId(int receiptId) throws DbException;
 }

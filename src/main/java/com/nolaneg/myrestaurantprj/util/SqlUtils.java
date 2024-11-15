@@ -64,7 +64,16 @@ public class SqlUtils {
                                                         "WHERE userId = ? AND branchId = ?\n" +
                                                         "ORDER BY createDate DESC\n" +
                                                         "LIMIT 1;";
+    public static final String GET_LASTEST_RECEIPT_BY_USER_ID = "SELECT *\n" +
+                                                                    "FROM receipt\n" +
+                                                                    "WHERE userId = ?\n" +
+                                                                    "ORDER BY createDate DESC\n" +
+                                                                    "LIMIT 1;";    
     public static final String GET_RECEIPT_BY_ID = "SELECT * FROM receipt WHERE receiptId = ?;";
+    public static final String GET_DISHES_BY_RECEIPT_ID = "SELECT dish.*\n" +
+                                                                "FROM receipthasdish, dish \n" +
+                                                                "WHERE receipthasdish.receiptId = ?\n" +
+                                                                "AND receipthasdish.dishId = dish.dishId;";
     
     public static final String ADD_RECEIPT_HAS_DISH = "INSERT INTO receipthasdish(receiptId, dishId, quantity) VALUES (?, ?, ?)";
     

@@ -47,42 +47,28 @@
                         <th>Time</th>
                         <th>Number of People</th>
                         <th>Reservation Deposit</th>
-                        <th>Amount Due</th>
+                        <th>Food Cost</th>
                         <th>Total Amount</th>
                         <th>Payment Status</th>
                         <th>Dishes</th>
                     </tr>
-                    <c:forEach var="dish" items="${dishes}">
                     <tr>
-                    
-                        <td>${dish.dishName} </td>
-                        <td>${dish.dishName} </td>
-                        <td>${dish.dishName} </td>
-                        <td> ${dish.dishName}</td>
-                        <td>${dish.dishName} </td>
-                        <td>${dish.dishName} </td>
-                        <td>${dish.dishName} </td>
-                        <td>${dish.dishName} </td>
-                        <td>
-                            <select name="paymentStatus">
-                                <option value="booked">Booked</option>
-                                <option value="unpaid">Unpaid</option>
-                                <option value="paid">Paid</option>
-                                <option value="cancelled">Cancelled</option>
-                            </select>
-                        </td>
-                        <td>
+                        <th>${id}</th>
+                        <th>${number_of_table}</th>
+                        <th>${date}</th>
+                        <th>${time}</th>
+                        <th>${number_of_people}</th>
+                        <th>${deposit}</th>
+                        <th>${foodcost}</th>
+                        <th>${totalamount}</th>
+                        <th>${status}</th>
+                        <th>
                             <c:forEach var="dish" items="${dishes}">
-                                ${dish.dishName} 
-                            </c:forEach> 
-                             
-                        </td>
-                        <td><button class="action-btn" onclick="changeDishes()">Change Dishes</button></td>
-                        <td><button class="action-btn" onclick="cancelReservation()">Cancel Reservation</button></td>
-                        
-                                              
-                    </tr>
-                    </c:forEach> 
+                                <p>${dish.dishName}</p>
+                            </c:forEach>
+                        </th>
+                    </tr>                    
+                     
 
                     <!-- Bạn có thể thêm nhiều hàng khác vào đây nếu cần -->
 

@@ -4,6 +4,7 @@
  */
 
 package com.nolaneg.myrestaurantprj.db.InterfaceDAO;
+
 import com.nolaneg.myrestaurantprj.db.entity.Receipt;
 import com.nolaneg.myrestaurantprj.exceptions.DbException;
 import java.util.*;
@@ -20,5 +21,6 @@ public interface ReceiptDAO {
     int getUserIdByReceiptId(int receiptId) throws DbException;
     Receipt getReceiptByReceiptId(int receiptId) throws DbException;
     void addReceiptHasDish(int receiptId, int dishId, int quantity)throws DbException;
+    Receipt getReceiptByUserId(int userId) throws DbException;
     
 }
