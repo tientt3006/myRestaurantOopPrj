@@ -70,11 +70,14 @@ public class SqlUtils {
                                                                     "ORDER BY createDate DESC\n" +
                                                                     "LIMIT 1;";    
     public static final String GET_RECEIPT_BY_ID = "SELECT * FROM receipt WHERE receiptId = ?;";
+    
     public static final String GET_DISHES_BY_RECEIPT_ID = "SELECT dish.*\n" +
                                                                 "FROM receipthasdish, dish \n" +
                                                                 "WHERE receipthasdish.receiptId = ?\n" +
                                                                 "AND receipthasdish.dishId = dish.dishId;";
-    
+    public static final String GET_DISHID_QUANTITY_BY_RECEIPTID = "SELECT dishId, quantity \n"+
+                                                                    "FROM receipthasdish \n" +
+                                                                    "WHERE receipthasdish.receiptId = ?;";
     public static final String ADD_RECEIPT_HAS_DISH = "INSERT INTO receipthasdish(receiptId, dishId, quantity) VALUES (?, ?, ?)";
     
     private static final Logger logger = LoggerFactory.getLogger(SqlUtils.class);

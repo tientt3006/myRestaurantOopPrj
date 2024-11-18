@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 @WebServlet("/cart")
@@ -41,9 +42,15 @@ public class CartServlet extends HttpServlet{
         } catch (DbException ex) {
             Logger.getLogger(CartServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
+        Map<Integer,Integer> QuantityOfDish = null;
+        try {
+            QuantityOfDish = DAO.getDAO().getReceiptDAO().getDishIdAndQuantityByReceiptId(receipt.getReceiptId());
+        } catch (DbException ex) {
+            Logger.getLogger(CartServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
         long foodcost = 0;
         for(Dish x:dishes){
-            foodcost += x.getPrice();
+            foodcost += x.getPrice()*QuantityOfDish.get(Integer.valueOf(x.getDishId()));
         }
         req.setAttribute("id", receipt.getReceiptId());
         req.setAttribute("number_of_table", (int)receipt.getReservationFee()/100000);

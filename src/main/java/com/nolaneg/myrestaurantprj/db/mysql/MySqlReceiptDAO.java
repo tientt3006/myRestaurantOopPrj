@@ -159,4 +159,23 @@ public class MySqlReceiptDAO implements ReceiptDAO {
         }
     }
     
+    public Map<Integer, Integer> getDishIdAndQuantityByReceiptId(int receiptId)throws DbException{
+        Map<Integer, Integer> QuantityOfDish = new HashMap<>();
+        Connection con= null;
+        PreparedStatement ps = null;
+        try {
+            con = ConnectionPool.getInstance().getConnection();
+            ps = con.prepareStatement(SqlUtils.GET_DISHID_QUANTITY_BY_RECEIPTID); 
+            ps.setInt(1, receiptId);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                int dishId = rs.getInt("dishId");
+                int quantity = rs.getInt("quantity");
+                QuantityOfDish.put(dishId, quantity);
+            }
+            return QuantityOfDish;
+        } catch (SQLException ex) {
+            throw new DbException("Cannot getLastestReceiptOfAUser", ex);
+        }
+    }
 }
