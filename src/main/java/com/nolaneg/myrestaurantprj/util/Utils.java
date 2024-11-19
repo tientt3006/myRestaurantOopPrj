@@ -52,6 +52,6 @@ public class Utils {
      */
     public static void logout(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         req.getSession().invalidate();
-        resp.sendRedirect(req.getContextPath() + "/home");
+        resp.sendRedirect(req.getContextPath() + "/login");
     }
 }
