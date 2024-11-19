@@ -4,13 +4,13 @@
     <!DOCTYPE html>
     <html lang="en">
 
-    <c:set var="title" value="OOP Dinner - Log in" scope="page"/>
+    <c:set var="title" value="OOP Dinner - Select Dish" scope="page"/>
     <%@ include file="head.jspf" %>
 
     <body>
         <div class="wrapper">
             <!-- Header Section -->
-            <c:set var="currentPage" value="account" scope="page"/>
+            <c:set var="currentPage" value="select_dish" scope="page"/>
             <%@ include file="cus_header.jspf" %>
 
             <!-- Main Content Section -->
