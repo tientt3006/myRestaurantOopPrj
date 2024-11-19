@@ -40,7 +40,8 @@
                             <button type="submit" class="btn">Change Password</button>
                         </form>
 
-                        <form action="${pageContext.request.contextPath}/account/logout" method="post">
+                        <form action="${pageContext.request.contextPath}/account" method="get">
+                            <input type="hidden" name="logout" value="true">
                             <button type="submit" class="btn">Logout</button>
                         </form> 
                     </div>
