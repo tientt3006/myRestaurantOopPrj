@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en-GB">
     
-
+<c:set var="title" value="OOP Dinner - Cart" scope="page"/>
 <%@ include file="head.jspf" %>
 <head>
     <title>Quản lý hóa đơn đặt bàn</title>
@@ -28,7 +28,7 @@
         }
     </style>
 </head>  
-<c:set var="title" value="OOP Dinner - Cart" scope="page"/>
+
 <body>
     <div class="wrapper">
         <!-- Header Section -->
