@@ -33,7 +33,8 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
-        if ("".equals(email) || "".equals(password)) {
+        if ("".equals(email) || "".equals(password)
+                || email == null || password == null) {
             req.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(req, resp);
             return;
         }
@@ -44,7 +45,7 @@ public class LoginServlet extends HttpServlet {
                 req.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(req, resp);
             } else {
                 req.getSession().setAttribute("user", user);
-                req.getRequestDispatcher("/WEB-INF/jsp/account.jsp").forward(req, resp);
+                resp.sendRedirect(req.getContextPath() + "/account");
             }
         } catch (DbException e) {
             throw new AppException(e);
