@@ -2,6 +2,7 @@ package com.nolaneg.myrestaurantprj.web.servlets;
 
 
 import com.nolaneg.myrestaurantprj.db.entity.User;
+import com.nolaneg.myrestaurantprj.util.Utils;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,19 +15,10 @@ public class AccountServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // Fetch the User object from the session
-        User user = (User) req.getSession().getAttribute("user");
-        
-        // If user is not logged in, redirect to login page
-        if (user == null) {
-            resp.sendRedirect(req.getContextPath() + "/login");
+        if (req.getParameter("logout") != null) {
+            Utils.logout(req, resp);
             return;
         }
-
-        // Set the user object as a request attribute to be used in JSP
-        req.setAttribute("user", user);
-
-        // Forward the request to the JSP page
         req.getRequestDispatcher("/WEB-INF/jsp/account.jsp").forward(req, resp);
     }
 }
