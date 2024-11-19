@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,17 +24,24 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author $_{user}
  */
+@WebFilter({"/complete_reservation", "/select_dish"})
 public class CompleteReservationFilter extends HttpFilter {
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
-       
-        User user = (User) req.getSession().getAttribute("user");
-        if (user == null) {
-            res.sendRedirect(req.getContextPath() + "/login?message=Please log in to continue.");
+        String receiptIdParam = req.getParameter("receipt_id");
+        if (receiptIdParam == null || receiptIdParam.isEmpty()) {
+            res.sendRedirect(req.getContextPath() + "/cart");
             return;
         }
-        
-        int receiptId = Integer.parseInt(req.getParameter("receipt_id"));
+        int receiptId = -1;
+        try {
+            receiptId = Integer.parseInt(receiptIdParam);
+        } catch (NumberFormatException ex) {
+            Logger.getLogger(CompleteReservationFilter.class.getName()).log(Level.SEVERE, null, ex);
+            res.sendRedirect(req.getContextPath() + "/cart");
+            return;
+        }
+        User user = (User) req.getSession().getAttribute("user");
         int tmpUserId;
         try {
             tmpUserId = DAO.getDAO().getReceiptDAO().getUserIdByReceiptId(receiptId);
