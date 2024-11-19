@@ -21,7 +21,7 @@ import java.io.IOException;
  *
  * @author admin
  */
-@WebFilter({"/","/select_payment_method"})
+@WebFilter({"/select_payment_method"})
 public class SelectPaymentMethodFilter extends HttpFilter {
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
@@ -31,10 +31,7 @@ public class SelectPaymentMethodFilter extends HttpFilter {
         String time = req.getParameter("time");
         String branchId = req.getParameter("branchId");
         
-        User user = (User) req.getSession().getAttribute("user");
-        
-        if (user == null 
-                || numOfTables == null || numOfTables.isEmpty()
+        if (numOfTables == null || numOfTables.isEmpty()
                 || numOfPeople == null || numOfPeople.isEmpty()
                 || date == null || date.isEmpty()
                 || time == null || time.isEmpty()
