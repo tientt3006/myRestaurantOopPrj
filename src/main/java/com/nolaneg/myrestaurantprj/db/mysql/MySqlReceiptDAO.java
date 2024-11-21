@@ -4,11 +4,15 @@
  */
 
 package com.nolaneg.myrestaurantprj.db.mysql;
+import com.nolaneg.myrestaurantprj.db.InterfaceDAO.DAO;
 import com.nolaneg.myrestaurantprj.db.InterfaceDAO.ReceiptDAO;
 import com.nolaneg.myrestaurantprj.db.entity.Branch;
+import com.nolaneg.myrestaurantprj.db.entity.Dish;
 import com.nolaneg.myrestaurantprj.db.entity.Receipt;
+import com.nolaneg.myrestaurantprj.db.entity.User;
 import com.nolaneg.myrestaurantprj.exceptions.DbException;
 import com.nolaneg.myrestaurantprj.util.SqlUtils;
+import com.nolaneg.myrestaurantprj.web.servlets.CartServlet;
 import java.util.*;
 import java.io.*;
 import java.math.*;
@@ -20,6 +24,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -27,7 +33,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class MySqlReceiptDAO implements ReceiptDAO {
 
-    private static Receipt mapReceipt(ResultSet rs) throws SQLException {
+    private static Receipt mapReceipt(ResultSet rs) throws SQLException, DbException {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         ArrayList<Branch> branchs = SqlUtils.branchs;
         Branch foundBranch = null;
@@ -37,15 +43,23 @@ public class MySqlReceiptDAO implements ReceiptDAO {
                 break;
             }
         }
+        User tmpUser = null;
+        tmpUser = DAO.getDAO().getUserDAO().getUserById(rs.getInt("userId"));
+        ArrayList<Dish> dishes = null;
+        dishes = DAO.getDAO().getDishDAO().getDishByReceiptId(rs.getInt("receiptId"));
+        
         return new Receipt.Builder()
-                .setReceiptId(rs.getInt(1))
-                .setReservationFee(rs.getFloat(4))
-                .setReservationDate(LocalDate.parse(rs.getString(7)))
-                .setReservationTime(LocalTime.parse(rs.getString(8)))
-                .setStatus(rs.getString(11))
-                .setCreatDate(LocalDateTime.parse(rs.getString(12), dateTimeFormatter))
-                .setNumOfPeople(rs.getInt(13))
+                .setReceiptId(rs.getInt("receiptId"))
+                .setUser(tmpUser)
+                .setReservationFee(rs.getFloat("reservationFee"))
+                .setReservationDate(LocalDate.parse(rs.getString("reservation_date")))
+                .setReservationTime(LocalTime.parse(rs.getString("reservation_time")))
+                .setStatus(rs.getString("status"))
+                .setFoodCost(rs.getFloat("foodCost"))
+                .setCreatDate(LocalDateTime.parse(rs.getString("createDate"), dateTimeFormatter))
+                .setNumOfPeople(rs.getInt("num_people"))
                 .setBranch(foundBranch)
+                .setDishes(dishes)
                 .getReceipt();
     }
     
@@ -159,6 +173,29 @@ public class MySqlReceiptDAO implements ReceiptDAO {
         }
     }
     
+    @Override
+    public ArrayList<Receipt> getAllReceiptByUserId(int userId)throws DbException{
+        ArrayList<Receipt> receipts = new ArrayList<>();
+        Connection con = null;
+        PreparedStatement ps = null;
+        try{
+            con = ConnectionPool.getInstance().getConnection();
+            ps = con.prepareStatement(SqlUtils.GET_ALL_RECEIPT_BY_USER_ID);
+            ps.setInt(1, userId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                receipts.add(mapReceipt(rs));
+            }
+        }
+        catch (SQLException ex) {
+            throw new DbException("Cannot get receipts", ex);
+        }finally {
+            SqlUtils.close(con);
+            SqlUtils.close(ps);
+        }
+        return receipts;
+    }
+    
     public Map<Integer, Integer> getDishIdAndQuantityByReceiptId(int receiptId)throws DbException{
         Map<Integer, Integer> QuantityOfDish = new HashMap<>();
         Connection con= null;
@@ -176,6 +213,31 @@ public class MySqlReceiptDAO implements ReceiptDAO {
             return QuantityOfDish;
         } catch (SQLException ex) {
             throw new DbException("Cannot getLastestReceiptOfAUser", ex);
+        } finally {
+            SqlUtils.close(con);
+            SqlUtils.close(ps);
+        }
+    }
+    
+    public void addFoodCost(int receiptId, float foodCost)throws DbException{
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            con = ConnectionPool.getInstance().getConnection();
+            ps = con.prepareStatement(SqlUtils.CHANGE_FOODCOST);
+            int k = 0;
+            ps.setFloat(++k, foodCost);
+            ps.setInt(++k, receiptId);
+            if (ps.executeUpdate() == 0) {
+                throw new DbException("change foodcost, no rows attached");
+            }
+            con.commit();
+        } catch (SQLException ex) {
+            if (con != null) SqlUtils.rollback(con);
+            throw new DbException("Cannot change foodcost", ex);
+        } finally {
+            SqlUtils.close(con);
+            SqlUtils.close(ps);
         }
     }
 }

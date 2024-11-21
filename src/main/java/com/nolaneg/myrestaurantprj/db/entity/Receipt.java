@@ -15,6 +15,7 @@ import java.time.*;
  */
 public class Receipt {
     private int receiptId;
+    private User user;
     private float reservationFee;
     private float foodCost;
     private float totalAmont;
@@ -33,7 +34,10 @@ public class Receipt {
     public int getReceiptId() {
         return receiptId;
     }
-
+    
+    public User getUser(){
+        return user;
+    }
     public float getReservationFee() {
         return reservationFee;
     }
@@ -96,7 +100,12 @@ public class Receipt {
             receipt.receiptId = id;
             return this;
         }
-
+        
+        public Builder setUser(User user){
+            receipt.user = user;
+            return this;
+        }
+        
         public Builder setReservationFee(float reservationFee) {
             receipt.reservationFee = reservationFee;
             return this;

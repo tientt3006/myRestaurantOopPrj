@@ -42,33 +42,39 @@
                 <table>
                     <tr>
                         <th>Invoice</th>
-                        <th>Table Number</th>
+                        <th>Create Date</th>
+                        <th>Food Cost</th>
                         <th>Date</th>
                         <th>Time</th>
                         <th>Number of People</th>
                         <th>Reservation Deposit</th>
-                        <th>Food Cost</th>
+                        <th>Table Number</th>
                         <th>Total Amount</th>
                         <th>Payment Status</th>
                         <th>Dishes</th>
                     </tr>
-                    <tr>
-                        <th>${id}</th>
-                        <th>${number_of_table}</th>
-                        <th>${date}</th>
-                        <th>${time}</th>
-                        <th>${number_of_people}</th>
-                        <th>${deposit}</th>
-                        <th>${foodcost}</th>
-                        <th>${totalamount}</th>
-                        <th>${status}</th>
-                        <th>
-                            <c:forEach var="dish" items="${dishes}">
-                                <p>${dish.dishName}</p>
-                            </c:forEach>
-                        </th>
-                    </tr>                    
-                     
+                    <c:forEach var="receipt" items="${receipts}">
+                        <tr>
+                            <th>${receipt.receiptId}</th>
+                            <th>${receipt.createDate}</th>
+                            <th>${receipt.foodCost}</th>
+                            <th>${receipt.reservationDate}</th>
+                            <th>${receipt.reservationTime}</th>
+                            <th>${receipt.numOfPeople}</th>
+                            <th>${receipt.reservationFee}</th>
+                            <th>${receipt.reservationFee/100000}</th>
+                            <th>${receipt.reservationFee + receipt.foodCost}</th>
+                            <th>${receipt.status}</th>
+                            <th>
+                                <c:forEach var="dish" items="${receipt.dishes}">
+                                    <div>${dish.dishName}</div>
+                                </c:forEach>
+                            </th>
+                        </tr>
+                        
+                    </c:forEach>
+                    
+                        
 
                     <!-- Bạn có thể thêm nhiều hàng khác vào đây nếu cần -->
 

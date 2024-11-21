@@ -59,6 +59,7 @@ public class SqlUtils {
     public static final String GET_DISH_ORDERS_COUNT = "SELECT dishId, dishName, IFNULL((SELECT SUM(count) FROM receiptHasDish WHERE receiptHasDish.dishId = dish.dishId), 0) AS orders FROM dish ORDER BY dishId";
     
     public static final String ADD_RECEIPT = "INSERT INTO receipt(userId, branchId, reservationFee, reservation_date, reservation_time, status, num_people) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    public static final String CHANGE_FOODCOST = "UPDATE receipt SET foodCost = ? WHERE receiptId = ?";
     public static final String GET_LASTEST_RECEIPT = "SELECT *\n" +
                                                         "FROM receipt\n" +
                                                         "WHERE userId = ? AND branchId = ?\n" +
@@ -68,8 +69,13 @@ public class SqlUtils {
                                                                     "FROM receipt\n" +
                                                                     "WHERE userId = ?\n" +
                                                                     "ORDER BY createDate DESC\n" +
-                                                                    "LIMIT 1;";    
+                                                                    "LIMIT 1;"; 
+    public static final String GET_ALL_RECEIPT_BY_USER_ID = "SELECT *\n" +
+                                                                    "FROM receipt\n" +
+                                                                    "WHERE userId = ?\n" +
+                                                                    "ORDER BY createDate DESC\n";      
     public static final String GET_RECEIPT_BY_ID = "SELECT * FROM receipt WHERE receiptId = ?;";
+    
     
     public static final String GET_DISHES_BY_RECEIPT_ID = "SELECT dish.*\n" +
                                                                 "FROM receipthasdish, dish \n" +

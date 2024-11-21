@@ -59,21 +59,28 @@ public class SelectDishServlet extends HttpServlet{
         User user = (User) req.getSession().getAttribute("user");
         String tmp = String.valueOf(req.getParameter("receipt_id"));
         int receiptId = Integer.parseInt(String.valueOf(req.getParameter("receipt_id")));
+        float foodCost = 0;
         for (int i = 0; i < cartArray.length(); i++) {
             JSONObject item = cartArray.getJSONObject(i);
             int id = item.getInt("id");
             String name = item.getString("name");
             int price = item.getInt("price");
             int quantity = item.getInt("quantity");
+            foodCost += price*quantity;
             try {
                 // Xử lý logic của đơn hàng tại đây (ví dụ: lưu vào database)
                 DAO.getDAO().getReceiptDAO().addReceiptHasDish(receiptId, id, quantity);
+               
             } catch (DbException ex) {
                 Logger.getLogger(SelectDishServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
-        
+        try {
+            DAO.getDAO().getReceiptDAO().addFoodCost(receiptId, foodCost);
+            
+        } catch (DbException  ex) {
+            Logger.getLogger(SelectDishServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
         // Phản hồi lại client với trạng thái thành công
         resp.setContentType("application/json");
         resp.getWriter().write("{\"status\":\"success\"}");

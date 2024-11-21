@@ -157,8 +157,8 @@ public class MySqlDishDAO implements DishDAO {
         }
         return dishes;
     }
-    public List<Dish> getDishByReceiptId(int receiptId) throws DbException {
-        List<Dish> dishes = new ArrayList<>();
+    public ArrayList<Dish> getDishByReceiptId(int receiptId) throws DbException {
+        ArrayList<Dish> dishes = new ArrayList<>();
         Connection con = null;
         PreparedStatement ps = null;
         try {

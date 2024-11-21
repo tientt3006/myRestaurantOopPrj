@@ -19,6 +19,7 @@ import javax.sql.DataSource;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -29,43 +30,13 @@ public class CartServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = (User) req.getSession().getAttribute("user");
-        Receipt receipt = null;
+        ArrayList<Receipt> receipts = null;
         try {
-            receipt = DAO.getDAO().getReceiptDAO().getReceiptByUserId(user.getUserId());
+            receipts = DAO.getDAO().getReceiptDAO().getAllReceiptByUserId(user.getUserId());
         } catch (DbException ex) {
             Logger.getLogger(CartServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //
-        List<Dish> dishes = null;
-        try {
-            dishes = DAO.getDAO().getDishDAO().getDishByReceiptId(receipt.getReceiptId());
-        } catch (DbException ex) {
-            Logger.getLogger(CartServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        Map<Integer,Integer> QuantityOfDish = null;
-        try {
-            QuantityOfDish = DAO.getDAO().getReceiptDAO().getDishIdAndQuantityByReceiptId(receipt.getReceiptId());
-        } catch (DbException ex) {
-            Logger.getLogger(CartServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        long foodcost = 0;
-        for(Dish x:dishes){
-            foodcost += x.getPrice()*QuantityOfDish.get(Integer.valueOf(x.getDishId()));
-        }
-        req.setAttribute("id", receipt.getReceiptId());
-        req.setAttribute("number_of_table", (int)receipt.getReservationFee()/100000);
-        req.setAttribute("date", receipt.getReservationDate());
-        req.setAttribute("time", receipt.getReservationTime());
-        req.setAttribute("number_of_people", receipt.getNumOfPeople());
-        req.setAttribute("deposit", receipt.getReservationFee());
-        req.setAttribute("foodcost", foodcost);
-        req.setAttribute("totalamount", foodcost+receipt.getReservationFee());
-        req.setAttribute("status", receipt.getStatus());
-        req.setAttribute("dishes", dishes);
-        
+        req.setAttribute("receipts", receipts);
         req.getRequestDispatcher("/WEB-INF/jsp/cart.jsp").forward(req, resp);
     }
-//    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        
-//    }
 }

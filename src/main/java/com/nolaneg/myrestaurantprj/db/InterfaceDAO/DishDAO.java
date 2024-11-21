@@ -10,6 +10,7 @@ import com.nolaneg.myrestaurantprj.db.entity.User;
 import com.nolaneg.myrestaurantprj.exceptions.DbException;
 import com.nolaneg.myrestaurantprj.util.Pair;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -24,5 +25,5 @@ public interface DishDAO {
     Map<Integer, Pair<String, Integer>> getDishesOrderCount() throws DbException;
 
     public List<Dish> getDishes()throws DbException;
-    public List<Dish> getDishByReceiptId(int receiptId) throws DbException;
+    public ArrayList<Dish> getDishByReceiptId(int receiptId) throws DbException;
 }

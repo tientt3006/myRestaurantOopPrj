@@ -40,16 +40,16 @@ CREATE TABLE receipt (
     receiptId INT PRIMARY KEY AUTO_INCREMENT,
     userId INT NOT NULL,
 	branchId INT,
-    reservationFee DECIMAL(10, 2) NOT NULL,
-    foodCost DECIMAL(10, 2),
-    totalAmount DECIMAL(10, 2),
+    reservationFee DECIMAL(10, 2) DEFAULT 0,
+    foodCost DECIMAL(10, 2) DEFAULT 0,
+    totalAmount DECIMAL(10, 2) DEFAULT 0,
     reservation_date DATE,
     reservation_time TIME, 
     start_time DATETIME,
     end_time DATETIME,
     status VARCHAR(20) NOT NULL, -- reserved (đã đặt bàn thành công, các bàn đợi được dùng), unpaid (chưa thanh toán tiền ăn, các bàn đang được sử dụng), paid (đã thanh toán tất cả, các bàn nhàn dỗi), refunded, canceled
 	createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    num_people INT, 
+    num_people INT DEFAULT 0,
 	FOREIGN KEY (userId) REFERENCES users(userId) ON DELETE CASCADE ON UPDATE CASCADE,
 	FOREIGN KEY (branchId) REFERENCES branch(branchId) ON DELETE CASCADE ON UPDATE CASCADE
 );
