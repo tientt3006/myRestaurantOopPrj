@@ -21,13 +21,14 @@ import java.io.IOException;
  *
  * @author admin
  */
-@WebFilter({"/","/menu"})
+@WebFilter({"/menu"})
 public class MenuFilter extends HttpFilter {
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
         String category = req.getParameter("category");
         String sortBy = req.getParameter("sortBy");
-        if (category == null || sortBy == null) {
+        if (category == null || sortBy == null
+                || category.isEmpty() || sortBy.isEmpty()) {
             res.sendRedirect(req.getContextPath() + "/menu?category=0&sortBy=categoryId&page=0&dishesInPage=8");
         } else {
             chain.doFilter(req, res);
