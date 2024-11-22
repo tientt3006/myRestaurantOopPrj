@@ -136,6 +136,7 @@ public class MySqlReceiptDAO implements ReceiptDAO {
             throw new DbException("Cannot getLastestReceiptOfAUser", ex);
         }
     }
+    @Override
     public void addReceiptHasDish(int receiptId, int dishId, int quantity)throws DbException{
         Connection con = null;
         PreparedStatement ps = null;
@@ -190,12 +191,23 @@ public class MySqlReceiptDAO implements ReceiptDAO {
         catch (SQLException ex) {
             throw new DbException("Cannot get receipts", ex);
         }finally {
-            SqlUtils.close(con);
-            SqlUtils.close(ps);
+            try {
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(MySqlReceiptDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                ps.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(MySqlReceiptDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+//            SqlUtils.close(con);
+//            SqlUtils.close(ps);
         }
         return receipts;
     }
     
+    @Override
     public Map<Integer, Integer> getDishIdAndQuantityByReceiptId(int receiptId)throws DbException{
         Map<Integer, Integer> QuantityOfDish = new HashMap<>();
         Connection con= null;
@@ -219,6 +231,7 @@ public class MySqlReceiptDAO implements ReceiptDAO {
         }
     }
     
+    @Override
     public void addFoodCost(int receiptId, float foodCost)throws DbException{
         Connection con = null;
         PreparedStatement ps = null;
