@@ -45,7 +45,7 @@ public class MySqlUserDAO implements UserDAO {
                 return mapUser(rs);
             }
         } catch (SQLException ex) {
-            throw new DbException("Cannot getUserByEmail", ex);
+            throw new DbException("Cannot getUserById", ex);
         }
     }
     
