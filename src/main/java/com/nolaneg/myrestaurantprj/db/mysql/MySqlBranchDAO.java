@@ -41,7 +41,7 @@ public class MySqlBranchDAO implements BranchDAO{
                 branchs.add(mapBranch(rs));
             }
         } catch (SQLException ex) {
-            throw new DbException("Cannot get dishes", ex);
+            throw new DbException("Cannot get branchs", ex);
         }
         return branchs;
     }
