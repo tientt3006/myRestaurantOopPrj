@@ -28,30 +28,36 @@ import javax.servlet.http.HttpServletResponse;
 public class CompleteReservationFilter extends HttpFilter {
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
-        String receiptIdParam = req.getParameter("receipt_id");
-        if (receiptIdParam == null || receiptIdParam.isEmpty()) {
-            res.sendRedirect(req.getContextPath() + "/cart");
+        if (req.getSession().getAttribute("user") == null) {
+            res.sendRedirect(req.getContextPath() + "/login?message=Please log in to continue.");
             return;
         }
-        int receiptId = -1;
+        
+        String receiptIdParam = req.getParameter("receipt_id");
+        if (receiptIdParam == null || receiptIdParam.isEmpty()) {
+            res.sendRedirect(req.getContextPath() + "/find_table?error=empty_receipt_id");
+            return;
+        }
+        int receiptId;
         try {
             receiptId = Integer.parseInt(receiptIdParam);
         } catch (NumberFormatException ex) {
             Logger.getLogger(CompleteReservationFilter.class.getName()).log(Level.SEVERE, null, ex);
-            res.sendRedirect(req.getContextPath() + "/cart");
+            res.sendRedirect(req.getContextPath() + "/find_table?error=wrong_receipt_id");
             return;
         }
+        
         User user = (User) req.getSession().getAttribute("user");
         int tmpUserId;
         try {
             tmpUserId = DAO.getDAO().getReceiptDAO().getUserIdByReceiptId(receiptId);
         } catch (DbException ex) {
             Logger.getLogger(CompleteReservationFilter.class.getName()).log(Level.SEVERE, null, ex);
-            res.sendRedirect(req.getContextPath() + "/find_table?error=db_error");
+            res.sendRedirect(req.getContextPath() + "/find_table?error=db_error_getUserByReceiptId");
             return;
         }
         if(tmpUserId != user.getUserId()) {
-            res.sendRedirect(req.getContextPath() + "/find_table");
+            res.sendRedirect(req.getContextPath() + "/find_table?error=not_match_receipt_id");
             return;
         }
         
