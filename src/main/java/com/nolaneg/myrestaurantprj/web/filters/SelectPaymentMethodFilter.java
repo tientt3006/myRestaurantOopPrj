@@ -25,6 +25,11 @@ import java.io.IOException;
 public class SelectPaymentMethodFilter extends HttpFilter {
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
+        if (req.getSession().getAttribute("user") == null) {
+            res.sendRedirect(req.getContextPath() + "/login?message=Please log in to continue.");
+            return;
+        }
+        
         String numOfTables = req.getParameter("tables");
         String numOfPeople = req.getParameter("people");
         String date = req.getParameter("date");
@@ -36,7 +41,7 @@ public class SelectPaymentMethodFilter extends HttpFilter {
                 || date == null || date.isEmpty()
                 || time == null || time.isEmpty()
                 || branchId == null || branchId.isEmpty()) {
-            res.sendRedirect(req.getContextPath() + "/find_table");
+            res.sendRedirect(req.getContextPath() + "/find_table?redirect_cause=missing_param_for_select_payment_mmethod");
             return;
         }
         
