@@ -171,9 +171,11 @@ public class MySqlDishDAO implements DishDAO {
             while (rs.next()) {
                 dishes.add(mapDish(rs));
             }
-        }
-        catch (SQLException ex) {
+        } catch (SQLException ex) {
             throw new DbException("Cannot get dishes", ex);
+        }finally {
+            SqlUtils.close(con);
+            SqlUtils.close(ps);
         }
         return dishes;
     }
