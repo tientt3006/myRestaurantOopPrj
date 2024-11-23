@@ -28,16 +28,13 @@ public class SelectDishServlet extends HttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Dish> dishes = null;
         try {
-            dishes = DAO.getDAO().getDishDAO().getDishes();
+            ArrayList<Dish> dishes = DAO.getDAO().getDishDAO().getDishes();
             req.setAttribute("dishes", dishes);
             req.getRequestDispatcher("/WEB-INF/jsp/select_dish.jsp").forward(req, resp);    
         } catch (DbException ex) {
             Logger.getLogger(SelectDishServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-//        int receiptId = Integer.parseInt(req.getParameter("receipt_id"));
-//        req.setAttribute("receipt_id", receiptId);
     }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -53,33 +50,30 @@ public class SelectDishServlet extends HttpServlet{
         }
 
         // Chuyển chuỗi JSON thành đối tượng JSONArray
+        System.out.println(jsonString.toString());
         JSONArray cartArray = new JSONArray(jsonString.toString());
 
         // Xử lý đơn hàng từ JSONArray
-        User user = (User) req.getSession().getAttribute("user");
-        String tmp = String.valueOf(req.getParameter("receipt_id"));
         int receiptId = Integer.parseInt(String.valueOf(req.getParameter("receipt_id")));
         float foodCost = 0;
         for (int i = 0; i < cartArray.length(); i++) {
             JSONObject item = cartArray.getJSONObject(i);
             int id = item.getInt("id");
-            String name = item.getString("name");
-            int price = item.getInt("price");
+            float price = item.getFloat("price");
             int quantity = item.getInt("quantity");
             foodCost += price*quantity;
             try {
-                // Xử lý logic của đơn hàng tại đây (ví dụ: lưu vào database)
-                DAO.getDAO().getReceiptDAO().addReceiptHasDish(receiptId, id, quantity);
-               
+                DAO.getDAO().getReceiptDAO().addReceiptHasDish(receiptId, id, quantity);      
             } catch (DbException ex) {
                 Logger.getLogger(SelectDishServlet.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("addReceiptHasDish wrong smth");
             }
         }
         try {
             DAO.getDAO().getReceiptDAO().addFoodCost(receiptId, foodCost);
-            
         } catch (DbException  ex) {
             Logger.getLogger(SelectDishServlet.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("addFoodCost wrong smth");
         }
         // Phản hồi lại client với trạng thái thành công
         resp.setContentType("application/json");
