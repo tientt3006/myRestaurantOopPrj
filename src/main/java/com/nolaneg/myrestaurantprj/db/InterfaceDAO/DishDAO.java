@@ -17,13 +17,13 @@ import java.util.Map;
 public interface DishDAO {
 
     Dish getDishById(int id) throws DbException;
-    List<Dish> getAllDishes() throws DbException;
-    List<Dish> getSortedDishesFromCategoryOnPage(int categoryId, String sortBy, int dishesInPage, int pageNum) throws DbException;
-    List<Dish> getSortedDishesOnPage(String sortBy, int dishesInPage, int pageNum) throws DbException;
+    ArrayList<Dish> getAllDishes() throws DbException;
+    ArrayList<Dish> getSortedDishesFromCategoryOnPage(int categoryId, String sortBy, int dishesInPage, int pageNum) throws DbException;
+    ArrayList<Dish> getSortedDishesOnPage(String sortBy, int dishesInPage, int pageNum) throws DbException;
     int getDishesNumber() throws DbException;
     int getDishesNumberInCategory(int categoryId) throws DbException;
     Map<Integer, Pair<String, Integer>> getDishesOrderCount() throws DbException;
 
-    public List<Dish> getDishes()throws DbException;
+    public ArrayList<Dish> getDishes()throws DbException;
     public ArrayList<Dish> getDishByReceiptId(int receiptId) throws DbException;
 }
