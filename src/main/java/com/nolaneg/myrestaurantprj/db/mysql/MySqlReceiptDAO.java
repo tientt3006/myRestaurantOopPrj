@@ -245,6 +245,7 @@ public class MySqlReceiptDAO implements ReceiptDAO {
         }
     }
     
+    @Override
     public ArrayList<Receipt> getAllReceiptByUserIdBranchId(int userId, int branchId)throws DbException{
         ArrayList<Receipt> receipts = new ArrayList<>();
         Connection con = null;
@@ -279,5 +280,50 @@ public class MySqlReceiptDAO implements ReceiptDAO {
 //            SqlUtils.close(ps);
         }
         return receipts;
+    }
+    
+    @Override
+    public void refundReservation(int receiptId)throws DbException{
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            con = ConnectionPool.getInstance().getConnection();
+            ps = con.prepareStatement(SqlUtils.REFUND_RESERVATION);
+            int k = 0;
+            ps.setInt(++k, receiptId);
+            if (ps.executeUpdate() == 0) {
+                throw new DbException("Cant change to refunded status, no rows attached");
+            }
+            con.commit();
+        } catch (SQLException ex) {
+            if (con != null) SqlUtils.rollback(con);
+            throw new DbException("Cannot change refunded status", ex);
+        } finally {
+            SqlUtils.close(con);
+            SqlUtils.close(ps);
+        }
+    }
+    
+    @Override
+    public void setStatusReceipt(int receiptId, String status)throws DbException{
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            con = ConnectionPool.getInstance().getConnection();
+            ps = con.prepareStatement(SqlUtils.SET_STATUS_RECEIPT);
+            int k = 0;
+            ps.setString(++k, status);
+            ps.setInt(++k, receiptId);
+            if (ps.executeUpdate() == 0) {
+                throw new DbException("Cant change status, no rows attached");
+            }
+            con.commit();
+        } catch (SQLException ex) {
+            if (con != null) SqlUtils.rollback(con);
+            throw new DbException("Cannot change status", ex);
+        } finally {
+            SqlUtils.close(con);
+            SqlUtils.close(ps);
+        }
     }
 }
