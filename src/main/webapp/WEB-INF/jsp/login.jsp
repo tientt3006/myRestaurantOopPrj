@@ -47,9 +47,9 @@
                         <a href="#" class="forgot-pass-link" >Forgot Password?</a>
 
                         <button type="submit">Log in</button>
-                        <button type="button" class="google-btn">Log in by Google</button>
+                        <!--<button type="button" class="google-btn">Log in by Google</button> -->
                         <p class="sign-in-text">Don't have an account?
-                                <a href="signup" class="signup-link">Sign up</a> now!
+                            <a href="signup" class="signup-link">Sign up</a> now!
                         </p>
                     </form>
                 </div>
