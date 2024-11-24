@@ -19,85 +19,60 @@
                 <div class="filter-option">
                     <input type="text" placeholder="Tìm kiếm theo user/email/số điện thoại" />
                     <input type="date" />
-                    <button>Lọc</button>
+                    <button>Filter</button>
                 </div>
 
                 
                 <div class="content-receipt">
-                    <p><strong>Hiển thị thông tin user:</strong> Tên, Email, SĐT, ...</p>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Hóa đơn</th>
-                                <th>Thông tin bàn</th>
-                                <th>Trạng thái</th>
-                                <th>Danh sách món</th>
-                                <th>Hành động</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Hóa đơn 01 -->
-                            <tr>
-                                <td>Hóa đơn 01</td>
-                                <td>
-                                    Số bàn: 5<br>
-                                    Số người: 4<br>
-                                    Ngày giờ: 2024-11-22<br>
-                                    Số tiền đặt bàn: 200,000<br>
-                                    Tổng số tiền: 1,000,000
-                                </td>
-                                <td>
-                                    <select>
-                                        <option>Đã đặt</option>
-                                        <option>Chưa thanh toán</option>
-                                        <option>Đã thanh toán</option>
-                                        <option>Đã hủy</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <ul>
-                                        <li>Món 1</li>
-                                        <li>Món 2</li>
-                                        <li>Món 3</li>
-                                    </ul>
-                                </td>
-                                <td class="actions">
-                                    <button>Thay đổi món</button>
-                                    <button>Hủy đặt bàn</button>
-                                </td>
-                            </tr>
-
-                            <!-- Hóa đơn 02 -->
-                            <tr>
-                                <td>Hóa đơn 02</td>
-                                <td>
-                                    Số bàn: 3<br>
-                                    Số người: 2<br>
-                                    Ngày giờ: 2024-11-23<br>
-                                    Số tiền đặt bàn: 100,000<br>
-                                    Tổng số tiền: 500,000
-                                </td>
-                                <td>
-                                    <select>
-                                        <option>Đã đặt</option>
-                                        <option>Chưa thanh toán</option>
-                                        <option>Đã thanh toán</option>
-                                        <option>Đã hủy</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <ul>
-                                        <li>Món A</li>
-                                        <li>Món B</li>
-                                    </ul>
-                                </td>
-                                <td class="actions">
-                                    <button>Thay đổi món</button>
-                                    <button>Hủy đặt bàn</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>                     
+                    <p>Branch: ${branchName}</p>
+                    <c:forEach var="User" items="${Customers.keySet()}">
+                        <p><strong>Customer's: </strong>${User.getFull_name()} - ${User.getEmail()} </p>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Recipt ID</th>
+                                    <th>Table's Information</th>
+                                    <th>Status</th>
+                                    <th>List Dish</th>
+                                    <th>Option</th>
+                                </tr>
+                            </thead>
+                            <c:forEach var="receipt" items="${Customers.get(User)}">
+                                <tbody>
+                                    <tr>
+                                        <td>Number ${receipt.getReceiptId()}</td>
+                                        <td>
+                                            Tables: ${receipt.reservationFee/100000}<br>
+                                            Peoples: ${receipt.numOfPeople}<br>
+                                            Date: ${receipt.reservationDate}<br>
+                                            Reserved Fee: ${receipt.reservationFee}<br>
+                                            Total Fee: ${receipt.reservationFee + receipt.foodCost}
+                                        </td>
+                                        <td>
+                                            <select>
+                                                <option>Reserved</option>
+                                                <option>Unpaid</option>
+                                                <option>Paymented</option>
+                                                <option>Canceled</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <c:forEach var="dish" items="${receipt.dishes}">
+                                                <div>${dish.dishName}</div>
+                                            </c:forEach>
+                                        </td>
+                                        <td class="actions">
+                                            <button>Change dishes</button>
+                                            <button>Canceled</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </c:forEach>
+                        </table>
+                    </c:forEach>
+                   
+                    
+                                               
                 </div>
                                     
                 

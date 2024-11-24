@@ -14,6 +14,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.*;
 
 
 /**
@@ -168,6 +169,25 @@ public class MySqlUserDAO implements UserDAO {
         } catch  (SQLException e) {
             throw new DbException("Cannot changeInfo", e);
         }
+    }
+    
+    
+    public ArrayList<Integer> getUserIds(int branchId) throws DbException {
+        ArrayList<Integer> UserIds = new ArrayList<>();
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            con = ConnectionPool.getInstance().getConnection();
+            ps = con.prepareStatement(SqlUtils.GET_USERID_BY_BRANCHID);
+            ps.setInt(1, branchId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                UserIds.add(rs.getInt(1));
+            }
+        } catch (SQLException ex) {
+            throw new DbException("Cannot get branchs", ex);
+        }
+        return UserIds;
     }
     
 }

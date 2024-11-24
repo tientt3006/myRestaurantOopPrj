@@ -84,6 +84,10 @@ public class MySqlTableDAO implements TableDAO{
             if (con != null) SqlUtils.rollback(con);
             throw new DbException("Cannot addition table", ex);
         }
+        finally {
+            SqlUtils.close(con);
+            SqlUtils.close(ps);
+        }
     }
 
 }

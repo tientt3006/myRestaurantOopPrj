@@ -45,4 +45,27 @@ public class MySqlBranchDAO implements BranchDAO{
         }
         return branchs;
     }
+    @Override
+    public Branch getBranch(int managerID) throws DbException {
+        Connection con= null;
+        PreparedStatement ps = null;
+        try {
+            con = ConnectionPool.getInstance().getConnection();
+            ps = con.prepareStatement(SqlUtils.GET_BRANCHID_BY_MANAGERID); 
+            ps.setInt(1, managerID);
+            try(ResultSet rs = ps.executeQuery();){
+                if(rs.next()){
+                    return mapBranch(rs);
+                }
+                else{
+                    return null;
+                }
+            }
+        } catch (SQLException ex) {
+            throw new DbException("Cannot getBranch", ex);
+        } finally {
+            SqlUtils.close(con);
+            SqlUtils.close(ps);
+        }
+    }
 }

@@ -16,4 +16,5 @@ import java.math.*;
  */
 public interface BranchDAO {
     ArrayList<Branch> getBranchs() throws DbException;
+    Branch getBranch(int managerId) throws DbException;
 }

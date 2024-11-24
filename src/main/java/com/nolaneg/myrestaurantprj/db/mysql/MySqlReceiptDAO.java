@@ -107,6 +107,7 @@ public class MySqlReceiptDAO implements ReceiptDAO {
         } catch (SQLException ex) {
             throw new DbException("Cannot getLastestReceiptOfAUser", ex);
         }
+        
     }
 
     @Override
@@ -252,5 +253,41 @@ public class MySqlReceiptDAO implements ReceiptDAO {
             SqlUtils.close(con);
             SqlUtils.close(ps);
         }
+    }
+    
+    public ArrayList<Receipt> getAllReceiptByUserIdBranchId(int userId, int branchId)throws DbException{
+        ArrayList<Receipt> receipts = new ArrayList<>();
+        Connection con = null;
+        PreparedStatement ps = null;
+        try{
+            con = ConnectionPool.getInstance().getConnection();
+            ps = con.prepareStatement(SqlUtils.GET_ALL_RECEIPT_BY_USER_ID);
+            ps.setInt(1, userId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Receipt receipt = mapReceipt(rs);
+                if(receipt.getBranch().getBranchId()==branchId){
+                    receipts.add(receipt);
+                }
+                
+            }
+        }
+        catch (SQLException ex) {
+            throw new DbException("Cannot get receipts", ex);
+        }finally {
+            try {
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(MySqlReceiptDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                ps.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(MySqlReceiptDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+//            SqlUtils.close(con);
+//            SqlUtils.close(ps);
+        }
+        return receipts;
     }
 }

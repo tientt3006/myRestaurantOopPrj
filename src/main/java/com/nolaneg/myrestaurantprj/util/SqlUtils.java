@@ -25,7 +25,9 @@ import org.slf4j.LoggerFactory;
 public class SqlUtils {
     
     public static final String GET_BRANCHS = "SELECT * FROM branch";
-    
+    public static final String GET_BRANCHID_BY_MANAGERID = "SELECT *\n" + 
+                                                            "FROM branch\n" +
+                                                            "WHERE mnId = ?;";
     public static final String RESERVED_TABLE_COUNT = "SELECT COUNT(*) AS reserved_tables_count\n" +
                                                         "FROM tables t\n" +
                                                         "JOIN receipt r ON t.receiptId = r.receiptId\n" +
@@ -39,24 +41,23 @@ public class SqlUtils {
                                                         "  AND r.reservation_date = ?\n" +
                                                         "  AND r.status = 'unpaid';";
     public static final String ADD_TABLE = "INSERT INTO tables (receiptId) VALUES (?)";
+    
     public static final String LOG_IN = "SELECT * FROM users WHERE email LIKE ? AND password LIKE ?";
     public static final String SIGN_UP = "INSERT INTO users (firstName, lastName, password, email, phone) VALUES (?, ?, ?, ?, ?)";
     public static final String FIND_USER_BY_ID = "SELECT * FROM users WHERE userId LIKE ?";
     public static final String FIND_USER_BY_EMAIL = "SELECT * FROM users WHERE email LIKE ?";
     public static final String FIND_USER_BY_PHONE = "SELECT * FROM users WHERE phone LIKE ?";
     public static final String CHANGE_PASSWORD = "UPDATE users SET password = ? WHERE userId = ?";
+    public static final String CHANGE_INFO = "UPDATE users SET firstName = ?, lastName = ?, email = ?, phone = ? WHERE userId = ?";
     
     public static final String GET_ALL_CATEGORIES = "SELECT * FROM category";
     
-    public static final String CHANGE_INFO = "UPDATE users SET firstName = ?, lastName = ?, email = ?, phone = ? WHERE userId = ?";
     public static final String GET_DISHES = "SELECT * FROM dish";
     public static final String GET_DISH_BY_ID = "SELECT * FROM dish WHERE dishId = ?";
     public static final String GET_SORTED_DISHES_FROM_CATEGORY = "SELECT * FROM dish WHERE categoryId = ? ORDER BY ";
     public static final String GET_SORTED_DISHES = "SELECT * FROM dish ORDER BY ";
     public static final String GET_DISHES_COUNT = "SELECT COUNT(*) FROM dish";
     public static final String GET_DISHES_COUNT_IN_CATEGORY = "SELECT COUNT(*) FROM dish WHERE categoryId = ?";
-    
-    public static final String GET_DISH_ORDERS_COUNT = "SELECT dishId, dishName, IFNULL((SELECT SUM(count) FROM receiptHasDish WHERE receiptHasDish.dishId = dish.dishId), 0) AS orders FROM dish ORDER BY dishId";
     
     public static final String ADD_RECEIPT = "INSERT INTO receipt(userId, branchId, reservationFee, reservation_date, reservation_time, status, num_people) VALUES (?, ?, ?, ?, ?, ?, ?)";
     public static final String CHANGE_FOODCOST = "UPDATE receipt SET foodCost = ? WHERE receiptId = ?";
@@ -75,8 +76,12 @@ public class SqlUtils {
                                                                     "WHERE userId = ?\n" +
                                                                     "ORDER BY createDate DESC\n";      
     public static final String GET_RECEIPT_BY_ID = "SELECT * FROM receipt WHERE receiptId = ?;";
+    public static final String GET_USERID_BY_BRANCHID = "SELECT userId\n" +
+                                                            "FROM receipt\n" +
+                                                            "WHERE branchId = ?\n" +
+                                                            "GROUP BY userId;";
     
-    
+    public static final String GET_DISH_ORDERS_COUNT = "SELECT dishId, dishName, IFNULL((SELECT SUM(count) FROM receiptHasDish WHERE receiptHasDish.dishId = dish.dishId), 0) AS orders FROM dish ORDER BY dishId";
     public static final String GET_DISHES_BY_RECEIPT_ID = "SELECT dish.*\n" +
                                                                 "FROM receipthasdish, dish \n" +
                                                                 "WHERE receipthasdish.receiptId = ?\n" +

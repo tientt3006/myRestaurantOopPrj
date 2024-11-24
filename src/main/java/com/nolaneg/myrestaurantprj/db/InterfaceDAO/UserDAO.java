@@ -8,7 +8,7 @@ package com.nolaneg.myrestaurantprj.db.InterfaceDAO;
 import com.nolaneg.myrestaurantprj.db.entity.User;
 import com.nolaneg.myrestaurantprj.exceptions.DbException;
 import java.sql.*;
-import java.util.List;
+import java.util.*;
 
 public interface UserDAO {
 
@@ -37,4 +37,6 @@ public interface UserDAO {
     void changePassword(int userId, String newPassword) throws DbException;
     
     void changeInfo(int userId, String firstName, String lastName, String email, String phone) throws DbException;
+    
+    ArrayList<Integer> getUserIds(int branchId) throws DbException;
 }

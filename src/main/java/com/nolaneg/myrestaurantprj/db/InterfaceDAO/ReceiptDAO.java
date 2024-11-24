@@ -25,4 +25,5 @@ public interface ReceiptDAO {
     Map<Integer, Integer> getDishIdAndQuantityByReceiptId(int receiptId)throws DbException;
     ArrayList<Receipt> getAllReceiptByUserId(int userId) throws DbException;
     void addFoodCost(int receiptId, float fooCost) throws DbException;
+    ArrayList<Receipt> getAllReceiptByUserIdBranchId(int userId, int branchId)throws DbException;
 }
