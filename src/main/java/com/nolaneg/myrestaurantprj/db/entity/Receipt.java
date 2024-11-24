@@ -8,6 +8,7 @@ import java.util.*;
 import java.io.*;
 import java.math.*;
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -74,10 +75,16 @@ public class Receipt {
         return status;
     }
 
-    public LocalDateTime getCreateDate() {
+    public LocalDateTime getCreateDateLocalDT() {
         return createDate;
     }
 
+    
+    public String getCreateDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return createDate.format(formatter);
+    }
+    
     public int getNumOfPeople() {
         return numOfPeople;
     }
