@@ -10,6 +10,8 @@ import com.nolaneg.myrestaurantprj.db.entity.Dish;
 import com.nolaneg.myrestaurantprj.db.entity.Receipt;
 import com.nolaneg.myrestaurantprj.db.entity.User;
 import com.nolaneg.myrestaurantprj.exceptions.DbException;
+import com.nolaneg.myrestaurantprj.util.SqlUtils;
+import com.nolaneg.myrestaurantprj.util.Utils;
 import jakarta.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,50 +28,104 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.slf4j.LoggerFactory;
 @WebServlet("/all_receipt")
 
 public class AllReceipt extends HttpServlet{
+    private static final org.slf4j.Logger log = LoggerFactory.getLogger(SqlUtils.class);
+    
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Map<User, ArrayList<Receipt>> Customers = new HashMap<>();
-        User user = (User) req.getSession().getAttribute("user");
-        Branch branch = null;
         try {
-            branch = DAO.getDAO().getBranchDAO().getBranch(user.getUserId());
-        } catch (DbException ex) {
-            Logger.getLogger(AllReceipt.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        ArrayList<Integer> UserIds = new ArrayList<>();
-        try {
-            UserIds = DAO.getDAO().getUserDAO().getUserIds(branch.getBranchId());
-        } catch (DbException ex) {
-            Logger.getLogger(AllReceipt.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        ArrayList<User> Users = new ArrayList<>();
-        for(Integer id:UserIds){
-            User temp_user = null;
-            try {
-                temp_user = DAO.getDAO().getUserDAO().getUserById(id);
+            Map<User, ArrayList<Receipt>> Customers = new HashMap<>();
+            User user = (User) req.getSession().getAttribute("user");
+            ArrayList<User> Users = new ArrayList<>();
+            Branch branch = DAO.getDAO().getBranchDAO().getBranch(user.getUserId());
+            ArrayList<Integer> UserIds = DAO.getDAO().getUserDAO().getUserIds(branch.getBranchId());
+            for(Integer id:UserIds){
+                User temp_user = DAO.getDAO().getUserDAO().getUserById(id);
                 Users.add(temp_user);
-            } catch (DbException ex) {
-                Logger.getLogger(AllReceipt.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+            for(User temp:Users){
+                ArrayList<Receipt> receipts = DAO.getDAO().getReceiptDAO().getAllReceiptByUserIdBranchId(temp.getUserId(),branch.getBranchId());
+                Customers.put(temp, receipts);
+            }
+            req.setAttribute("branchName", branch.getLocation());
+            req.setAttribute("Customers",Customers);
+            req.getRequestDispatcher("/WEB-INF/jsp/all_receipt.jsp").forward(req, resp);
+        } catch (DbException ex) {
+            log.error(Utils.getErrMessage(ex)); 
         }
-        for(User temp:Users){
-            ArrayList<Receipt> receipts = new ArrayList<>();
+    }
+    
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        String status = req.getParameter("status");
+        String cancel_reser = req.getParameter("cancel_reser");
+        int receiptId = Integer.parseInt(String.valueOf(req.getParameter("receipt_id")));
+        if(cancel_reser != null && cancel_reser.equals("true")) {
             try {
-                receipts = DAO.getDAO().getReceiptDAO().getAllReceiptByUserIdBranchId(temp.getUserId(),branch.getBranchId());
-            } catch (DbException ex) {
-                Logger.getLogger(AllReceipt.class.getName()).log(Level.SEVERE, null, ex);
+                Receipt receipt = DAO.getDAO().getReceiptDAO().getReceiptByReceiptId(receiptId);
+                if (Utils.canCancelReservation(receipt)) {
+                    DAO.getDAO().getReceiptDAO().refundReservation(receiptId);
+                    
+                    //----------------copy from doget-------------------
+                    Map<User, ArrayList<Receipt>> Customers = new HashMap<>();
+                    User user = (User) req.getSession().getAttribute("user");
+                    ArrayList<User> Users = new ArrayList<>();
+                    Branch branch = DAO.getDAO().getBranchDAO().getBranch(user.getUserId());
+                    ArrayList<Integer> UserIds = DAO.getDAO().getUserDAO().getUserIds(branch.getBranchId());
+                    for(Integer id:UserIds){
+                        User temp_user = DAO.getDAO().getUserDAO().getUserById(id);
+                        Users.add(temp_user);
+                    }
+                    for(User temp:Users){
+                        ArrayList<Receipt> receipts = DAO.getDAO().getReceiptDAO().getAllReceiptByUserIdBranchId(temp.getUserId(),branch.getBranchId());
+                        Customers.put(temp, receipts);
+                    }
+                    req.setAttribute("branchName", branch.getLocation());
+                    req.setAttribute("Customers",Customers);
+                    //----------------copy from doget-------------------
+                    
+                    req.setAttribute("errorMessage", "Refunded.");
+                    req.getRequestDispatcher("/WEB-INF/jsp/all_receipt.jsp").forward(req, resp);
+                } else {
+                    
+                    //----------------copy from doget-------------------
+                    Map<User, ArrayList<Receipt>> Customers = new HashMap<>();
+                    User user = (User) req.getSession().getAttribute("user");
+                    ArrayList<User> Users = new ArrayList<>();
+                    Branch branch = DAO.getDAO().getBranchDAO().getBranch(user.getUserId());
+                    ArrayList<Integer> UserIds = DAO.getDAO().getUserDAO().getUserIds(branch.getBranchId());
+                    for(Integer id:UserIds){
+                        User temp_user = DAO.getDAO().getUserDAO().getUserById(id);
+                        Users.add(temp_user);
+                    }
+                    for(User temp:Users){
+                        ArrayList<Receipt> receipts = DAO.getDAO().getReceiptDAO().getAllReceiptByUserIdBranchId(temp.getUserId(),branch.getBranchId());
+                        Customers.put(temp, receipts);
+                    }
+                    req.setAttribute("branchName", branch.getLocation());
+                    req.setAttribute("Customers",Customers);
+                    //----------------copy from doget-------------------
+                    
+                    req.setAttribute("errorMessage", "Cant cancel, not eligible.");
+                    req.getRequestDispatcher("/WEB-INF/jsp/all_receipt.jsp").forward(req, resp);
+                }
+            } catch (DbException e) {
+                log.error(Utils.getErrMessage(e)); 
+                req.setAttribute("errorMessage", "Something wrong, please try again later.");
+                req.getRequestDispatcher("/WEB-INF/jsp/all_receipt.jsp").forward(req, resp);
             }
-            
-            Customers.put(temp, receipts);
+        }
+        if (status != null && !status.isEmpty()){
+            try{
+                DAO.getDAO().getReceiptDAO().setStatusReceipt(receiptId, status);
+                resp.setStatus(HttpServletResponse.SC_OK);
+            } catch (DbException e) {
+                log.error(Utils.getErrMessage(e)); 
+            }
         }
         
-        req.setAttribute("branchName", branch.getLocation());
-//        req.setAttribute("Users", Users);
-        req.setAttribute("Customers",Customers);
-        req.getRequestDispatcher("/WEB-INF/jsp/all_receipt.jsp").forward(req, resp);
     }
 }
