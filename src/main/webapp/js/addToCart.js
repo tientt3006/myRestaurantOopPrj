@@ -87,11 +87,7 @@ function saveOrder(receipt_id) {
         } else {
             alert("Something wrong.");
         }
-//        setTimeout(() => {
-//            window.location.href = `${contextPath}/cart`;
-//            console.log("-----order sended------");
-//            console.log(order);
-//        }, 2000); // Chờ 2 giây (hoặc thời gian bạn muốn) trước khi chuyển hướng
+        window.location.href = `${contextPath}/cart`;
     })
     .catch(error => console.error("Error:", error));
 }
