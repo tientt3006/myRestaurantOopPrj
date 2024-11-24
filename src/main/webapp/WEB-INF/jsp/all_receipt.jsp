@@ -24,7 +24,7 @@
 
                 
                 <div class="content-receipt">
-                    <p>Branch: ${branchName}</p>
+                    <p><strong>Branch:</strong> ${branchName}</p>
                     <c:forEach var="User" items="${Customers.keySet()}">
                         <p><strong>Customer's: </strong>${User.getFull_name()} - ${User.getEmail()} </p>
                         <table>
@@ -33,7 +33,7 @@
                                     <th>Recipt ID</th>
                                     <th>Table's Information</th>
                                     <th>Status</th>
-                                    <th>List Dish</th>
+                                    <th>Dishes</th>
                                     <th>Option</th>
                                 </tr>
                             </thead>
@@ -70,12 +70,7 @@
                             </c:forEach>
                         </table>
                     </c:forEach>
-                   
-                    
-                                               
                 </div>
-                                    
-                
             </div>     
         </div>              
 

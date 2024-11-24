@@ -87,10 +87,7 @@ public class MySqlTableDAO implements TableDAO{
             SqlUtils.close(con);
             SqlUtils.close(ps);
         }
-        finally {
-            SqlUtils.close(con);
-            SqlUtils.close(ps);
-        }
+        
     }
 
 }
