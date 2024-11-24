@@ -89,6 +89,13 @@ public class SqlUtils {
     public static final String GET_DISHID_QUANTITY_BY_RECEIPTID = "SELECT dishId, quantity \n"+
                                                                     "FROM receipthasdish \n" +
                                                                     "WHERE receipthasdish.receiptId = ?;";
+    public static final String REFUND_RESERVATION = "UPDATE receipt\n" +
+                                                    "SET status = 'refunded'\n" +
+                                                    "WHERE receiptId = ?;";
+    public static final String SET_STATUS_RECEIPT = "UPDATE receipt\n" +
+                                                    "SET status = ?\n" +
+                                                    "WHERE receiptId = ?;";
+    
     public static final String ADD_RECEIPT_HAS_DISH = "INSERT INTO receipthasdish(receiptId, dishId, quantity) VALUES (?, ?, ?)";
     
     private static final Logger logger = LoggerFactory.getLogger(SqlUtils.class);
