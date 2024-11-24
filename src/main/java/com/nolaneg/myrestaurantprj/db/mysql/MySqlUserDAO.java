@@ -186,6 +186,9 @@ public class MySqlUserDAO implements UserDAO {
             }
         } catch (SQLException ex) {
             throw new DbException("Cannot get branchs", ex);
+        } finally {
+            SqlUtils.close(con);
+            SqlUtils.close(ps);
         }
         return UserIds;
     }
