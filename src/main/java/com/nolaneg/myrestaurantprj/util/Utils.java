@@ -4,6 +4,7 @@
  */
 
 package com.nolaneg.myrestaurantprj.util;
+import com.nolaneg.myrestaurantprj.db.entity.Receipt;
 import java.util.*;
 import java.io.*;
 import java.math.*;
@@ -13,7 +14,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import java.time.Duration;
+import java.time.LocalDateTime;
 /**
  *
  * @author $_{user}
@@ -54,4 +56,22 @@ public class Utils {
         req.getSession().invalidate();
         resp.sendRedirect(req.getContextPath() + "/login");
     }
+    
+
+    public static boolean canCancelReservation(Receipt receipt) {
+        LocalDateTime now = LocalDateTime.now();
+        
+        // Kiểm tra điều kiện 1: Trong vòng 12 giờ từ lúc đặt
+        Duration timeSinceCreate = Duration.between(receipt.getCreateDateLocalDT(), now);
+        boolean isWithin12Hours = timeSinceCreate.toHours() <= 12;
+
+        // Kiểm tra điều kiện 2: Trước giờ đặt ít nhất 24 giờ
+        LocalDateTime reservationDateTime = receipt.getReservationDate().atTime(receipt.getReservationTime());
+        Duration timeUntilReservation = Duration.between(now, reservationDateTime);
+        boolean isAtLeast24HoursBefore = timeUntilReservation.toHours() >= 24;
+
+        // Chỉ cho phép hủy nếu cả hai điều kiện đều đúng
+        return isWithin12Hours && isAtLeast24HoursBefore;
+    }
+
 }
