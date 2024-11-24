@@ -4,6 +4,9 @@
         <a href="${pageContext.request.contextPath}/home">OOP Dinner</a>
     </div>
     <div class="nav-links">
+        <c:if test="${user.roleId == 3}">
+            <a href="${pageContext.request.contextPath}/all_receipt">Manager</a>
+        </c:if>
         <a href="${pageContext.request.contextPath}/about">About</a>
         <a href="${pageContext.request.contextPath}/location">Location</a>
         <a href="${pageContext.request.contextPath}/menu">Menu</a>
