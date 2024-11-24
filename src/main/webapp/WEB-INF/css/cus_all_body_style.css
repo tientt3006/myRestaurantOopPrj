@@ -801,3 +801,26 @@ body::before {
     padding: 10px;
     text-align: left;
 }
+
+/*cart*/
+.cart_css button {
+    width: 100%;
+    padding: 12px;
+    background-color: #d40000;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    
+}
+.cart_css button:hover {
+    background-color: #ff3333;
+    transform: translateY(-3px);
+}
+.cart_css button:active {
+    transform: translateY(0);
+    background-color: #c30000;
+}
