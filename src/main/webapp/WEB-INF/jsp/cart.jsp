@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
 <html lang="en-GB">
@@ -16,7 +17,6 @@
         table, th, td {
             border: 1px solid black;
             padding: 8px;
-            text-align: center;
         }
         th {
             background-color: #f2f2f2;
@@ -35,49 +35,65 @@
         
         <c:set var="currentPage" value="cart" scope="page"/>
         <%@ include file="cus_header.jspf" %>
-        
+
         <!-- Main Content -->
         <div class="main-container">
+            <% String errorMessage = (String) request.getAttribute("errorMessage"); %>
+            <% if (errorMessage != null) { %>
+                <script>
+                    alert('<%= errorMessage %>');
+                </script>
+            <% } %>
             <div class="cart">
+
                 <table>
                     <tr>
-                        <th>Invoice</th>
-                        <th>Create Date</th>
-                        <th>Food Cost</th>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Number of People</th>
-                        <th>Reservation Deposit</th>
-                        <th>Table Number</th>
-                        <th>Total Amount</th>
-                        <th>Payment Status</th>
+                        <th>Recipt ID</th>
+                        <th>Receipt's Information</th>
                         <th>Dishes</th>
+                        <th>Status</th>
+                        <th>Option</th>
                     </tr>
                     <c:forEach var="receipt" items="${receipts}">
-                        <tr>
-                            <th>${receipt.receiptId}</th>
-                            <th>${receipt.createDate}</th>
-                            <th>${receipt.foodCost}</th>
-                            <th>${receipt.reservationDate}</th>
-                            <th>${receipt.reservationTime}</th>
-                            <th>${receipt.numOfPeople}</th>
-                            <th>${receipt.reservationFee}</th>
-                            <th>${receipt.reservationFee/100000}</th>
-                            <th>${receipt.reservationFee + receipt.foodCost}</th>
-                            <th>${receipt.status}</th>
-                            <th>
-                                <c:forEach var="dish" items="${receipt.dishes}">
-                                    <div>${dish.dishName}</div>
-                                </c:forEach>
-                            </th>
-                        </tr>
-                        
-                    </c:forEach>
-                    
-                        
-
-                    <!-- Bạn có thể thêm nhiều hàng khác vào đây nếu cần -->
-
+                        <tbody>
+                            <tr>
+                                <td>Number ${receipt.receiptId}</td>
+                                <td>
+                                    <strong>Create Date:</strong> ${receipt.createDate}<br>
+                                    <strong>Number Of Tables: </strong> <fmt:formatNumber value="${receipt.reservationFee / 100000}" maxFractionDigits="0" /><br>
+                                    <strong>Number Of People:</strong> ${receipt.numOfPeople}<br>
+                                    <strong>Date reserved:</strong> ${receipt.reservationDate}<br>
+                                    <strong>Time reserved:</strong> ${receipt.reservationTime}<br>
+                                    <strong>Reservation Fee:</strong> <fmt:formatNumber value="${receipt.reservationFee}" type="number" groupingUsed="true" /> VND<br>
+                                    <strong>Food Cost:</strong> <fmt:formatNumber value="${receipt.foodCost}" type="number" groupingUsed="true" /> VND<br>
+                                    <strong>Total Fee:</strong> <fmt:formatNumber value="${receipt.reservationFee + receipt.foodCost}" type="number" groupingUsed="true" /> VND<br>
+                                    <strong>Branch:</strong> ${receipt.branch.location}
+                                </td>
+                                <td>
+                                    <c:forEach var="dish" items="${receipt.dishes}">
+                                        <div>${dish.dishName}</div>
+                                    </c:forEach>
+                                </td>
+                                <td>
+                                    <div>${receipt.status}</div>
+                                </td>
+                                <td>
+                                    
+                                    <div class="cart_css" style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                                        <form action="${pageContext.request.contextPath}/select_dish" method="GET">
+                                            <input type="hidden" name="receipt_id" value="${receipt.receiptId}">
+                                            <button type="submit">Change Dishes</button>
+                                        </form>
+                                        <form action="${pageContext.request.contextPath}/cart" method="POST">
+                                            <input type="hidden" name="receipt_id" value="${receipt.receiptId}">
+                                            <button type="submit" style="width: 139.58px">Cancel</button>
+                                        </form>    
+                                    </div>
+                                        
+                                </td>
+                            </tr>
+                        </tbody>
+                    </c:forEach>   
                 </table>
                 
             </div>
@@ -87,20 +103,6 @@
         <!-- Footer -->
         <%@ include file="cus_footer.jspf" %>
     </div>
-    
-   <script>
-    function changeDishes() {
-        alert("Thay đổi món ăn!");
-        // Thêm mã xử lý thay đổi món ăn ở đây
-    }
-
-    function cancelReservation() {
-        if (confirm("Bạn có chắc muốn hủy đặt bàn?")) {
-            alert("Đã hủy đặt bàn!");
-            // Thêm mã xử lý hủy đặt bàn ở đây
-        }
-    }
-</script>
     
 </body>
 </html>
