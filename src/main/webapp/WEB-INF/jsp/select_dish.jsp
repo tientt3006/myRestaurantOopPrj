@@ -5,14 +5,13 @@
     <html lang="en">
 
     <c:set var="title" value="OOP Dinner - Select Dish" scope="page"/>
+    <c:set var="currentPage" value="select_dish" scope="page"/>
     <%@ include file="head.jspf" %>
 
     <body>
         <div class="wrapper">
             <!-- Header Section -->
-            <c:set var="currentPage" value="select_dish" scope="page"/>
             <%@ include file="cus_header.jspf" %>
-
             <!-- Main Content Section -->
             <div class="main-container">
                 <div class="select-container">
@@ -20,12 +19,11 @@
                     <div class="selected-items">
                         <h3>ORDER</h3>
                         <div class="cart-dishes" id="cart-dishes">
+                            
                         </div>
                         <div class="total-and-save">
-                            <div>
-
-                            </div>
                             <div class="total" id="total">
+                                
                             </div>
                             <button class="save-button" onclick="saveOrder(${param.receipt_id})">SAVE</button>
                         </div>
@@ -43,34 +41,19 @@
                             </div>
                         </c:forEach>
                     </div>
-<!--                Bảng chọn món   
-                    <div class="selected-items">
-                        <h3>ORDER</h3>
-                        <div class="cart-dishes" id="cart-dishes">
-                        </div>
-                        <div class="total-and-save">
-                            <div>
-
-                            </div>
-                            <div class="total" id="total">
-                            </div>
-                            <button class="save-button" onclick="saveOrder(${param.receipt_id})">SAVE</button>
-                        </div>
-                    </div>-->
                     <a href="#top" class="back-to-top">^</a>
                 </div>
-                <script>
-                    const contextPath = "${pageContext.request.contextPath}";
-                </script>
-                <script src = "${pageContext.request.contextPath}/js/addToCart.js">
-
-                </script>
-
-
-                </div>
-            </div>        
-                    <!-- Footer -->
-                    <%@ include file="cus_footer.jspf" %>
+            </div>
+            <!-- Footer -->
+            <%@ include file="cus_footer.jspf" %>
         </div>
+                    
+        <script>
+            const contextPath = "${pageContext.request.contextPath}";
+        </script>
+        <script src = "${pageContext.request.contextPath}/js/addToCart.js">
+            
+        </script>
+        
     </body>
     </html>                

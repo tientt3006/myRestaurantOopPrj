@@ -5,7 +5,7 @@ function addToCart(id, name, price) {
     const item = {
         id: parseInt(id),
         name: name,
-        price: parseInt(price),
+        price: parseFloat(price),
         quantity: 1
     };
     const existingItem = cart.find(cartItem => cartItem.name === name);
@@ -66,6 +66,9 @@ function removeFromCart(index) {
 function saveOrder(receipt_id) {
      // Chuyển giỏ hàng thành JSON
     const order = JSON.stringify(cart);
+    console.log("-----order sended------");
+    console.log(order);
+    
 
     // Gửi yêu cầu POST tới servlet
     fetch(`${contextPath}/select_dish?receipt_id=${receipt_id}`, {
@@ -77,12 +80,18 @@ function saveOrder(receipt_id) {
     })
     .then(response => response.json())
     .then(data => {
+        console.log("-----data response------");
+        console.log(data);
         if (data.status === "success") {
             alert("Order successfully!");
         } else {
             alert("Something wrong.");
         }
+//        setTimeout(() => {
+//            window.location.href = `${contextPath}/cart`;
+//            console.log("-----order sended------");
+//            console.log(order);
+//        }, 2000); // Chờ 2 giây (hoặc thời gian bạn muốn) trước khi chuyển hướng
     })
     .catch(error => console.error("Error:", error));
-    window.location.href = `${contextPath}/cart`;
 }

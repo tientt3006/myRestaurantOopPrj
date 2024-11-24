@@ -29,6 +29,14 @@ import java.util.logging.Logger;
 public class CartServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            // Tạm dừng 3 giây (3000 milliseconds)
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            // Xử lý ngoại lệ nếu luồng bị gián đoạn
+            System.err.println("Sleep interrupted: " + e.getMessage());
+        }
+        
         User user = (User) req.getSession().getAttribute("user");
         ArrayList<Receipt> receipts = null;
         try {

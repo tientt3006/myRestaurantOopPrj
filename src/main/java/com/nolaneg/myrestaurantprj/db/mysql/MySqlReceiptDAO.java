@@ -192,18 +192,8 @@ public class MySqlReceiptDAO implements ReceiptDAO {
         catch (SQLException ex) {
             throw new DbException("Cannot get receipts", ex);
         }finally {
-            try {
-                con.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(MySqlReceiptDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            try {
-                ps.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(MySqlReceiptDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-//            SqlUtils.close(con);
-//            SqlUtils.close(ps);
+            SqlUtils.close(con);
+            SqlUtils.close(ps);
         }
         return receipts;
     }
