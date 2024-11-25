@@ -31,4 +31,5 @@ public interface ReceiptDAO {
     void setStatusReceipt(int receiptId, String status) throws DbException;
     ArrayList<Integer> getUserIdsByBranchId(int branchId) throws DbException;
     ArrayList<Receipt> getAllReceiptByUserIdBranchIdSearchName(int userId, int branchId) throws DbException;
+    void updateReceiptHasDish(int receiptId, int dishId, int quantity)throws DbException;
 }
