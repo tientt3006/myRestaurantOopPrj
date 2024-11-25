@@ -723,6 +723,26 @@ form#selectPmForm input[type="time"], form#selectPmForm input[type="number"] {
     width: 60%;
     border-radius: 5px;
 }
+.select-container .menu .menu-item  button {
+    width: 100%;
+    padding: 12px;
+    background-color: #d40000;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.select-container .menu .menu-item  button:hover {
+    background-color: #ff3333;
+    transform: translateY(-3px);
+}
+.select-container .menu .menu-item  button:active {
+    transform: translateY(0);
+    background-color: #c30000;
+}
 .select-container .selected-items{
     padding: 5px;
     height: auto;
@@ -783,31 +803,61 @@ form#selectPmForm input[type="time"], form#selectPmForm input[type="number"] {
     justify-content: center;
 }
 .cart-dish-remove button{
-    background: #ffcccc;
     width: 50%;
     height: 50%;
-    font-size: 16px;
-    width: 60%;
-    border-radius: 5px;
     text-align: center;
+    padding: 12px;
+    background-color: #d40000;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.cart-dish-remove button:hover {
+    background-color: #ff3333;
+    transform: translateY(-3px);
+}
+.cart-dish-remove button:active {
+    transform: translateY(0);
+    background-color: #c30000;
 }
 .selected-items .total-and-save{
     display: flex;
     border: 10px;
-    justify-content: space-between;
     padding: 10px;
+    justify-content: center; 
+    align-items: center; 
+    gap: 20px;
     
 }
-.total-and-save .save-button{
-    background: #FFFF99;
+.total-and-save .save-button {
+    width: 100px;
+    padding: 12px;
+    background-color: #d40000;
+    color: white;
+    border: none;
+    border-radius: 8px;
     font-size: 18px;
-    border-radius: 5px; 
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.total-and-save .save-button:hover {
+    background-color: #ff3333;
+    transform: translateY(-3px);
+}
+.total-and-save .save-button:active {
+    transform: translateY(0);
+    background-color: #c30000;
 }
 .total-and-save .total{
-    border-radius: 5px;
-    padding: 5px;
+    border-radius: 8px;
+    padding: 12px;
     border: 2px solid black;
     font-size: 18px;
+    font-weight: bold;
     background: greenyellow;
 }
 /* Đảm bảo rằng phần tử #top có trong HTML của bạn */
