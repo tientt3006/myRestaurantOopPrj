@@ -67,7 +67,7 @@ public class SqlUtils {
     public static final String GET_SORTED_DISHES = "SELECT * FROM dish ORDER BY ";
     public static final String GET_DISHES_COUNT = "SELECT COUNT(*) FROM dish";
     public static final String GET_DISHES_COUNT_IN_CATEGORY = "SELECT COUNT(*) FROM dish WHERE categoryId = ?";
-    
+    public static final String GET_DISHES_QUANTITY = "SELECT quantity FROM receiptHasDish WHERE receiptId = ? AND dishId = ?;";
     
     
     public static final String ADD_RECEIPT = "INSERT INTO receipt(userId, branchId, reservationFee, reservation_date, reservation_time, status, num_people) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -117,6 +117,7 @@ public class SqlUtils {
                                                                     "FROM receipthasdish \n" +
                                                                     "WHERE receipthasdish.receiptId = ?;";
     public static final String ADD_RECEIPT_HAS_DISH = "INSERT INTO receipthasdish(receiptId, dishId, quantity) VALUES (?, ?, ?)";
+    public static final String UPDATE_RECEIPT_HAS_DISH = "UPDATE receipthasdish SET quantity = ? WHERE receiptId = ? AND dishId = ?;";
     
     
     
