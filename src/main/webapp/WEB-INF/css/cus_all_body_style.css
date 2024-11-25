@@ -88,7 +88,26 @@ html, body {
     transition: background-color 0.3s ease, transform 0.2s ease;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-
+.login-container .login-box  button {
+    width: 100%;
+    padding: 12px;
+    background-color: #d40000;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.login-container .login-box button:hover {
+    background-color: #ff3333;
+    transform: translateY(-3px);
+}
+.login-container .login-box button:active {
+    transform: translateY(0);
+    background-color: #c30000;
+}
 .login-container .left-image {
     width: 50%;
     background: url('${pageContext.request.contextPath}/img/PRRestaurant.jpg') no-repeat center center;
@@ -397,6 +416,27 @@ form#findTableForm input[type="time"], form#findTableForm input[type="number"] {
     width: 100%;
 }
 
+.findTable-container .findTable-box  button {
+    width: 100%;
+    padding: 12px;
+    background-color: #d40000;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.findTable-container .findTable-box  button:hover {
+    background-color: #ff3333;
+    transform: translateY(-3px);
+}
+.findTable-container .findTable-box button:active {
+    transform: translateY(0);
+    background-color: #c30000;
+}
+
 /* select_pament_method main content */
 .selent-pm-container .reser-detail-box  {
     max-height: 100%;
@@ -435,10 +475,33 @@ form#selectPmForm input[type="time"], form#selectPmForm input[type="number"] {
 .selent-pm-container .select-pm-box form#selectPmForm select[name="country"]  {
     margin-right: 0px;
 }
+.selent-pm-container .select-pm-box  button {
+    width: 100%;
+    padding: 12px;
+    background-color: #d40000;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.selent-pm-container .select-pm-box button:hover {
+    background-color: #ff3333;
+    transform: translateY(-3px);
+}
+.selent-pm-container .select-pm-box button:active {
+    transform: translateY(0);
+    background-color: #c30000;
+}
+
 /*menu*/
 
 .menu-container {
+    
     padding: 50px;
+    padding-top: 0px;
     background-color: #f2f2f2;
 }
 
@@ -456,25 +519,54 @@ form#selectPmForm input[type="time"], form#selectPmForm input[type="number"] {
 }
 .menu-container .c_selectsort_form {
     display: flex;
+    flex-wrap: wrap; /* Cho phép các phần tử xuống dòng khi không đủ chỗ */
+    gap: 30px; /* Khoảng cách giữa các phần tử */
+    align-items: center; /* Căn giữa các phần tử theo chiều dọc */
+    padding-bottom: 20px;
 }
-.menu-container  .c_selectsort_form .left{
+
+.menu-container .c_selectsort_form .left {
     display: flex;
-    width: 80%;               /* Mỗi phần tử chiếm 50% chiều rộng */
-    padding: 10px;            /* Tạo khoảng đệm */
-    box-sizing: border-box;   /* Đảm bảo padding không làm vỡ bố cục */
+    gap: 20px; /* Khoảng cách giữa các ô select */
+    flex-wrap: wrap; /* Để các select có thể xuống dòng khi cần */
 }
-.menu-container .c_selectsort_form .left div{
-    width: 25%;
+
+.menu-container .c_selectsort_form .left div {
+    display: flex;
+    align-items: center; /* Căn giữa nội dung của mỗi select */
 }
+
 .menu-container .c_selectsort_form .right {
-    width: 20%;               /* Mỗi phần tử chiếm 50% chiều rộng */
-    padding: 10px;            /* Tạo khoảng đệm */
-    box-sizing: border-box;
     display: flex;
-    justify-content: flex-end;/* Đảm bảo padding không làm vỡ bố cục */
+    width: 300px;
+    align-items: center;
 }
-.menu-container .c_selectsort_form .right input{
-    border-radius: 5px;
+
+.menu-container .c_selectsort_form .form-select {
+    padding: 5px;
+    font-size: 14px;
+    margin-left: 5px; /* Khoảng cách giữa label và select */
+}
+
+.menu-container .c_selectsort_form  button {
+    width: 100%;
+    padding: 12px;
+    background-color: #d40000;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.menu-container .c_selectsort_form  button:hover {
+    background-color: #ff3333;
+    transform: translateY(-3px);
+}
+.menu-container .c_selectsort_form  button:active {
+    transform: translateY(0);
+    background-color: #c30000;
 }
 
 .menu-container .menu {
@@ -576,8 +668,29 @@ form#selectPmForm input[type="time"], form#selectPmForm input[type="number"] {
     width: 100%;
     height: 100%;
     border-radius: 8px;
-    
 }
+/* Định dạng chung cho các địa chỉ */
+.location-main .address {
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Hiệu ứng chuyển màu */
+}
+
+/* Hiệu ứng hover: thay đổi màu nền khi di chuột */
+.location-main .address:hover {
+    background-color: #f0f0f0;
+    color: #007bff;
+}
+
+/* Lớp 'selected' sẽ tô màu cho div được chọn */
+.location-main .address.selected {
+    background-color: #007bff;
+    color: white;
+}
+
+
+
 /*select_dish*/
 .select-container{
     display: grid;
@@ -761,25 +874,49 @@ body::before {
 
 .all-receipt {
     padding: 50px;
+    padding-top: 0px;
     background-color: #f2f2f2;
     display: grid;
     width: 100%;
     min-height: auto;
     align-content: space-between;
 }
-.all-receipt .filter-option {
-    padding: 10px;
-    border-radius: 10px;
-    width: 50%;
-    background: grey;
+.all-receipt .filter-option form {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    align-items: center;
 }
-.all-receipt input {
-    border-radius: 5px;
+
+.all-receipt .filter-option .input-group {
+    display: flex;
+    gap: 10px; /* Khoảng cách giữa các ô input */
 }
-.all-receipt button {
-    border-radius: 5px;
+
+.all-receipt .filter-option input[type="text"], input[type="date"] {
+    padding: 5px;
+    font-size: 14px;
+    width: 200px; /* Điều chỉnh chiều rộng cho phù hợp */
+}
+
+.all-receipt .filter-option button {
+    width: 100%;
+    padding: 12px;
+    background-color: #d40000;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.all-receipt .filter-option button:hover {
+    background-color: #ff3333;
+    transform: translateY(-3px);
+}
+.all-receipt .filter-option button:active {
+    transform: translateY(0);
+    background-color: #c30000;
 }
 .all-receipt select {
     border-radius: 5px;
@@ -800,6 +937,12 @@ body::before {
 .all-receipt th, td {
     padding: 10px;
     text-align: left;
+}
+
+.content-receipt .option_color select {
+    font-size: 14px;
+    padding: 5px;
+    background-color: #f0ad4e; /* Màu cam */
 }
 
 /*cart*/
