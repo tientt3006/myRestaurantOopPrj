@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author $_{user}
  */
-@WebFilter({"/complete_reservation", "/select_dish"})
+@WebFilter({"/complete_reservation"})
 public class CompleteReservationFilter extends HttpFilter {
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
