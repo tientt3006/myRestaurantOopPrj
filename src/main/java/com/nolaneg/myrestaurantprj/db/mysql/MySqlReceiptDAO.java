@@ -264,7 +264,7 @@ public class MySqlReceiptDAO implements ReceiptDAO {
             }
         }
         catch (SQLException ex) {
-            throw new DbException("Cannot get receipts", ex);
+            throw new DbException("Cannot get getAllReceiptByUserIdBranchId", ex);
         }finally {
             SqlUtils.close(con);
             SqlUtils.close(ps);
@@ -292,7 +292,7 @@ public class MySqlReceiptDAO implements ReceiptDAO {
             }
         }
         catch (SQLException ex) {
-            throw new DbException("Cannot get receipts", ex);
+            throw new DbException("Cannot get getAllReceiptByUserIdBranchIdToday", ex);
         }finally {
             SqlUtils.close(con);
             SqlUtils.close(ps);
@@ -343,5 +343,54 @@ public class MySqlReceiptDAO implements ReceiptDAO {
             SqlUtils.close(con);
             SqlUtils.close(ps);
         }
+    }
+    
+    @Override
+    public ArrayList<Integer> getUserIdsByBranchId(int branchId) throws DbException {
+        ArrayList<Integer> UserIds = new ArrayList<>();
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            con = ConnectionPool.getInstance().getConnection();
+            ps = con.prepareStatement(SqlUtils.GET_USERID_BY_BRANCHID);
+            ps.setInt(1, branchId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                UserIds.add(rs.getInt(1));
+            }
+        } catch (SQLException ex) {
+            throw new DbException("Cannot get getUserIdsByBranchId", ex);
+        } finally {
+            SqlUtils.close(con);
+            SqlUtils.close(ps);
+        }
+        return UserIds;
+    }
+    
+    @Override
+    public ArrayList<Receipt> getAllReceiptByUserIdBranchIdSearchName(int userId, int branchId)throws DbException{
+        ArrayList<Receipt> receipts = new ArrayList<>();
+        Connection con = null;
+        PreparedStatement ps = null;
+        try{
+            con = ConnectionPool.getInstance().getConnection();
+            ps = con.prepareStatement(SqlUtils.GET_ALL_RECEIPT_BY_USERID_BRANCHID_SEARCHNAME);
+            ps.setInt(1, userId);
+            ps.setInt(2, branchId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Receipt receipt = mapReceipt(rs);
+                if(receipt.getBranch().getBranchId()==branchId){
+                    receipts.add(receipt);
+                }
+            }
+        }
+        catch (SQLException ex) {
+            throw new DbException("Cannot get getAllReceiptByUserIdBranchIdSearchName", ex);
+        }finally {
+            SqlUtils.close(con);
+            SqlUtils.close(ps);
+        }
+        return receipts;
     }
 }
