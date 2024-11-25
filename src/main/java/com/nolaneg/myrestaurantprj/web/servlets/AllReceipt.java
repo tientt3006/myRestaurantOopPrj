@@ -58,6 +58,7 @@ public class AllReceipt extends HttpServlet{
             try {
                 Receipt receipt = DAO.getDAO().getReceiptDAO().getReceiptByReceiptId(receiptId);
                 if (Utils.canCancelReservation(receipt)) {
+                    DAO.getDAO().getReceiptDAO().refundReservation(receiptId);
                     AllReceipt.getCustomers(req);
                     req.setAttribute("errorMessage", "Refunded.");
                     req.getRequestDispatcher("/WEB-INF/jsp/all_receipt.jsp").forward(req, resp);
