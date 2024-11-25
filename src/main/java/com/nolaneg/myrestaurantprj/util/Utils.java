@@ -73,5 +73,17 @@ public class Utils {
         // Chỉ cho phép hủy nếu cả hai điều kiện đều đúng
         return isWithin12Hours && isAtLeast24HoursBefore;
     }
+    
+    public static boolean canChangeDishes(Receipt receipt) {
+        LocalDateTime now = LocalDateTime.now();
+
+        // Kiểm tra điều kiện 2: Trước giờ đặt ít nhất 24 giờ
+        LocalDateTime reservationDateTime = receipt.getReservationDate().atTime(receipt.getReservationTime());
+        Duration timeUntilReservation = Duration.between(now, reservationDateTime);
+        boolean isAtLeast24HoursBefore = timeUntilReservation.toHours() >= 24;
+
+        // Chỉ cho phép hủy nếu cả hai điều kiện đều đúng
+        return isAtLeast24HoursBefore;
+    }
 
 }
