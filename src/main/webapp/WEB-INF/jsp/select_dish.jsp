@@ -1,3 +1,4 @@
+<%@page import="com.nolaneg.myrestaurantprj.db.entity.User"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.HashMap"%>
@@ -60,7 +61,13 @@
         <script src = "${pageContext.request.contextPath}/js/addToCart.js">
 
         </script>
+        <%
+            User user = (User) session.getAttribute("user");
+            int userRole = user != null ? user.getRoleId() : 0; // Giá trị mặc định là 0 nếu user không tồn tại
+        %>
         <script>
+            const userRole = <%= userRole %>; // Xuất trực tiếp số vào JavaScript
+            console.log("User Role:", userRole);
             const initialCart = [];
             <c:forEach items="${receipt.dishesMap}" var="entry">
                 <c:set var="dish" value="${entry.key}" />
