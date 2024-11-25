@@ -31,8 +31,9 @@
                         </div>
                     </form>
                 </div>
-
-                
+                <div> Deposits can only be refunded within 12 hours of booking AND at least 24 hours before the selected time.
+                Meal changes can only be made at least 24 hours before the selected time
+                </div>
                 <div class="content-receipt">
                     <p><strong>Branch:</strong> ${branchName}</p>
                     <c:forEach var="User" items="${Customers.keySet()}">
@@ -61,8 +62,11 @@
                                             <strong>Branch:</strong> ${receipt.branch.location}
                                         </td>
                                         <td>
-                                            <c:forEach var="dish" items="${receipt.dishes}">
-                                                <div>${dish.dishName}</div>
+                                            <c:forEach var="dishKey" items="${receipt.dishesMap.keySet()}">
+                                                <c:set var="quantity" value="${receipt.dishesMap[dishKey]}" />
+                                                <div>
+                                                    ${quantity} - ${dishKey.dishName}
+                                                </div>
                                             </c:forEach>
                                         </td>
                                         <td>
