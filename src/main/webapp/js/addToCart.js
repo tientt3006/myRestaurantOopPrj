@@ -90,12 +90,17 @@ function saveOrder(receipt_id) {
         console.log(data);
         if (data.status === "success") {
             alert("Order successfully!");
-        } else if(data.status === "can remove dish") {
+        } else if(data.status === "cant remove dish") {
             alert("Can not remove dish now!");
         } else {
             alert("Something wrong.");
         }
-        window.location.href = `${contextPath}/cart`;
+        if(userRole === 1) {
+            window.location.href = `${contextPath}/cart`;
+        } else {
+            window.location.href = `${contextPath}/all_receipt`;
+        }
+        
     })
     .catch(error => {
         console.error("Error:", error);
