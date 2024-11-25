@@ -24,9 +24,11 @@
             <div class="all-receipt">
                 <div class="filter-option">
                     <form method="get" action="${pageContext.request.contextPath}/all_receipt">
-                        <input type="text" name="search_name" placeholder="Tìm kiếm theo username" />
-                        <input type="date" name="today" value="${requestScope.today}" />
-                        <button type="submit">Filter</button>
+                        <div class="input-group">
+                            <input type="text" name="search_name" placeholder="Tìm kiếm theo username" />
+                            <input type="date" name="today" value="${requestScope.today}" />
+                            <button type="submit">Filter</button>
+                        </div>
                     </form>
                 </div>
 
@@ -64,6 +66,7 @@
                                             </c:forEach>
                                         </td>
                                         <td>
+                                            <div class="option_color">
                                             <select name="status" onchange="updateStatus(${receipt.receiptId}, this.value, this)" data-original-value="${receipt.status}">
                                                 <option ${receipt.status == "reserved" ? "selected" : ""} value="reserved">Reserved</option>
                                                 <option ${receipt.status == "unpaid" ? "selected" : ""} value="unpaid">Unpaid</option>
@@ -71,6 +74,7 @@
                                                 <option ${receipt.status == "refunded" ? "selected" : ""} value="refunded">Refunded</option>
                                                 <option ${receipt.status == "canceled" ? "selected" : ""} value="canceled">Canceled</option>
                                             </select>
+                                            </div>
                                         </td>
                                         <td>
 
