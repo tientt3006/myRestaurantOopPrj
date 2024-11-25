@@ -24,7 +24,7 @@
             <div class="all-receipt">
                 <div class="filter-option">
                     <form method="get" action="${pageContext.request.contextPath}/all_receipt">
-                        <input type="text" name="search" placeholder="Tìm kiếm theo user/email/số điện thoại" />
+                        <input type="text" name="search_name" placeholder="Tìm kiếm theo username" />
                         <input type="date" name="today" value="${requestScope.today}" />
                         <button type="submit">Filter</button>
                     </form>
