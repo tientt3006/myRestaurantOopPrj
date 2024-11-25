@@ -266,18 +266,36 @@ public class MySqlReceiptDAO implements ReceiptDAO {
         catch (SQLException ex) {
             throw new DbException("Cannot get receipts", ex);
         }finally {
-            try {
-                con.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(MySqlReceiptDAO.class.getName()).log(Level.SEVERE, null, ex);
+            SqlUtils.close(con);
+            SqlUtils.close(ps);
+        }
+        return receipts;
+    }
+    
+    @Override
+    public ArrayList<Receipt> getAllReceiptByUserIdBranchIdToday(int userId, int branchId, String today)throws DbException{
+        ArrayList<Receipt> receipts = new ArrayList<>();
+        Connection con = null;
+        PreparedStatement ps = null;
+        try{
+            con = ConnectionPool.getInstance().getConnection();
+            ps = con.prepareStatement(SqlUtils.GET_ALL_RECEIPT_BY_USERID_BRANCHID_TODAY);
+            ps.setInt(1, userId);
+            ps.setInt(2, branchId);
+            ps.setString(3, today);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Receipt receipt = mapReceipt(rs);
+                if(receipt.getBranch().getBranchId()==branchId){
+                    receipts.add(receipt);
+                }
             }
-            try {
-                ps.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(MySqlReceiptDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-//            SqlUtils.close(con);
-//            SqlUtils.close(ps);
+        }
+        catch (SQLException ex) {
+            throw new DbException("Cannot get receipts", ex);
+        }finally {
+            SqlUtils.close(con);
+            SqlUtils.close(ps);
         }
         return receipts;
     }
