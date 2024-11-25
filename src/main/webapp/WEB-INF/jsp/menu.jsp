@@ -19,7 +19,6 @@
                 <jsp:useBean id="sortTypes" scope="application" type="java.util.HashMap"/>
                 <jsp:useBean id="dishes" scope="request" type="java.util.List"/>
                 <jsp:useBean id="totalPages" scope="request" type="java.lang.Integer"/>
-                <nav class="c_header">
                     <form class="c_selectsort_form" action="${pageContext.request.contextPath}/menu" method="get">
                         <div class="left">
                             <div>
@@ -29,7 +28,7 @@
                                         <option value="0">All dishes</option>
                                         <c:forEach var="category" items="${categories}">
                                             <option ${param.category == category.categoryId ? "selected" : ""} value="${category.categoryId}">
-                                                    ${category.categoryName}
+                                                ${category.categoryName}
                                             </option>
                                         </c:forEach>
                                     </select>
@@ -56,11 +55,10 @@
                             </select>
                         </div>
                         <div class="right">
-                            <input class="btn btn-outline-secondary" type="submit" value="SHOW"/>
+                            <button type="submit" style="width: 139.58px">SHOW</button>
                         </div>
-                        
                     </form>
-                </nav>
+
                         
                 <div class="menu">
                     <c:forEach var="dish" items="${dishes}">
