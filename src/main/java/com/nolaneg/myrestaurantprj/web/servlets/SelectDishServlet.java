@@ -31,6 +31,8 @@ public class SelectDishServlet extends HttpServlet{
         try {
             ArrayList<Dish> dishes = DAO.getDAO().getDishDAO().getDishes();
             req.setAttribute("dishes", dishes);
+            
+            
             req.getRequestDispatcher("/WEB-INF/jsp/select_dish.jsp").forward(req, resp);    
         } catch (DbException ex) {
             Logger.getLogger(SelectDishServlet.class.getName()).log(Level.SEVERE, null, ex);
