@@ -1,4 +1,7 @@
 *.exe
+*.docx
+*.doc
+*.pdf
 
 /nolan_temp/
 
