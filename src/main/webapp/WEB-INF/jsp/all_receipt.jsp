@@ -23,9 +23,11 @@
             <% } %>
             <div class="all-receipt">
                 <div class="filter-option">
-                    <input type="text" placeholder="Tìm kiếm theo user/email/số điện thoại" />
-                    <input type="date" />
-                    <button>Filter</button>
+                    <form method="get" action="${pageContext.request.contextPath}/all_receipt">
+                        <input type="text" name="search" placeholder="Tìm kiếm theo user/email/số điện thoại" />
+                        <input type="date" name="today" value="${requestScope.today}" />
+                        <button type="submit">Filter</button>
+                    </form>
                 </div>
 
                 
@@ -35,7 +37,7 @@
                         <p><strong>Customer's: </strong>${User.getFull_name()} - ${User.getEmail()} </p>
                         <table>
                             <tr>
-                                <th>Recipt ID</th>
+                                <th>Receipt ID</th>
                                 <th>Receipt's Information</th>
                                 <th>Dishes</th>
                                 <th>Status</th>
