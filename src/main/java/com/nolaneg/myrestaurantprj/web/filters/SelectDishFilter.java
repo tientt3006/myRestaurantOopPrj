@@ -63,6 +63,5 @@ public class SelectDishFilter extends HttpFilter {
             }
         }
         chain.doFilter(req, res);
-        
     }
 }
