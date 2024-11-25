@@ -90,10 +90,12 @@ function saveOrder(receipt_id) {
         console.log(data);
         if (data.status === "success") {
             alert("Order successfully!");
+        } else if(data.status === "cant change cause not reserved or unpaid"){
+            alert("Can not change dishes because this is not a resered or unpaid receipt.");
+        }else if(data.status === "cant change cause at least 24h"){
+            alert("Can not change dishes now! Meal changes can only be made at least 24 hours before the selected time.");
         } else if(data.status === "cant remove dish") {
-            alert("Can not remove dish now!");
-        } else {
-            alert("Something wrong.");
+            alert("Can not remove dishes now!");
         }
         if(userRole === 1) {
             window.location.href = `${contextPath}/cart`;
