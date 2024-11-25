@@ -6,6 +6,8 @@
 package com.nolaneg.myrestaurantprj.web.filters;
 import com.nolaneg.myrestaurantprj.db.entity.User;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.FilterChain;
@@ -26,10 +28,22 @@ public class AllReceiptFilter extends HttpFilter {
         User user = (User) req.getSession().getAttribute("user");
         if (user == null) {
             res.sendRedirect(req.getContextPath() + "/login?message=Please log in to continue.");
-        } else if (user.getRoleId() < 2){
-            req.getRequestDispatcher("/WEB-INF/jsp/error404.jsp").forward(req, res);
-        }else {
-            chain.doFilter(req, res);
+            return;
         }
+        if (user.getRoleId() < 2){
+            req.getRequestDispatcher("/WEB-INF/jsp/error404.jsp").forward(req, res);
+            return;
+        }
+        if(req.getParameter("today") == null || req.getParameter("today").isEmpty()){
+            LocalDate today = LocalDate.now();
+            String todayFormatted = today.format(DateTimeFormatter.ISO_DATE); // yyyy-MM-dd format
+            req.setAttribute("today", todayFormatted);
+        } else {
+            LocalDate today = LocalDate.parse(req.getParameter("today"));
+            String todayFormatted = today.format(DateTimeFormatter.ISO_DATE); // yyyy-MM-dd format
+            req.setAttribute("today", todayFormatted);
+        }
+        chain.doFilter(req, res);
+        
     }
 }
