@@ -38,7 +38,13 @@ public class AllReceipt extends HttpServlet{
     
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        AllReceipt.getCustomerBranch(req);
+//        if(req.getParameter("search_name") == null || req.getParameter("search_name").isEmpty()){
+//            AllReceipt.getCustomerByDayAndBranch(req);
+//        } else {
+//            String searchName =req.getParameter("search_name");
+//            AllReceipt.getCustomerByNameAndDayAndBranch(req, searchName);
+//        }
+        AllReceipt.getCustomers(req);
         req.getRequestDispatcher("/WEB-INF/jsp/all_receipt.jsp").forward(req, resp);
     }
     
@@ -52,11 +58,11 @@ public class AllReceipt extends HttpServlet{
             try {
                 Receipt receipt = DAO.getDAO().getReceiptDAO().getReceiptByReceiptId(receiptId);
                 if (Utils.canCancelReservation(receipt)) {
-                    AllReceipt.getCustomerBranch(req);
+                    AllReceipt.getCustomers(req);
                     req.setAttribute("errorMessage", "Refunded.");
                     req.getRequestDispatcher("/WEB-INF/jsp/all_receipt.jsp").forward(req, resp);
                 } else {
-                    AllReceipt.getCustomerBranch(req);
+                    AllReceipt.getCustomers(req);
                     req.setAttribute("errorMessage", "Cant cancel, not eligible.");
                     req.getRequestDispatcher("/WEB-INF/jsp/all_receipt.jsp").forward(req, resp);
                 }
@@ -78,18 +84,19 @@ public class AllReceipt extends HttpServlet{
         
     }
     
-    private static void getCustomerBranch(HttpServletRequest req) {
+    private static void getCustomerByDayAndBranch(HttpServletRequest req) {
         try {
             Map<User, ArrayList<Receipt>> Customers = new HashMap<>();
             User user = (User) req.getSession().getAttribute("user");
             Branch branch = DAO.getDAO().getBranchDAO().getBranch(user.getUserId());
-            ArrayList<Integer> UserIds = DAO.getDAO().getUserDAO().getUserIds(branch.getBranchId());
+            
+            ArrayList<Integer> userIdsByBranchId = DAO.getDAO().getReceiptDAO().getUserIdsByBranchId(branch.getBranchId());
             
             String todayString = (String) req.getAttribute("today");
             LocalDate todayLocalDate = LocalDate.parse(todayString);
             String today = todayLocalDate.format(DateTimeFormatter.ISO_DATE);
             
-            for(Integer id : UserIds){
+            for(Integer id : userIdsByBranchId){
                 User temp_user = DAO.getDAO().getUserDAO().getUserById(id);
                 ArrayList<Receipt> receipts = DAO.getDAO().getReceiptDAO().getAllReceiptByUserIdBranchIdToday(temp_user.getUserId(),branch.getBranchId(), today);
                 if(receipts.size() >= 1){
@@ -103,6 +110,85 @@ public class AllReceipt extends HttpServlet{
         } catch (DbException ex) {
             log.error(Utils.getErrMessage(ex)); 
             req.setAttribute("errorMessage", "Unable to fetch data. Please try again later.");
+        }
+    }
+    
+    private static void getCustomerByNameAndDayAndBranch(HttpServletRequest req, String searchName) {
+        try {
+            Map<User, ArrayList<Receipt>> Customers = new HashMap<>();
+            User user = (User) req.getSession().getAttribute("user");
+            Branch branch = DAO.getDAO().getBranchDAO().getBranch(user.getUserId());
+            
+            ArrayList<Integer> userIdsByBranchId = DAO.getDAO().getReceiptDAO().getUserIdsByBranchId(branch.getBranchId());
+            ArrayList<Integer> userIdsBySearchName = DAO.getDAO().getUserDAO().getUserIdsBySearchName(searchName);
+            ArrayList<Integer> userIdsIntersection = new ArrayList<>(userIdsByBranchId);
+            userIdsIntersection.retainAll(userIdsBySearchName);
+            
+            String todayString = (String) req.getAttribute("today");
+            LocalDate todayLocalDate = LocalDate.parse(todayString);
+            String today = todayLocalDate.format(DateTimeFormatter.ISO_DATE);
+            
+            for(Integer id : userIdsIntersection){
+                User temp_user = DAO.getDAO().getUserDAO().getUserById(id);
+                ArrayList<Receipt> receipts = DAO.getDAO().getReceiptDAO().getAllReceiptByUserIdBranchIdToday(temp_user.getUserId(),branch.getBranchId(), today);
+                if(receipts.size() >= 1){
+                    Customers.put(temp_user, receipts);
+                }
+            }
+            
+            req.setAttribute("branchName", branch.getLocation());
+            req.setAttribute("Customers",Customers);
+            
+        } catch (DbException ex) {
+            log.error(Utils.getErrMessage(ex)); 
+            req.setAttribute("errorMessage", "Unable to fetch data. Please try again later.");
+        }
+    }
+    
+    private static void getCustomerByNameAndBranch(HttpServletRequest req, String searchName) {
+        try {
+            Map<User, ArrayList<Receipt>> Customers = new HashMap<>();
+            User user = (User) req.getSession().getAttribute("user");
+            Branch branch = DAO.getDAO().getBranchDAO().getBranch(user.getUserId());
+            
+            ArrayList<Integer> userIdsByBranchId = DAO.getDAO().getReceiptDAO().getUserIdsByBranchId(branch.getBranchId());
+            ArrayList<Integer> userIdsBySearchName = DAO.getDAO().getUserDAO().getUserIdsBySearchName(searchName);
+            ArrayList<Integer> userIdsIntersection = new ArrayList<>(userIdsByBranchId);
+            userIdsIntersection.retainAll(userIdsBySearchName);
+
+            for(Integer id : userIdsIntersection){
+                User temp_user = DAO.getDAO().getUserDAO().getUserById(id);
+                ArrayList<Receipt> receipts = DAO.getDAO().getReceiptDAO().getAllReceiptByUserIdBranchIdSearchName(temp_user.getUserId(),branch.getBranchId());
+                if(receipts.size() >= 1){
+                    Customers.put(temp_user, receipts);
+                }
+            }
+            
+            req.setAttribute("branchName", branch.getLocation());
+            req.setAttribute("Customers",Customers);
+            
+        } catch (DbException ex) {
+            log.error(Utils.getErrMessage(ex)); 
+            req.setAttribute("errorMessage", "Unable to fetch data. Please try again later.");
+        }
+    }
+    
+    private static void getCustomers(HttpServletRequest req) {
+        // TH ngay trong, ten khong trong, chi filter theo ten 
+        if((req.getParameter("today") == null || req.getParameter("today").isEmpty())
+            && (req.getParameter("search_name") != null && !req.getParameter("search_name").isEmpty())){
+            String searchName =req.getParameter("search_name");
+            AllReceipt.getCustomerByNameAndBranch(req, searchName);
+        } 
+        // TH ngay trong, ten trong, chi filter theo ngay
+        else if((req.getParameter("today") == null || req.getParameter("today").isEmpty())
+                && (req.getParameter("search_name") == null || req.getParameter("search_name").isEmpty())){
+            AllReceipt.getCustomerByDayAndBranch(req);
+        } 
+        // TH ngay khong trong, filter theo ca ngay va ten
+        else {
+            String searchName =req.getParameter("search_name");
+            AllReceipt.getCustomerByNameAndDayAndBranch(req, searchName);
         }
     }
 }
