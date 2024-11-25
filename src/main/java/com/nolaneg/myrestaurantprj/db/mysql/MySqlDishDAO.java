@@ -157,6 +157,7 @@ public class MySqlDishDAO implements DishDAO {
         }
         return dishes;
     }
+    @Override
     public ArrayList<Dish> getDishByReceiptId(int receiptId) throws DbException {
         ArrayList<Dish> dishes = new ArrayList<>();
         Connection con = null;
@@ -179,4 +180,29 @@ public class MySqlDishDAO implements DishDAO {
         }
         return dishes;
     }
+    
+    @Override
+    public  int getDishQuant(int receiptId, int dishId) throws DbException {
+        int quantity = 0;
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            con = ConnectionPool.getInstance().getConnection();
+            ps = con.prepareStatement(SqlUtils.GET_DISHES_QUANTITY);
+            ps.setInt(1, receiptId);
+            ps.setInt(2, dishId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                quantity = rs.getInt(1);
+                return quantity;
+            }
+            return 0;
+        } catch (SQLException ex) {
+            throw new DbException("Cannot  getDishQuant", ex);
+        }finally {
+            SqlUtils.close(con);
+            SqlUtils.close(ps);
+        }
+    }
+   
 }
