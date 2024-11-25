@@ -74,7 +74,11 @@ public class SqlUtils {
     public static final String GET_ALL_RECEIPT_BY_USER_ID = "SELECT *\n" +
                                                                     "FROM receipt\n" +
                                                                     "WHERE userId = ?\n" +
-                                                                    "ORDER BY createDate DESC\n";      
+                                                                    "ORDER BY createDate DESC\n";   
+    public static final String GET_ALL_RECEIPT_BY_USERID_BRANCHID_TODAY = "SELECT *\n" +
+                                                                    "FROM receipt\n" +
+                                                                    "WHERE userId = ? AND branchId = ? AND reservation_date = ?\n" +
+                                                                    "ORDER BY createDate DESC\n";
     public static final String GET_RECEIPT_BY_ID = "SELECT * FROM receipt WHERE receiptId = ?;";
     public static final String GET_USERID_BY_BRANCHID = "SELECT userId\n" +
                                                             "FROM receipt\n" +
