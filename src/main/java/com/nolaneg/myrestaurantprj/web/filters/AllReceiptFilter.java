@@ -34,11 +34,21 @@ public class AllReceiptFilter extends HttpFilter {
             req.getRequestDispatcher("/WEB-INF/jsp/error404.jsp").forward(req, res);
             return;
         }
-        if(req.getParameter("today") == null || req.getParameter("today").isEmpty()){
+       
+        // TH ngay trong, ten khong trong, chi filter theo ten 
+        if((req.getParameter("today") == null || req.getParameter("today").isEmpty())
+            && (req.getParameter("search_name") != null && !req.getParameter("search_name").isEmpty())){
+            req.setAttribute("today", "");
+        } 
+        // TH ngay trong, ten trong, chi filter theo ngay
+        else if((req.getParameter("today") == null || req.getParameter("today").isEmpty())
+            && (req.getParameter("search_name") == null || req.getParameter("search_name").isEmpty())){
             LocalDate today = LocalDate.now();
             String todayFormatted = today.format(DateTimeFormatter.ISO_DATE); // yyyy-MM-dd format
             req.setAttribute("today", todayFormatted);
-        } else {
+        } 
+        // TH ngay khong trong, filter theo ca ngay va ten
+        else {
             LocalDate today = LocalDate.parse(req.getParameter("today"));
             String todayFormatted = today.format(DateTimeFormatter.ISO_DATE); // yyyy-MM-dd format
             req.setAttribute("today", todayFormatted);
