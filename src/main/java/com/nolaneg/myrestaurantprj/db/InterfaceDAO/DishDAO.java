@@ -26,4 +26,5 @@ public interface DishDAO {
 
     public ArrayList<Dish> getDishes()throws DbException;
     public ArrayList<Dish> getDishByReceiptId(int receiptId) throws DbException;
+    int getDishQuant(int receiptId, int dishId) throws DbException;
 }
