@@ -70,19 +70,25 @@ public class SelectDishServlet extends HttpServlet{
             Logger.getLogger(SelectDishServlet.class.getName()).log(Level.SEVERE, null, ex);
             throw new AppException(ex);
         }
-        
+        //Không thể thay đổi món nếu trạng thái hóa đơn khác reserved và unpaid
+        if(!(receipt.getStatus().equals("reserved") || receipt.getStatus().equals("unpaid"))) {
+            resp.setContentType("application/json");
+            resp.getWriter().write("{\"status\":\"cant remove dish\"}");
+            return;
+        }
+        //không thể thay món nếu hiện tại nằm trong 24h tính từ trước giờ đã đặt 
         User user = (User)req.getSession().getAttribute("user");
         if(user.getRoleId() == 1) {
             if(!Utils.canChangeDishes(receipt)){
                 resp.setContentType("application/json");
-                resp.getWriter().write("{\"status\":\"can remove dish\"}");
+                resp.getWriter().write("{\"status\":\"cant remove dish\"}");
                 return;
             }
         }
-        
+        // không thể remove món ăn, chỉ có thể thêm vào, có thể thay đổi số lương giảm.
         if(receipt.getDishes().size()> cartArray.length()){
             resp.setContentType("application/json");
-            resp.getWriter().write("{\"status\":\"can remove dish\"}");
+            resp.getWriter().write("{\"status\":\"cant remove dish\"}");
             return;
         }
         
