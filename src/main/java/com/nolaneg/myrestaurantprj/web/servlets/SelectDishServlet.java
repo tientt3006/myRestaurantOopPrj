@@ -3,8 +3,11 @@ package com.nolaneg.myrestaurantprj.web.servlets;
 import com.nolaneg.myrestaurantprj.db.InterfaceDAO.DAO;
 import com.nolaneg.myrestaurantprj.db.entity.Category;
 import com.nolaneg.myrestaurantprj.db.entity.Dish;
+import com.nolaneg.myrestaurantprj.db.entity.Receipt;
 import com.nolaneg.myrestaurantprj.db.entity.User;
+import com.nolaneg.myrestaurantprj.exceptions.AppException;
 import com.nolaneg.myrestaurantprj.exceptions.DbException;
+import com.nolaneg.myrestaurantprj.util.Utils;
 import jakarta.annotation.Resource;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -32,9 +35,12 @@ public class SelectDishServlet extends HttpServlet{
             ArrayList<Dish> dishes = DAO.getDAO().getDishDAO().getDishes();
             req.setAttribute("dishes", dishes);
             
-            
-            req.getRequestDispatcher("/WEB-INF/jsp/select_dish.jsp").forward(req, resp);    
-        } catch (DbException ex) {
+            int receiptId = Integer.parseInt(req.getParameter("receipt_id"));
+            Receipt receipt = DAO.getDAO().getReceiptDAO().getReceiptByReceiptId(receiptId);
+
+            req.setAttribute("receipt", receipt);
+            req.getRequestDispatcher("/WEB-INF/jsp/select_dish.jsp").forward(req, resp);
+        } catch (DbException | NumberFormatException ex) {
             Logger.getLogger(SelectDishServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -57,6 +63,29 @@ public class SelectDishServlet extends HttpServlet{
 
         // Xử lý đơn hàng từ JSONArray
         int receiptId = Integer.parseInt(String.valueOf(req.getParameter("receipt_id")));
+        Receipt receipt;
+        try {
+            receipt = DAO.getDAO().getReceiptDAO().getReceiptByReceiptId(receiptId);
+        } catch (DbException ex) {
+            Logger.getLogger(SelectDishServlet.class.getName()).log(Level.SEVERE, null, ex);
+            throw new AppException(ex);
+        }
+        
+        User user = (User)req.getSession().getAttribute("user");
+        if(user.getRoleId() == 1) {
+            if(!Utils.canChangeDishes(receipt)){
+                resp.setContentType("application/json");
+                resp.getWriter().write("{\"status\":\"can remove dish\"}");
+                return;
+            }
+        }
+        
+        if(receipt.getDishes().size()> cartArray.length()){
+            resp.setContentType("application/json");
+            resp.getWriter().write("{\"status\":\"can remove dish\"}");
+            return;
+        }
+        
         float foodCost = 0;
         for (int i = 0; i < cartArray.length(); i++) {
             JSONObject item = cartArray.getJSONObject(i);
@@ -68,7 +97,13 @@ public class SelectDishServlet extends HttpServlet{
                 DAO.getDAO().getReceiptDAO().addReceiptHasDish(receiptId, id, quantity);      
             } catch (DbException ex) {
                 Logger.getLogger(SelectDishServlet.class.getName()).log(Level.SEVERE, null, ex);
-                System.out.println("addReceiptHasDish wrong smth");
+                try{
+                    DAO.getDAO().getReceiptDAO().updateReceiptHasDish(receiptId, id, quantity);
+                } catch (DbException exx) {
+                    Logger.getLogger(SelectDishServlet.class.getName()).log(Level.SEVERE, null, exx);
+                    System.out.println("addReceiptHasDish wrong smth");
+                    throw new AppException(exx);
+                }
             }
         }
         try {
@@ -76,6 +111,7 @@ public class SelectDishServlet extends HttpServlet{
         } catch (DbException  ex) {
             Logger.getLogger(SelectDishServlet.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("addFoodCost wrong smth");
+            throw new AppException(ex);
         }
         // Phản hồi lại client với trạng thái thành công
         resp.setContentType("application/json");
