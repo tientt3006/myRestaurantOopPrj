@@ -104,7 +104,7 @@
             } else {
                 dateInput.value = today;
                 dateInput.setAttribute('min', today);
-                timeInput.setAttribute('min', currentTime < "17:00" ? "17:00" : currentTime);
+//                timeInput.setAttribute('min', currentTime < "17:00" ? "17:00" : currentTime);
             }
             timeInput.value = ((currentTime < "17:00" || currentTime > "23:00") ? "17:00" : currentTimePlusOneMinute);
         });
