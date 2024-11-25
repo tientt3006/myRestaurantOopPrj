@@ -172,6 +172,7 @@ public class MySqlUserDAO implements UserDAO {
     }
     
     
+    @Override
     public ArrayList<Integer> getUserIds(int branchId) throws DbException {
         ArrayList<Integer> UserIds = new ArrayList<>();
         Connection con = null;
