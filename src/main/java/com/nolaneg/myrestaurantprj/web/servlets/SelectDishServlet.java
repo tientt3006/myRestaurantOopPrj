@@ -73,7 +73,7 @@ public class SelectDishServlet extends HttpServlet{
         //Không thể thay đổi món nếu trạng thái hóa đơn khác reserved và unpaid
         if(!(receipt.getStatus().equals("reserved") || receipt.getStatus().equals("unpaid"))) {
             resp.setContentType("application/json");
-            resp.getWriter().write("{\"status\":\"cant remove dish\"}");
+            resp.getWriter().write("{\"status\":\"cant change cause not reserved or unpaid\"}");
             return;
         }
         //không thể thay món nếu hiện tại nằm trong 24h tính từ trước giờ đã đặt 
@@ -81,7 +81,7 @@ public class SelectDishServlet extends HttpServlet{
         if(user.getRoleId() == 1) {
             if(!Utils.canChangeDishes(receipt)){
                 resp.setContentType("application/json");
-                resp.getWriter().write("{\"status\":\"cant remove dish\"}");
+                resp.getWriter().write("{\"status\":\"cant change cause at least 24h\"}");
                 return;
             }
         }
