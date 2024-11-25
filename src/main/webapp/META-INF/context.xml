@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/OOPDinner">
+    <Resource name="jdbc/oopdinnerdb"
+        auth="Container"
+        type="javax.sql.DataSource"
+        factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
+        driverClassName="com.mysql.cj.jdbc.Driver"
+        url="jdbc:mysql://localhost:3306/oopdinnerdb?useUnicode=true&amp;characterEncoding=UTF-8"
+        username="root"
+        password=""
+        maxActive="100"
+        maxIdle="30"    
+        minIdle="2"           
+        maxWait="10000"  
+        maxTotal="130" 
+        removeAbandoned="true"
+        removeAbandonedTimeout="60"
+        logAbandoned="true" 
+        defaultAutoCommit="false" 
+        defaultTransactionIsolation="READ_COMMITTED" />
+</Context>
