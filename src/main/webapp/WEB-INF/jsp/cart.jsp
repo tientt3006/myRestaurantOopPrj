@@ -75,7 +75,7 @@
                                     </c:forEach>
                                 </td>
                                 <td>
-                                    <div>${receipt.status}</div>
+                                    <div><strong>${receipt.status}</strong></div>
                                 </td>
                                 <td>
                                     
