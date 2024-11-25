@@ -186,7 +186,7 @@ public class MySqlUserDAO implements UserDAO {
                 UserIds.add(rs.getInt(1));
             }
         } catch (SQLException ex) {
-            throw new DbException("Cannot get branchs", ex);
+            throw new DbException("Cannot get getUserIds", ex);
         } finally {
             SqlUtils.close(con);
             SqlUtils.close(ps);
@@ -194,4 +194,26 @@ public class MySqlUserDAO implements UserDAO {
         return UserIds;
     }
     
+    @Override
+    public ArrayList<Integer> getUserIdsBySearchName(String searchName) throws DbException {
+        ArrayList<Integer> UserIds = new ArrayList<>();
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            con = ConnectionPool.getInstance().getConnection();
+            ps = con.prepareStatement(SqlUtils.GET_USERID_BY_SEARCHNAME);
+            ps.setString(1, "%" + searchName + "%");
+            ps.setString(2, "%" + searchName + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                UserIds.add(rs.getInt(1));
+            }
+        } catch (SQLException ex) {
+            throw new DbException("Cannot get getUserIdsBySearchName", ex);
+        } finally {
+            SqlUtils.close(con);
+            SqlUtils.close(ps);
+        }
+        return UserIds;
+    }
 }
