@@ -21,9 +21,15 @@ function renderCart() {
     const cartTotalDiv = document.getElementById("total");
     cartItemsDiv.innerHTML = "";
     let Total = 0;
+    const formatter = new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND',
+        minimumFractionDigits: 0
+    });
     cartTotalDiv.innerHTML = `<span>Total = ${Total} VND</span>`;
     
     cart.forEach((item, index) => {
+        const totalPrice = item.quantity * item.price;
         const innerHTML = `
             <div class="cart-dish">
                 <div class="cart-dish-img">
@@ -34,7 +40,7 @@ function renderCart() {
                     
                     <span>${item.name}</span>
                     <input type="number" value="${item.quantity}" min="1" onchange="updateQuantity(${index}, this.value)">
-                    <span>${item.quantity * item.price} VND</span>
+                    <span> ${formatter.format(totalPrice)}</span>
                 </div>
                 <div class="cart-dish-remove">
                     <button onclick="removeFromCart(${index})">Remove</button>
@@ -45,7 +51,7 @@ function renderCart() {
         Total += item.quantity * item.price;
         
     });
-    cartTotalDiv.innerHTML = `<span>Total = ${Total} VND</span>`;
+    cartTotalDiv.innerHTML = `<span>Total = ${formatter.format(Total)} </span>`;
 }
 
 
@@ -84,10 +90,16 @@ function saveOrder(receipt_id) {
         console.log(data);
         if (data.status === "success") {
             alert("Order successfully!");
+        } else if(data.status === "can remove dish") {
+            alert("Can not remove dish now!");
         } else {
             alert("Something wrong.");
         }
         window.location.href = `${contextPath}/cart`;
     })
-    .catch(error => console.error("Error:", error));
+    .catch(error => {
+        console.error("Error:", error);
+        alert("Something wrong.");
+        window.location.href = `${contextPath}/error`;
+    });
 }
