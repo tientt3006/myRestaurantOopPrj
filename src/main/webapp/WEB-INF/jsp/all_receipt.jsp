@@ -79,7 +79,7 @@
                                                     <input type="hidden" name="receipt_id" value="${receipt.receiptId}">
                                                     <button type="submit">Change Dishes</button>
                                                 </form>
-                                                <form action="${pageContext.request.contextPath}/all_receipt" method="POST">
+                                                <form action="${pageContext.request.contextPath}/all_receipt?search_name=${param.search_name}&today=${param.today}" method="POST">
                                                     <input type="hidden" name="receipt_id" value="${receipt.receiptId}">
                                                     <input type="hidden" name="cancel_reser" value="true">
                                                     <button type="submit" style="width: 139.58px">Cancel</button>
