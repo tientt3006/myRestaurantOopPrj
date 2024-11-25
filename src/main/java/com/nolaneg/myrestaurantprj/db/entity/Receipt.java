@@ -30,10 +30,15 @@ public class Receipt {
     private int numOfPeople;
     private ArrayList<Tables> tables;
     private ArrayList<Dish> dishes;
+    private HashMap<Dish, Integer> dishesMap;
     private Branch branch;
 
     public int getReceiptId() {
         return receiptId;
+    }
+
+    public HashMap<Dish, Integer> getDishesMap() {
+        return dishesMap;
     }
     
     public User getUser(){
@@ -105,6 +110,12 @@ public class Receipt {
         Receipt receipt = new Receipt();
         public Builder setReceiptId(int id){
             receipt.receiptId = id;
+            return this;
+        }
+        
+        
+        public Builder setDishesMap(HashMap<Dish, Integer> dishesMap) {
+            receipt.dishesMap = dishesMap;
             return this;
         }
         
