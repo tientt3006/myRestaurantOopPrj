@@ -39,4 +39,6 @@ public interface UserDAO {
     void changeInfo(int userId, String firstName, String lastName, String email, String phone) throws DbException;
     
     ArrayList<Integer> getUserIds(int branchId) throws DbException;
+    
+    ArrayList<Integer> getUserIdsBySearchName(String searchName) throws DbException;
 }
