@@ -26,6 +26,7 @@ public interface ReceiptDAO {
     ArrayList<Receipt> getAllReceiptByUserId(int userId) throws DbException;
     void addFoodCost(int receiptId, float fooCost) throws DbException;
     ArrayList<Receipt> getAllReceiptByUserIdBranchId(int userId, int branchId)throws DbException;
+    ArrayList<Receipt> getAllReceiptByUserIdBranchIdToday(int userId, int branchId, String today)throws DbException;
     void refundReservation(int receiptId) throws DbException;
     void setStatusReceipt(int receiptId, String status) throws DbException;
 }
