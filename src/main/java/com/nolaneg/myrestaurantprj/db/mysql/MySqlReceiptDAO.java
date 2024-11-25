@@ -48,6 +48,12 @@ public class MySqlReceiptDAO implements ReceiptDAO {
         ArrayList<Dish> dishes = null;
         dishes = DAO.getDAO().getDishDAO().getDishByReceiptId(rs.getInt("receiptId"));
         
+        HashMap<Dish, Integer> dishesMap = new HashMap<>();
+        for(Dish x : dishes) {
+            int quantity = DAO.getDAO().getDishDAO().getDishQuant(rs.getInt("receiptId"), x.getDishId());;
+            dishesMap.put(x, quantity);
+        }
+        
         return new Receipt.Builder()
                 .setReceiptId(rs.getInt("receiptId"))
                 .setUser(tmpUser)
@@ -60,6 +66,7 @@ public class MySqlReceiptDAO implements ReceiptDAO {
                 .setNumOfPeople(rs.getInt("num_people"))
                 .setBranch(foundBranch)
                 .setDishes(dishes)
+                .setDishesMap(dishesMap)
                 .getReceipt();
     }
     
@@ -392,5 +399,29 @@ public class MySqlReceiptDAO implements ReceiptDAO {
             SqlUtils.close(ps);
         }
         return receipts;
+    }
+    
+    @Override
+    public void updateReceiptHasDish(int receiptId, int dishId, int quantity)throws DbException{
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            con = ConnectionPool.getInstance().getConnection();
+            ps = con.prepareStatement(SqlUtils.UPDATE_RECEIPT_HAS_DISH);
+            int k = 0;
+            ps.setInt(++k, quantity);
+            ps.setInt(++k, receiptId);
+            ps.setInt(++k, dishId);
+            if (ps.executeUpdate() == 0) {
+                throw new DbException("add updateReceiptHasDish failed, no rows attached");
+            }
+            con.commit();
+        } catch (SQLException ex) {
+            if (con != null) SqlUtils.rollback(con);
+            throw new DbException("Cannot add updateReceiptHasDish", ex);
+        } finally {
+            SqlUtils.close(con);
+            SqlUtils.close(ps);
+        }
     }
 }
